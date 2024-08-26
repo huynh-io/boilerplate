@@ -6,3 +6,63 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-rspec_rails
+  - rubocop-factory_bot
+
+AllCops:
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "vendor/**/*"
+  NewCops: enable
+
+Metrics/BlockLength:
+  CountAsOne: ["array", "hash", "heredoc", "method_call"]
+  Exclude:
+    - "spec/**/*"
+    - "lib/tasks/auto_annotate_models.rake"
+    - "config/environments/*.rb"
+    - "config/routes.rb"
+
+Metrics/MethodLength:
+  CountAsOne: ["array", "hash", "heredoc", "method_call"]
+  Exclude:
+    - "db/migrate/*"
+
+Metrics/AbcSize:
+  Exclude:
+    - "db/**/*"
+
+RSpec/NestedGroups:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/IteratedExpectation:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Layout/LineLength:
+  Exclude:
+    - "config/initializers/devise.rb"
+    - "config/environments/*.rb"
+
+Lint/MissingSuper:
+  Exclude:
+    - "app/services/**/*"
