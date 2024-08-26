@@ -54,3 +54,6 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'rubocop-rspec_rails', require: false
 end
+
+gem "shakapacker", "= 8.0"
+gem "react_on_rails", "= 14.0"
