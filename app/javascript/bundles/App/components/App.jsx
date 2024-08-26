@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-const HelloWorld = ({ name, updateName }) => (
+const App = ({ name, updateName }) => (
   <div>
     <h3>
       Hello,
@@ -22,9 +22,9 @@ const HelloWorld = ({ name, updateName }) => (
   </div>
 );
 
-HelloWorld.propTypes = {
+App.propTypes = {
   name: PropTypes.string.isRequired,
   updateName: PropTypes.func.isRequired,
 };
 
-export default HelloWorld;
+export default App;
