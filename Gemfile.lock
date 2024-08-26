@@ -243,7 +243,7 @@ GEM
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
     semantic_range (3.0.0)
-    shakapacker (8.0.0)
+    shakapacker (8.0.1)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
@@ -296,7 +296,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   rubocop-rspec_rails
-  shakapacker (= 8.0)
+  shakapacker (= 8.0.1)
   sidekiq (>= 4.0.1)
   strong_migrations (~> 2.0)
   tzinfo-data
