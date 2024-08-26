@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   def index
-    @props = { name: 'Stranger' }
+    # Propagate bootup Rails environment to the React client
+    @props = {}
   end
 end
