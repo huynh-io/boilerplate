@@ -1,4 +1,4 @@
-# Note: You must restart bin/webpacker-dev-server for changes to take effect
+# Note: You must restart bin/shakapacker-dev-server for changes to take effect
 
 default: &default
   source_path: app/javascript
@@ -37,13 +37,13 @@ development:
       #  port: 8080
     compress: true
     # Note that apps that do not check the host are vulnerable to DNS rebinding attacks
-    allowed_hosts: [ 'localhost' ]
+    allowed_hosts: ["localhost"]
     pretty: true
     headers:
-      'Access-Control-Allow-Origin': '*'
+      "Access-Control-Allow-Origin": "*"
     static:
       watch:
-        ignored: '**/node_modules/**'
+        ignored: "**/node_modules/**"
 
 test:
   <<: *default
