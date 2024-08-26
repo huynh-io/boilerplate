@@ -13,3 +13,12 @@
 //
 // const images = require.context('./images', true)
 // const imagePath = (name) => images(name, true)
+
+import ReactOnRails from "react-on-rails";
+
+import App from "../bundles/App/startup/App";
+
+// This is how react_on_rails can see the App in the browser.
+ReactOnRails.register({
+  App,
+});
