@@ -14,6 +14,9 @@ const Root = () => {
     <>
       <div>Root</div>
       <div>{authenticated ? "Logged In" : "Logged Out"}</div>
+      <button aria-label="Signup" onClick={() => console.log("1")}>
+        Signup
+      </button>
       <button aria-label="Login" onClick={() => dispatch(login())}>
         Login
       </button>
