@@ -1,12 +1,14 @@
 import React from "react";
+import { Provider } from "react-redux";
 import { Outlet } from "react-router-dom";
+import { store } from "store";
 
 const Root = () => {
   return (
-    <>
-      <div>Hi</div>
+    <Provider store={store}>
+      <div>Root</div>
       <Outlet />
-    </>
+    </Provider>
   );
 };
 
