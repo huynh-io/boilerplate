@@ -72,5 +72,8 @@
     "react-refresh": "^0.14.2",
     "webpack-dev-server": "4"
   },
+  "engines": {
+    "node": "22.x"
+  },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
