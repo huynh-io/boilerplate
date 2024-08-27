@@ -16,7 +16,7 @@
 
 import ReactOnRails from "react-on-rails";
 
-import App from "../bundles/App/startup/App";
+import App from "../bundles/App/Index";
 
 // This is how react_on_rails can see the App in the browser.
 ReactOnRails.register({
