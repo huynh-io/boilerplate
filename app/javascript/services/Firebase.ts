@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 // Import the functions you need from the SDKs you need
@@ -22,29 +22,3 @@ const firebaseConfig = {
 export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAuth = getAuth(firebaseApp);
 export const firebaseAnalytics = getAnalytics(firebaseApp);
-
-interface SignUpParams {
-  email: string;
-  password: string;
-  onSuccess?: (user: any) => void;
-  onError?: (error: any) => void;
-}
-export const signUp = async (params: SignUpParams) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      firebaseAuth,
-      params.email,
-      params.password
-    );
-    // Signed up
-    const user = userCredential.user;
-
-    if (params.onSuccess) {
-      params.onSuccess(user);
-    }
-  } catch (error) {
-    if (params.onError) {
-      params.onError(error);
-    }
-  }
-};
