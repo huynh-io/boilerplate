@@ -21,13 +21,15 @@ namespace :deploy do
   end
 
   task :to_environment, [:environment] => :environment do |_t, params|
+    app_name = ENV.fetch('APP_NAME', nil)
     environment = params[:environment]
+    full_app_name = "#{app_name}-#{environment}"
 
     time = Time.current
-    puts("Deploying to #{environment} 🛫")
+    puts("Deploying to #{full_app_name} 🛫")
 
-    `git push heroku-#{environment} main`
-    `heroku run rake db:migrate --app #{ENV.fetch('APP_NAME', nil)}-#{environment}`
+    `git push #{full_app_name} main`
+    `heroku run rake db:migrate --app #{full_app_name}`
 
     minutes, seconds = (Time.current - time).to_i.divmod(60)
     puts("Completed deploy to #{environment} in #{minutes}:#{seconds} 🛬")
