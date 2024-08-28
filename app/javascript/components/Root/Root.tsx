@@ -7,14 +7,14 @@ import {
   NavbarItem,
   NavbarSection,
   NavbarSpacer,
-} from "components/Catalyst/navbar";
+} from "components/shared/Catalyst/navbar";
 import {
   Sidebar,
   SidebarItem,
   SidebarSection,
   SidebarSpacer,
-} from "components/Catalyst/sidebar";
-import { StackedLayout } from "components/Catalyst/stacked-layout";
+} from "components/shared/Catalyst/sidebar";
+import { StackedLayout } from "components/shared/Catalyst/stacked-layout";
 
 const Root = () => {
   const authenticated = useSelector(

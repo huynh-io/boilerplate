@@ -1,4 +1,4 @@
-import { Heading } from "components/Catalyst/heading";
+import { Heading } from "components/shared/Catalyst/heading";
 import React from "react";
 
 const Home = () => {
