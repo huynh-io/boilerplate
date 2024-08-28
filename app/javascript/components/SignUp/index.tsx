@@ -3,12 +3,17 @@ import { Button } from "components/Catalyst/button";
 import { Input } from "components/Catalyst/input";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "store";
-import { updateEmail, updatePassword } from "store/SignUp";
+import { AppDispatch, RootState } from "store";
+import {
+  signUpWithEmailAndPassword,
+  updateEmail,
+  updatePassword,
+} from "store/SignUp";
 
 const SignUp = () => {
   const validated = useSelector((state: RootState) => state.signUp.validated);
-  const dispatch = useDispatch();
+  const signUpStatus = useSelector((state: RootState) => state.signUp.status);
+  const dispatch = useDispatch<AppDispatch>();
 
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateEmail(e.target.value));
@@ -16,6 +21,10 @@ const SignUp = () => {
 
   const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updatePassword(e.target.value));
+  };
+
+  const onClickSignUp = () => {
+    dispatch(signUpWithEmailAndPassword());
   };
 
   return (
@@ -45,7 +54,11 @@ const SignUp = () => {
           </Field>
         </Fieldset>
 
-        <Button className="mt-4 w-full" disabled={!validated}>
+        <Button
+          onClick={onClickSignUp}
+          className="mt-4 w-full"
+          disabled={!validated && signUpStatus !== "pending"}
+        >
           Sign Up
         </Button>
       </div>

@@ -7,6 +7,11 @@ export const store = configureStore({
     authentication: authenticationReducer,
     signUp: signUpReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      // TODO: Consider making this more nuanced
+      serializableCheck: false,
+    }),
 });
 
 // Infer the type of `store`
