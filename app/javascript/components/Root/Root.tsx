@@ -99,9 +99,15 @@ const Root = () => {
     </Navbar>
   );
 
+  const baseStyleWrappedOutlet = (
+    <div className="text-base/7 text-zinc-950 dark:text-white bg-white dark:bg-zinc-900 dark:border-white/10">
+      <Outlet />
+    </div>
+  );
+
   return (
     <StackedLayout sidebar={sidebar} navbar={navbar}>
-      <Outlet />
+      {baseStyleWrappedOutlet}
     </StackedLayout>
   );
 };
