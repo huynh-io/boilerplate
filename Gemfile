@@ -54,6 +54,7 @@ group :development, :test do
   gem 'brakeman', require: false
 
   gem 'factory_bot_rails'
+  gem 'faker', '~> 3.4'
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem 'rubocop', '~> 1.65'
