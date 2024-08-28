@@ -9,6 +9,7 @@ import { Button } from "components/Catalyst/button";
 import { Input } from "components/Catalyst/input";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store";
 import {
   signUpWithEmailAndPassword,
@@ -18,6 +19,7 @@ import {
 
 const SignUp = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const validated = useSelector((state: RootState) => state.signUp.validated);
   const signUpStatus = useSelector((state: RootState) => state.signUp.status);
@@ -36,8 +38,13 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    if (signUpStatus === "rejected") {
-      setIsOpen(true);
+    switch (signUpStatus) {
+      case "succeeded":
+        navigate("/");
+        break;
+      case "rejected":
+        setIsOpen(true);
+        break;
     }
   }, [signUpStatus]);
 
