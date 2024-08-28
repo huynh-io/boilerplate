@@ -2,23 +2,52 @@ import { Field, Fieldset, Label, Legend } from "@headlessui/react";
 import { Button } from "components/Catalyst/button";
 import { Input } from "components/Catalyst/input";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "store";
+import { updateEmail, updatePassword } from "store/SignUp";
 
 const SignUp = () => {
+  const validated = useSelector((state: RootState) => state.signUp.validated);
+  const dispatch = useDispatch();
+
+  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updateEmail(e.target.value));
+  };
+
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(updatePassword(e.target.value));
+  };
+
   return (
     <div className="flex w-full justify-center">
       <div className="sm:w-72 md:w-1/2">
         <Fieldset className="w-full">
           <Legend className="text-lg/7 font-semibold">Sign Up</Legend>
+
           <Field className="mt-4">
             <Label>Email</Label>
-            <Input name="email" type="email" className="mt-2" />
+            <Input
+              onChange={onEmailChange}
+              name="email"
+              type="email"
+              className="mt-2"
+            />
           </Field>
+
           <Field className="mt-4">
             <Label>Password</Label>
-            <Input name="password" type="password" className="mt-2" />
+            <Input
+              onChange={onPasswordChange}
+              name="password"
+              type="password"
+              className="mt-2"
+            />
           </Field>
         </Fieldset>
-        <Button className="mt-4 w-full">Sign Up</Button>
+
+        <Button className="mt-4 w-full" disabled={!validated}>
+          Sign Up
+        </Button>
       </div>
     </div>
   );

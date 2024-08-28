@@ -16,30 +16,6 @@ import {
 } from "components/Catalyst/sidebar";
 import { StackedLayout } from "components/Catalyst/stacked-layout";
 
-// const Root = () => {
-//   const authenticated = useSelector(
-//     (state: RootState) => state.authentication.authenticated
-//   );
-//   const dispatch = useDispatch();
-
-//   return (
-//     <>
-//       <div>Root</div>
-//       <div>{authenticated ? "Logged In" : "Logged Out"}</div>
-//       <button aria-label="Signup" onClick={() => console.log("1")}>
-//         Signup
-//       </button>
-//       <button aria-label="Login" onClick={() => dispatch(login())}>
-//         Login
-//       </button>
-//       <button aria-label="Login" onClick={() => dispatch(logout())}>
-//         Logout
-//       </button>
-//       <Outlet />
-//     </>
-//   );
-// };
-
 const Root = () => {
   const authenticated = useSelector(
     (state: RootState) => state.authentication.authenticated
