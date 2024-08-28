@@ -32,7 +32,7 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 gem 'bootsnap', require: false
 
 # React on Rails UI
-gem 'react_on_rails', '= 14.0'
+gem 'react_on_rails', '14.0.5'
 gem 'shakapacker', '= 8.0'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
