@@ -4,13 +4,16 @@ import {
   AlertActions,
   AlertDescription,
   AlertTitle,
-} from "components/Catalyst/alert";
-import { Button } from "components/Catalyst/button";
-import { Input } from "components/Catalyst/input";
+} from "components/shared/Catalyst/alert";
+import { Button } from "components/shared/Catalyst/button";
+import { Input } from "components/shared/Catalyst/input";
+import SignInWithGoogleButton from "components/shared/SignInWithGoogleButton";
+import { sign } from "crypto";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store";
+import { signInWithGoogle } from "store/SignIn";
 import {
   signUpWithEmailAndPassword,
   updateEmail,
@@ -23,6 +26,8 @@ const SignUp = () => {
 
   const validated = useSelector((state: RootState) => state.signUp.validated);
   const signUpStatus = useSelector((state: RootState) => state.signUp.status);
+  const signInStatus = useSelector((state: RootState) => state.signIn.status);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,16 +42,24 @@ const SignUp = () => {
     dispatch(signUpWithEmailAndPassword());
   };
 
+  const onClickSignInWithGoogle = () => {
+    dispatch(signInWithGoogle());
+  };
+
   useEffect(() => {
     switch (signUpStatus) {
       case "succeeded":
         navigate("/");
-        break;
+        return;
       case "rejected":
         setIsOpen(true);
-        break;
+        return;
     }
-  }, [signUpStatus]);
+
+    if (signInStatus === "succeeded") {
+      navigate("/");
+    }
+  }, [signUpStatus, signInStatus]);
 
   return (
     <>
@@ -83,6 +96,11 @@ const SignUp = () => {
           >
             Sign Up
           </Button>
+
+          <SignInWithGoogleButton
+            onClick={onClickSignInWithGoogle}
+            className="mt-4 w-full flex justify-center items-center"
+          />
         </div>
       </div>
 
