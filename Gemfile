@@ -53,8 +53,12 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem 'brakeman', require: false
 
+  # Spec fixture data
   gem 'factory_bot_rails'
   gem 'faker', '~> 3.4'
+
+  # Use Pry for debugging
+  gem 'pry-rails', '~> 0.3.11'
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem 'rubocop', '~> 1.65'
