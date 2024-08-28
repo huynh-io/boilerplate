@@ -8,7 +8,7 @@ const Dotenv = require("dotenv-webpack");
 const commonOptions = {
   plugins: [new Dotenv()],
   resolve: {
-    extensions: [".css", ".ts", ".tsx"],
+    extensions: [".css", ".js", ".jsx", ".ts", ".tsx"],
   },
 };
 
