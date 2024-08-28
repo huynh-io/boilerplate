@@ -4,6 +4,8 @@
 # belong in git's global ignore instead:
 # `$XDG_CONFIG_HOME/git/ignore` or `~/.config/git/ignore`
 
+.vscode
+
 # Ignore bundler config.
 /.bundle
 
@@ -39,13 +41,13 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+.yarn
+.yarnrc.yml
 
 # PostgreSQL
 logfile
+config/database.yml
 
 /public/packs
 /public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+
