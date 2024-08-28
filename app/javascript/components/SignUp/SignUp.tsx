@@ -85,6 +85,7 @@ const SignUp = () => {
           </Button>
         </div>
       </div>
+
       <Alert open={isOpen} onClose={setIsOpen}>
         <AlertTitle>Sign Up Error</AlertTitle>
         <AlertDescription>
