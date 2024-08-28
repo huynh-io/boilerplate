@@ -17,12 +17,14 @@ RSpec.describe 'Api::V1::Users' do
     end
 
     it 'returns an appropriate general response payload' do
-      expect(response_body).to be_an_instance_of(Array)
-      puts response_body
+      expect(response_body).to be_an_instance_of(Hash)
+      expect(response_body['users']).to be_an_instance_of(Array)
 
-      first_object = response_body.first
+      first_object = response_body['users'].first
       expect(first_object).to have_key('id')
       expect(first_object).to have_key('email')
+      expect(first_object).to have_key('updated_at')
+      expect(first_object).to have_key('created_at')
     end
   end
 end
