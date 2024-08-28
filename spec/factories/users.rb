@@ -12,7 +12,10 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-class User < ApplicationRecord
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :refresh_token, presence: true
+FactoryBot.define do
+  factory :user do
+    email { Faker::Internet.email }
+    email_verified { false }
+    refresh_token { SecureRandom.hex(32) }
+  end
 end
