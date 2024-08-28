@@ -15,14 +15,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_28_043807) do
   enable_extension "plpgsql"
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "username"
     t.string "email"
     t.boolean "email_verified", default: false, null: false
     t.string "refresh_token"
     t.jsonb "custom_metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["username"], name: "index_users_on_username", unique: true
   end
 end

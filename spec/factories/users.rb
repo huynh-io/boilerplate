@@ -9,16 +9,11 @@
 #  email           :string
 #  email_verified  :boolean          default(FALSE), not null
 #  refresh_token   :string
-#  username        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-# Indexes
-#
-#  index_users_on_email     (email) UNIQUE
-#  index_users_on_username  (username) UNIQUE
-#
 FactoryBot.define do
-  factory :user do # rubocop:disable Lint/EmptyBlock
+  factory :user do
+    email { Faker::Internet.email }
   end
 end
