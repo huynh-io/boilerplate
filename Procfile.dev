@@ -1,5 +1,6 @@
 # Procfile for development using HMR
 # You can run these commands in separate shells
 rails: bundle exec rails s -p 3000
+css: yarn tailwindcss -i app/javascript/bundles/App/input.css -o app/javascript/bundles/App/output.css --watch
 wp-client: bin/shakapacker-dev-server
 wp-server: SERVER_BUNDLE_ONLY=yes bin/shakapacker --watch
