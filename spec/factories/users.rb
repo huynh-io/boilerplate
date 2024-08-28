@@ -15,5 +15,7 @@
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
+    email_verified { false }
+    refresh_token { SecureRandom.hex(32) }
   end
 end
