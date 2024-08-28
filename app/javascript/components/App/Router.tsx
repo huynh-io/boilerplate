@@ -1,3 +1,4 @@
+import Home from "components/Home";
 import Root from "components/Root";
 import SignUp from "components/SignUp";
 import React from "react";
@@ -7,7 +8,10 @@ const Router = createBrowserRouter([
   {
     path: "",
     element: <Root />,
-    children: [{ path: "/signUp", element: <SignUp /> }],
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/signUp", element: <SignUp /> },
+    ],
   },
 ]);
 
