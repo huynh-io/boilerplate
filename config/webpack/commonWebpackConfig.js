@@ -3,8 +3,10 @@
 
 // Common configuration applying to client and server configuration
 const { generateWebpackConfig, merge } = require("shakapacker");
+const Dotenv = require("dotenv-webpack");
 
 const commonOptions = {
+  plugins: [new Dotenv()],
   resolve: {
     extensions: [".css", ".ts", ".tsx"],
   },

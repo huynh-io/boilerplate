@@ -10,8 +10,8 @@ namespace :deploy do
   #
   # e.g.
   #
-  # heroku-production       https://git.heroku.com/heybrowow-production.git (fetch)
-  # heroku-production       https://git.heroku.com/heybrowow-production.git (push)
+  # boilerplate-production       https://git.heroku.com/boilerplate-production.git (fetch)
+  # boilerplate-production       https://git.heroku.com/boilerplate-production.git (push)
   task production: :environment do
     Rake::Task['deploy:to_environment'].invoke(:production)
   end
