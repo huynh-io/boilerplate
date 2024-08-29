@@ -16,6 +16,7 @@ import {
 } from "components/shared/Catalyst/sidebar";
 import { StackedLayout } from "components/shared/Catalyst/stacked-layout";
 
+// Fix page layout overflow
 const Root = () => {
   const authenticated = useSelector(
     (state: RootState) => state.authentication.authenticated

@@ -18,8 +18,8 @@ const initialState: SignUpState = {
   status: "idle",
 };
 
-export const signUpWithEmailAndPassword = createAsyncThunk(
-  "signUp/withEmailAndPassword",
+export const signUpWithCredentials = createAsyncThunk(
+  "signUp/withCredentials",
   async (args, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
 
@@ -48,13 +48,13 @@ export const signUpSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signUpWithEmailAndPassword.pending, (state, action) => {
+      .addCase(signUpWithCredentials.pending, (state, action) => {
         state.status = "pending";
       })
-      .addCase(signUpWithEmailAndPassword.fulfilled, (state, action) => {
+      .addCase(signUpWithCredentials.fulfilled, (state, action) => {
         state.status = "succeeded";
       })
-      .addCase(signUpWithEmailAndPassword.rejected, (state, action) => {
+      .addCase(signUpWithCredentials.rejected, (state, action) => {
         state.status = "rejected";
       });
   },

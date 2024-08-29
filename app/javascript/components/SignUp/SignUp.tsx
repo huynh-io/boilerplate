@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store";
 import { signInWithGoogle } from "store/SignIn";
 import {
-  signUpWithEmailAndPassword,
+  signUpWithCredentials,
   updateEmail,
   updatePassword,
 } from "store/SignUp";
@@ -38,7 +38,7 @@ const SignUp = () => {
   };
 
   const onClickSignUp = () => {
-    dispatch(signUpWithEmailAndPassword());
+    dispatch(signUpWithCredentials());
   };
 
   const onClickSignInWithGoogle = () => {

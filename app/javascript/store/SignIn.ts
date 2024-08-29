@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth, googleAuthProvider } from "services/Firebase";
 import { RootState } from "store";
 import { validateEmailAndPassword } from "utils/validators";
@@ -18,18 +18,18 @@ const initialState: SignInState = {
   status: "idle",
 };
 
-export const signUpWithEmailAndPassword = createAsyncThunk(
-  "signIn/withEmailAndPassword",
+export const signInWithCredentials = createAsyncThunk(
+  "signIn/withCredentials",
   async (args, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
 
-    // const userCredential = await createUserWithEmailAndPassword(
-    //   firebaseAuth,
-    //   state.signUp.email,
-    //   state.signUp.password
-    // );
+    const userCredential = await signInWithEmailAndPassword(
+      firebaseAuth,
+      state.signIn.email,
+      state.signIn.password
+    );
 
-    // return userCredential.user;
+    return userCredential.user;
   }
 );
 
