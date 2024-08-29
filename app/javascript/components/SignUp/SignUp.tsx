@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store";
+import { authenticated } from "store/Authentication";
 import { signInWithGoogle } from "store/SignIn";
 import {
   signUpWithEmailAndPassword,
@@ -49,15 +50,19 @@ const SignUp = () => {
   useEffect(() => {
     switch (signUpStatus) {
       case "succeeded":
+        dispatch(authenticated(true));
         navigate("/");
         return;
       case "rejected":
+        dispatch(authenticated(false));
         setIsOpen(true);
         return;
     }
 
     if (signInStatus === "succeeded") {
+      dispatch(authenticated(true));
       navigate("/");
+      return;
     }
   }, [signUpStatus, signInStatus]);
 
