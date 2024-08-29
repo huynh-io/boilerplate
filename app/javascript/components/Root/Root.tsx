@@ -1,7 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { RootState } from "store";
+import { AppDispatch, RootState } from "store";
 import {
   Navbar,
   NavbarItem,
@@ -15,6 +15,7 @@ import {
   SidebarSpacer,
 } from "components/shared/Catalyst/sidebar";
 import { StackedLayout } from "components/shared/Catalyst/stacked-layout";
+import { signOut } from "store/Authentication";
 
 // Fix page layout overflow
 const Root = () => {
@@ -24,8 +25,13 @@ const Root = () => {
   const authenticatedInitialized = useSelector(
     (state: RootState) => state.authentication.initialized
   );
+  const dispatch = useDispatch<AppDispatch>();
 
   const showAuthDependentContent = authenticatedInitialized && authenticated;
+
+  const onSignOut = () => {
+    dispatch(signOut());
+  };
 
   const sidebar = (
     <Sidebar>
@@ -38,7 +44,7 @@ const Root = () => {
       {showAuthDependentContent &&
         (authenticated ? (
           <SidebarSection>
-            <SidebarItem href="/sign_out" aria-label="Sign Out">
+            <SidebarItem onClick={onSignOut} aria-label="Sign Out">
               Sign Out
             </SidebarItem>
           </SidebarSection>
@@ -66,7 +72,7 @@ const Root = () => {
       {showAuthDependentContent &&
         (authenticated ? (
           <NavbarSection>
-            <NavbarItem href="/sign_out" aria-label="Sign Out">
+            <NavbarItem onClick={onSignOut} aria-label="Sign Out">
               Sign Out
             </NavbarItem>
           </NavbarSection>
