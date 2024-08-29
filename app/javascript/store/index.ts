@@ -1,18 +1,7 @@
-import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
-import authenticationReducer from "./Authentication";
-import signUpReducer from "./SignUp";
+import { Action, ThunkAction } from "@reduxjs/toolkit";
+import store from "./store";
 
-export const store = configureStore({
-  reducer: {
-    authentication: authenticationReducer,
-    signUp: signUpReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      // TODO: Consider making this more nuanced
-      serializableCheck: false,
-    }),
-});
+export default store;
 
 // Infer the type of `store`
 export type AppStore = typeof store;

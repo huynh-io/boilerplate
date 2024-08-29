@@ -40,6 +40,10 @@ RSpec/NestedGroups:
 Style/Documentation:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  SafeAutoCorrect: true
+
 RSpec/MultipleExpectations:
   Enabled: false
 

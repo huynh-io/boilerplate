@@ -12,19 +12,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store";
-import { signInWithGoogle } from "store/SignIn";
 import {
-  signUpWithCredentials,
+  signInWithCredentials,
+  signInWithGoogle,
   updateEmail,
   updatePassword,
-} from "store/SignUp";
+} from "store/SignIn";
 
-const SignUp = () => {
+const SignIn = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const validated = useSelector((state: RootState) => state.signUp.validated);
-  const signUpStatus = useSelector((state: RootState) => state.signUp.status);
+  const validated = useSelector((state: RootState) => state.signIn.validated);
   const signInStatus = useSelector((state: RootState) => state.signIn.status);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -37,8 +36,8 @@ const SignUp = () => {
     dispatch(updatePassword(e.target.value));
   };
 
-  const onClickSignUp = () => {
-    dispatch(signUpWithCredentials());
+  const onClickSignIn = () => {
+    dispatch(signInWithCredentials());
   };
 
   const onClickSignInWithGoogle = () => {
@@ -46,7 +45,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    switch (signUpStatus) {
+    switch (signInStatus) {
       case "succeeded":
         navigate("/");
         return;
@@ -54,19 +53,14 @@ const SignUp = () => {
         setIsOpen(true);
         return;
     }
-
-    if (signInStatus === "succeeded") {
-      navigate("/");
-      return;
-    }
-  }, [signUpStatus, signInStatus]);
+  }, [signInStatus]);
 
   return (
     <>
       <div className="flex w-full justify-center">
         <div className="sm:w-72 md:w-1/2">
           <Fieldset className="w-full">
-            <Legend className="text-lg/7 font-semibold">Sign Up</Legend>
+            <Legend className="text-lg/7 font-semibold">Sign In</Legend>
 
             <Field className="mt-4">
               <Label>Email</Label>
@@ -90,11 +84,11 @@ const SignUp = () => {
           </Fieldset>
 
           <Button
-            onClick={onClickSignUp}
+            onClick={onClickSignIn}
             className="mt-4 w-full"
-            disabled={!validated && signUpStatus !== "pending"}
+            disabled={!validated && signInStatus !== "pending"}
           >
-            Sign Up
+            Sign In
           </Button>
 
           <SignInWithGoogleButton
@@ -105,9 +99,9 @@ const SignUp = () => {
       </div>
 
       <Alert open={isOpen} onClose={setIsOpen}>
-        <AlertTitle>Sign Up Error</AlertTitle>
+        <AlertTitle>Sign In Error</AlertTitle>
         <AlertDescription>
-          Looks like something went wrong with the sign up process. Check your
+          Looks like something went wrong with the sign in process. Check your
           email and password and try again.
         </AlertDescription>
         <AlertActions>
@@ -118,4 +112,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
