@@ -38,16 +38,16 @@ const Root = () => {
       {showAuthDependentContent &&
         (authenticated ? (
           <SidebarSection>
-            <SidebarItem href="/logOut" aria-label="Log Out">
-              Log Out
+            <SidebarItem href="/sign_out" aria-label="Sign Out">
+              Sign Out
             </SidebarItem>
           </SidebarSection>
         ) : (
           <SidebarSection>
-            <SidebarItem href="/logIn" aria-label="Log In">
-              Log In
+            <SidebarItem href="/sign_in" aria-label="Sign In">
+              Sign In
             </SidebarItem>
-            <SidebarItem href="/signUp" aria-label="Sign Up">
+            <SidebarItem href="/sign_up" aria-label="Sign Up">
               Sign Up
             </SidebarItem>
           </SidebarSection>
@@ -66,14 +66,14 @@ const Root = () => {
       {showAuthDependentContent &&
         (authenticated ? (
           <NavbarSection>
-            <NavbarItem href="/logOut" aria-label="Log Out">
-              Log Out
+            <NavbarItem href="/sign_out" aria-label="Sign Out">
+              Sign Out
             </NavbarItem>
           </NavbarSection>
         ) : (
           <NavbarSection>
-            <NavbarItem href="/logIn" aria-label="Log In">
-              Log In
+            <NavbarItem href="/sign_in" aria-label="Sign In">
+              Sign In
             </NavbarItem>
             <NavbarItem href="/signUp" aria-label="Sign Up">
               Sign Up

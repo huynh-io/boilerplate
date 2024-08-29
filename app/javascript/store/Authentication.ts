@@ -43,6 +43,7 @@ export const authenticationSlice = createSlice({
         state.authenticated = false;
       })
       .addCase(signOut.rejected, (state, action) => {
+        // TODO: sign out failed
         state.signOutStatus = "rejected";
         state.authenticated = true;
       });
