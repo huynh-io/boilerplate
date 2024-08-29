@@ -11,7 +11,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      // TODO: Consider making this more nuanced
+      // TODO: Consider making this more nuanced, we just need to return a POJO in the async thunk's inner function
       serializableCheck: false,
     }),
 });
