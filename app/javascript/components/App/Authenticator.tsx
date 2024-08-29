@@ -11,7 +11,7 @@ const Authenticator = (props) => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+    firebaseAuth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(authenticate(true));
         // User is signed in.
@@ -29,13 +29,9 @@ const Authenticator = (props) => {
         // ...
       }
     });
-
-    return () => {
-      unsubscribe();
-    };
   }, [authenticated]);
 
-  return <>{props.children}</>;
+  return props.children;
 };
 
 export default Authenticator;

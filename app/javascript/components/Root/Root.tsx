@@ -20,6 +20,11 @@ const Root = () => {
   const authenticated = useSelector(
     (state: RootState) => state.authentication.authenticated
   );
+  const authenticatedInitialized = useSelector(
+    (state: RootState) => state.authentication.initialized
+  );
+
+  const showAuthDependentContent = authenticatedInitialized && authenticated;
 
   const sidebar = (
     <Sidebar>
@@ -29,22 +34,23 @@ const Root = () => {
 
       <SidebarSpacer />
 
-      {authenticated ? (
-        <SidebarSection>
-          <SidebarItem href="/logOut" aria-label="Log Out">
-            Log Out
-          </SidebarItem>
-        </SidebarSection>
-      ) : (
-        <SidebarSection>
-          <SidebarItem href="/logIn" aria-label="Log In">
-            Log In
-          </SidebarItem>
-          <SidebarItem href="/signUp" aria-label="Sign Up">
-            Sign Up
-          </SidebarItem>
-        </SidebarSection>
-      )}
+      {showAuthDependentContent &&
+        (authenticated ? (
+          <SidebarSection>
+            <SidebarItem href="/logOut" aria-label="Log Out">
+              Log Out
+            </SidebarItem>
+          </SidebarSection>
+        ) : (
+          <SidebarSection>
+            <SidebarItem href="/logIn" aria-label="Log In">
+              Log In
+            </SidebarItem>
+            <SidebarItem href="/signUp" aria-label="Sign Up">
+              Sign Up
+            </SidebarItem>
+          </SidebarSection>
+        ))}
     </Sidebar>
   );
 
@@ -56,28 +62,29 @@ const Root = () => {
 
       <NavbarSpacer />
 
-      {authenticated ? (
-        <NavbarSection>
-          <NavbarItem href="/logOut" aria-label="Log Out">
-            Log Out
-          </NavbarItem>
-        </NavbarSection>
-      ) : (
-        <NavbarSection>
-          <NavbarItem href="/logIn" aria-label="Log In">
-            Log In
-          </NavbarItem>
-          <NavbarItem href="/signUp" aria-label="Sign Up">
-            Sign Up
-          </NavbarItem>
-        </NavbarSection>
-      )}
+      {showAuthDependentContent &&
+        (authenticated ? (
+          <NavbarSection>
+            <NavbarItem href="/logOut" aria-label="Log Out">
+              Log Out
+            </NavbarItem>
+          </NavbarSection>
+        ) : (
+          <NavbarSection>
+            <NavbarItem href="/logIn" aria-label="Log In">
+              Log In
+            </NavbarItem>
+            <NavbarItem href="/signUp" aria-label="Sign Up">
+              Sign Up
+            </NavbarItem>
+          </NavbarSection>
+        ))}
     </Navbar>
   );
 
   const baseStyleWrappedOutlet = (
     <div className="text-base/7 text-zinc-950 dark:text-white bg-white dark:bg-zinc-900 dark:border-white/10">
-      <Outlet />
+      {showAuthDependentContent && <Outlet />}
     </div>
   );
 

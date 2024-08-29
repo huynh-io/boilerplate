@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface AuthenticationState {
   authenticated: boolean;
-  status: "idle" | "pending" | "succeeded" | "rejected";
+  initialized: boolean;
   user: any;
 }
 
 const initialState: AuthenticationState = {
   authenticated: false,
-  status: "idle",
+  initialized: false,
   user: null,
 };
 
@@ -18,6 +18,7 @@ export const authenticationSlice = createSlice({
   reducers: {
     authenticate: (state, action) => {
       state.authenticated = action.payload;
+      state.initialized = true;
     },
   },
 });
