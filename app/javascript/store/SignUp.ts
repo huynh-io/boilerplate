@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "services/Firebase";
 import { RootState } from "store";
+import { validateEmailAndPassword } from "utils/validators";
 
 export interface SignUpState {
   email: string | null;
@@ -18,7 +19,7 @@ const initialState: SignUpState = {
 };
 
 export const signUpWithEmailAndPassword = createAsyncThunk(
-  "signUp/createUserWithEmailAndPassword",
+  "signUp/withEmailAndPassword",
   async (args, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
 
@@ -32,22 +33,17 @@ export const signUpWithEmailAndPassword = createAsyncThunk(
   }
 );
 
-// TODO: better validation, move into utils
-const validate = (email: string, password: string): boolean => {
-  return !!email && !!password;
-};
-
 export const signUpSlice = createSlice({
   name: "signUp",
   initialState,
   reducers: {
     updateEmail: (state, action) => {
       state.email = action.payload;
-      state.validated = validate(state.email, state.password);
+      state.validated = validateEmailAndPassword(state.email, state.password);
     },
     updatePassword: (state, action) => {
       state.password = action.payload;
-      state.validated = validate(state.email, state.password);
+      state.validated = validateEmailAndPassword(state.email, state.password);
     },
   },
   extraReducers: (builder) => {
