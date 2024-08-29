@@ -3,6 +3,7 @@ import React from "react";
 import Router from "components/App/Router";
 import { RouterProvider } from "react-router-dom";
 import store from "store";
+import Authenticator from "./Authenticator";
 
 // Kept here for reference if we ever need props from Rails on bootup.
 //
@@ -10,7 +11,9 @@ import store from "store";
 const App = (props) => {
   return (
     <Provider store={store}>
-      <RouterProvider router={Router} />;
+      <Authenticator>
+        <RouterProvider router={Router} />;
+      </Authenticator>
     </Provider>
   );
 };
