@@ -1,25 +1,42 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
-import { RootState } from "store";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "store";
 import {
   Navbar,
   NavbarItem,
   NavbarSection,
   NavbarSpacer,
-} from "components/Catalyst/navbar";
+} from "components/shared/Catalyst/navbar";
 import {
   Sidebar,
   SidebarItem,
   SidebarSection,
   SidebarSpacer,
-} from "components/Catalyst/sidebar";
-import { StackedLayout } from "components/Catalyst/stacked-layout";
+} from "components/shared/Catalyst/sidebar";
+import { StackedLayout } from "components/shared/Catalyst/stacked-layout";
+import { signOut } from "store/Authentication";
 
+// Fix page layout overflow
 const Root = () => {
   const authenticated = useSelector(
     (state: RootState) => state.authentication.authenticated
   );
+  const authenticatedInitialized = useSelector(
+    (state: RootState) => state.authentication.initialized
+  );
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  const onSignOut = () => {
+    dispatch(signOut());
+  };
+
+  useEffect(() => {
+    if (authenticatedInitialized && !authenticated) {
+      navigate("/");
+    }
+  }, [authenticatedInitialized, authenticated]);
 
   const sidebar = (
     <Sidebar>
@@ -29,22 +46,23 @@ const Root = () => {
 
       <SidebarSpacer />
 
-      {authenticated ? (
-        <SidebarSection>
-          <SidebarItem href="/logOut" aria-label="Log Out">
-            Log Out
-          </SidebarItem>
-        </SidebarSection>
-      ) : (
-        <SidebarSection>
-          <SidebarItem href="/logIn" aria-label="Log In">
-            Log In
-          </SidebarItem>
-          <SidebarItem href="/signUp" aria-label="Sign Up">
-            Sign Up
-          </SidebarItem>
-        </SidebarSection>
-      )}
+      {authenticatedInitialized &&
+        (authenticated ? (
+          <SidebarSection>
+            <SidebarItem onClick={onSignOut} aria-label="Sign Out">
+              Sign Out
+            </SidebarItem>
+          </SidebarSection>
+        ) : (
+          <SidebarSection>
+            <SidebarItem href="/sign_in" aria-label="Sign In">
+              Sign In
+            </SidebarItem>
+            <SidebarItem href="/sign_up" aria-label="Sign Up">
+              Sign Up
+            </SidebarItem>
+          </SidebarSection>
+        ))}
     </Sidebar>
   );
 
@@ -56,28 +74,29 @@ const Root = () => {
 
       <NavbarSpacer />
 
-      {authenticated ? (
-        <NavbarSection>
-          <NavbarItem href="/logOut" aria-label="Log Out">
-            Log Out
-          </NavbarItem>
-        </NavbarSection>
-      ) : (
-        <NavbarSection>
-          <NavbarItem href="/logIn" aria-label="Log In">
-            Log In
-          </NavbarItem>
-          <NavbarItem href="/signUp" aria-label="Sign Up">
-            Sign Up
-          </NavbarItem>
-        </NavbarSection>
-      )}
+      {authenticatedInitialized &&
+        (authenticated ? (
+          <NavbarSection>
+            <NavbarItem onClick={onSignOut} aria-label="Sign Out">
+              Sign Out
+            </NavbarItem>
+          </NavbarSection>
+        ) : (
+          <NavbarSection>
+            <NavbarItem href="/sign_in" aria-label="Sign In">
+              Sign In
+            </NavbarItem>
+            <NavbarItem href="/sign_up" aria-label="Sign Up">
+              Sign Up
+            </NavbarItem>
+          </NavbarSection>
+        ))}
     </Navbar>
   );
 
   const baseStyleWrappedOutlet = (
     <div className="text-base/7 text-zinc-950 dark:text-white bg-white dark:bg-zinc-900 dark:border-white/10">
-      <Outlet />
+      {authenticatedInitialized && <Outlet />}
     </div>
   );
 
