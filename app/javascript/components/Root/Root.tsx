@@ -27,8 +27,6 @@ const Root = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  const showAuthDependentContent = authenticatedInitialized && authenticated;
-
   const onSignOut = () => {
     dispatch(signOut());
   };
@@ -41,7 +39,7 @@ const Root = () => {
 
       <SidebarSpacer />
 
-      {showAuthDependentContent &&
+      {authenticatedInitialized &&
         (authenticated ? (
           <SidebarSection>
             <SidebarItem onClick={onSignOut} aria-label="Sign Out">
@@ -69,7 +67,7 @@ const Root = () => {
 
       <NavbarSpacer />
 
-      {showAuthDependentContent &&
+      {authenticatedInitialized &&
         (authenticated ? (
           <NavbarSection>
             <NavbarItem onClick={onSignOut} aria-label="Sign Out">
@@ -81,7 +79,7 @@ const Root = () => {
             <NavbarItem href="/sign_in" aria-label="Sign In">
               Sign In
             </NavbarItem>
-            <NavbarItem href="/signUp" aria-label="Sign Up">
+            <NavbarItem href="/sign_up" aria-label="Sign Up">
               Sign Up
             </NavbarItem>
           </NavbarSection>
@@ -91,7 +89,7 @@ const Root = () => {
 
   const baseStyleWrappedOutlet = (
     <div className="text-base/7 text-zinc-950 dark:text-white bg-white dark:bg-zinc-900 dark:border-white/10">
-      {showAuthDependentContent && <Outlet />}
+      {authenticatedInitialized && <Outlet />}
     </div>
   );
 
