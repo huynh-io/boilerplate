@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store";
 import {
   Navbar,
@@ -26,10 +26,17 @@ const Root = () => {
     (state: RootState) => state.authentication.initialized
   );
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const onSignOut = () => {
     dispatch(signOut());
   };
+
+  useEffect(() => {
+    if (authenticatedInitialized && !authenticated) {
+      navigate("/");
+    }
+  }, [authenticatedInitialized, authenticated]);
 
   const sidebar = (
     <Sidebar>
