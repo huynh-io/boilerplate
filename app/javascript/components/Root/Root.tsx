@@ -29,8 +29,14 @@ const Root = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const onSignOut = () => {
-    dispatch(signOut());
+  const onSignOut = async () => {
+    try {
+      // Internally, createAsyncThunk handles all errors so unwrap to get errors
+      await dispatch(signOut()).unwrap();
+      dispatch(resetAll());
+    } catch (error) {
+      console.error("Failed to sign out", error);
+    }
   };
 
   useEffect(() => {
