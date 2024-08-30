@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "services/Firebase";
 import { RootState } from "store";
+import { resetAll } from "store/sharedActions";
 import { validateEmailAndPassword } from "utils/validators";
 
 export interface SignUpState {
@@ -40,22 +41,30 @@ export const signUpSlice = createSlice({
     updateEmail: (state, action) => {
       state.email = action.payload;
       state.validated = validateEmailAndPassword(state.email, state.password);
+      return state;
     },
     updatePassword: (state, action) => {
       state.password = action.payload;
       state.validated = validateEmailAndPassword(state.email, state.password);
+      return state;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(signUpWithCredentials.pending, (state, action) => {
         state.status = "pending";
+        return state;
       })
       .addCase(signUpWithCredentials.fulfilled, (state, action) => {
         state.status = "succeeded";
+        return state;
       })
       .addCase(signUpWithCredentials.rejected, (state, action) => {
         state.status = "rejected";
+        return state;
+      })
+      .addCase(resetAll, (state, action) => {
+        return initialState;
       });
   },
 });
