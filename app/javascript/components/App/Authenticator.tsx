@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { firebaseAuth } from "services/Firebase";
 import { AppDispatch, RootState } from "store";
-import { authenticate } from "store/Authentication";
+import { authenticate } from "store/reducers/Authentication";
 
 const Authenticator = (props) => {
   const authenticated = useSelector(

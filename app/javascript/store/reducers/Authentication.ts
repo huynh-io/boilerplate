@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { firebaseAuth } from "services/Firebase";
 import { signOut as firebaseSignOut } from "firebase/auth";
+import { resetAll } from "store/sharedActions";
 
 export interface AuthenticationState {
   authenticated: boolean;
@@ -49,6 +50,9 @@ export const authenticationSlice = createSlice({
         // TODO: sign out failed
         state.signOutStatus = "rejected";
         state.authenticated = true;
+      })
+      .addCase(resetAll, (state, action) => {
+        initialState;
       });
   },
 });

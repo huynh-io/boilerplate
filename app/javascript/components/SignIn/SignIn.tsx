@@ -17,7 +17,7 @@ import {
   signInWithGoogle,
   updateEmail,
   updatePassword,
-} from "store/SignIn";
+} from "store/reducers/SignIn";
 
 const SignIn = () => {
   const [isOpen, setIsOpen] = useState(false);

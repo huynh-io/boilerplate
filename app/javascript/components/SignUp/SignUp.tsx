@@ -12,12 +12,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "store";
-import { signInWithGoogle } from "store/SignIn";
+import { signInWithGoogle } from "store/reducers/SignIn";
 import {
   signUpWithCredentials,
   updateEmail,
   updatePassword,
-} from "store/SignUp";
+} from "store/reducers/SignUp";
 
 const SignUp = () => {
   const [isOpen, setIsOpen] = useState(false);

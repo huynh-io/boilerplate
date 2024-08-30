@@ -1,52 +1,41 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import { firebaseAuth, googleAuthProvider } from "services/Firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseAuth } from "services/Firebase";
 import { RootState } from "store";
+import { resetAll } from "store/sharedActions";
 import { validateEmailAndPassword } from "utils/validators";
 
-export interface SignInState {
+export interface SignUpState {
   email: string | null;
   password: string | null;
   validated: boolean;
   status: "idle" | "pending" | "succeeded" | "rejected";
 }
 
-const initialState: SignInState = {
+const initialState: SignUpState = {
   email: null,
   password: null,
   validated: false,
   status: "idle",
 };
 
-export const signInWithCredentials = createAsyncThunk(
-  "signIn/withCredentials",
+export const signUpWithCredentials = createAsyncThunk(
+  "signUp/withCredentials",
   async (args, thunkAPI) => {
     const state = thunkAPI.getState() as RootState;
 
-    const userCredential = await signInWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       firebaseAuth,
-      state.signIn.email,
-      state.signIn.password
+      state.signUp.email,
+      state.signUp.password
     );
 
     return userCredential.user;
   }
 );
 
-export const signInWithGoogle = createAsyncThunk(
-  "signIn/withGoogle",
-  async (args, thunkAPI) => {
-    const userCredential = await signInWithPopup(
-      firebaseAuth,
-      googleAuthProvider
-    );
-
-    return userCredential.user;
-  }
-);
-
-export const signInSlice = createSlice({
-  name: "signIn",
+export const signUpSlice = createSlice({
+  name: "signUp",
   initialState,
   reducers: {
     updateEmail: (state, action) => {
@@ -60,18 +49,21 @@ export const signInSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signInWithGoogle.pending, (state, action) => {
+      .addCase(signUpWithCredentials.pending, (state, action) => {
         state.status = "pending";
       })
-      .addCase(signInWithGoogle.fulfilled, (state, action) => {
+      .addCase(signUpWithCredentials.fulfilled, (state, action) => {
         state.status = "succeeded";
       })
-      .addCase(signInWithGoogle.rejected, (state, action) => {
+      .addCase(signUpWithCredentials.rejected, (state, action) => {
         state.status = "rejected";
+      })
+      .addCase(resetAll, (state, action) => {
+        initialState;
       });
   },
 });
 
-export const { updateEmail, updatePassword } = signInSlice.actions;
+export const { updateEmail, updatePassword } = signUpSlice.actions;
 
-export default signInSlice.reducer;
+export default signUpSlice.reducer;

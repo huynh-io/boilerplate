@@ -15,7 +15,8 @@ import {
   SidebarSpacer,
 } from "components/shared/Catalyst/sidebar";
 import { StackedLayout } from "components/shared/Catalyst/stacked-layout";
-import { signOut } from "store/Authentication";
+import { signOut } from "store/reducers/Authentication";
+import { resetAll } from "store/sharedActions";
 
 // Fix page layout overflow
 const Root = () => {
