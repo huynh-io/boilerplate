@@ -31,6 +31,7 @@ export const authenticationSlice = createSlice({
     authenticate: (state, action) => {
       state.authenticated = action.payload;
       state.initialized = true;
+      return state;
     },
   },
   extraReducers: (builder) => {
@@ -39,20 +40,23 @@ export const authenticationSlice = createSlice({
         state.initialized = true;
         state.signOutStatus = "pending";
         state.authenticated = true;
+        return state;
       })
       .addCase(signOut.fulfilled, (state, action) => {
         state.initialized = true;
         state.signOutStatus = "succeeded";
         state.authenticated = false;
+        return state;
       })
       .addCase(signOut.rejected, (state, action) => {
         state.initialized = true;
         // TODO: sign out failed
         state.signOutStatus = "rejected";
         state.authenticated = true;
+        return state;
       })
       .addCase(resetAll, (state, action) => {
-        initialState;
+        return initialState;
       });
   },
 });

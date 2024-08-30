@@ -41,25 +41,30 @@ export const signUpSlice = createSlice({
     updateEmail: (state, action) => {
       state.email = action.payload;
       state.validated = validateEmailAndPassword(state.email, state.password);
+      return state;
     },
     updatePassword: (state, action) => {
       state.password = action.payload;
       state.validated = validateEmailAndPassword(state.email, state.password);
+      return state;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(signUpWithCredentials.pending, (state, action) => {
         state.status = "pending";
+        return state;
       })
       .addCase(signUpWithCredentials.fulfilled, (state, action) => {
         state.status = "succeeded";
+        return state;
       })
       .addCase(signUpWithCredentials.rejected, (state, action) => {
         state.status = "rejected";
+        return state;
       })
       .addCase(resetAll, (state, action) => {
-        initialState;
+        return initialState;
       });
   },
 });

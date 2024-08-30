@@ -32,6 +32,7 @@ const Root = () => {
   const onSignOut = async () => {
     try {
       // Internally, createAsyncThunk handles all errors so unwrap to get errors
+      // TODO: handle signout failure
       await dispatch(signOut()).unwrap();
       dispatch(resetAll());
     } catch (error) {

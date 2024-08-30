@@ -53,25 +53,30 @@ export const signInSlice = createSlice({
     updateEmail: (state, action) => {
       state.email = action.payload;
       state.validated = validateEmailAndPassword(state.email, state.password);
+      return state;
     },
     updatePassword: (state, action) => {
       state.password = action.payload;
       state.validated = validateEmailAndPassword(state.email, state.password);
+      return state;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(signInWithGoogle.pending, (state, action) => {
         state.status = "pending";
+        return state;
       })
       .addCase(signInWithGoogle.fulfilled, (state, action) => {
         state.status = "succeeded";
+        return state;
       })
       .addCase(signInWithGoogle.rejected, (state, action) => {
         state.status = "rejected";
+        return state;
       })
       .addCase(resetAll, (state, action) => {
-        initialState;
+        return initialState;
       });
   },
 });
