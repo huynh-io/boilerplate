@@ -8,6 +8,7 @@ RSpec.describe 'Api::V1::Suppliers' do
     let(:get_request) { get '/api/v1/suppliers' }
 
     before do
+      create(:supplier)
       get_request
     end
 
