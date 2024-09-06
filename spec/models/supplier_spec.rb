@@ -11,7 +11,7 @@
 #
 # Indexes
 #
-#  index_suppliers_on_name  (name)
+#  index_suppliers_on_name  (name) UNIQUE
 #
 require 'rails_helper'
 

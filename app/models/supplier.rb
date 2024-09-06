@@ -11,7 +11,7 @@
 #
 # Indexes
 #
-#  index_suppliers_on_name  (name)
+#  index_suppliers_on_name  (name) UNIQUE
 #
 class Supplier < ApplicationRecord
   validates :name, presence: true, uniqueness: true

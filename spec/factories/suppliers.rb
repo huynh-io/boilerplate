@@ -4,14 +4,14 @@
 #
 # Table name: suppliers
 #
-#  id         :bigint           not null, primary key
+#  id         :uuid             not null, primary key
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 # Indexes
 #
-#  index_suppliers_on_name  (name)
+#  index_suppliers_on_name  (name) UNIQUE
 #
 FactoryBot.define do
   factory :supplier do
