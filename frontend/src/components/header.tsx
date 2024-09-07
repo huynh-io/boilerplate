@@ -1,128 +1,107 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, LogIn, LogOut, UserPlus } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-const navItems = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Contact", href: "/contact" },
-];
 
 export default function Header() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const pathname = usePathname();
-
-  const toggleSignIn = () => {
-    setIsSignedIn(!isSignedIn);
-  };
-
-  const handleSignUp = () => {
-    console.log("Sign Up clicked");
-    // Add your sign up logic here
-  };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const { theme, setTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-14 items-center">
-        <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">
-              My Next.js App
-            </span>
-          </Link>
-          <div className="flex items-center space-x-6 text-sm font-medium">
-            {navItems.map((item) => (
+    <nav className="bg-background border-b">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <Link href="/" className="text-2xl font-bold text-primary">
+              Bellaire
+            </Link>
+          </div>
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-center space-x-4">
               <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  "transition-colors hover:text-foreground/80",
-                  pathname === item.href
-                    ? "text-foreground"
-                    : "text-foreground/60"
-                )}
+                href="/about"
+                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
               >
-                {item.name}
+                About
               </Link>
-            ))}
+              <Link
+                href="/contact"
+                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
+          <div className="hidden md:flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle theme"
+              className="h-9 w-9" // Ensure consistent height with other buttons
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
+            <Button variant="outline" className="h-9">
+              Sign In
+            </Button>
+            <Button className="h-9">Sign Up</Button>
+          </div>
+          <div className="md:hidden">
+            <Button
+              variant="ghost"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </Button>
           </div>
         </div>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* Add search functionality here if needed */}
+      </div>
+
+      {isMobileMenuOpen && (
+        <div className="md:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <Link
+              href="/about"
+              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
+            >
+              About
+            </Link>
+            <Link
+              href="/contact"
+              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
+            >
+              Contact
+            </Link>
           </div>
-          <nav className="flex items-center space-x-2">
-            {isSignedIn ? (
-              <Button variant="outline" onClick={toggleSignIn}>
-                <LogOut className="mr-2 h-4 w-4" /> Sign Out
+          <div className="pt-4 pb-3 border-t border-gray-700">
+            <div className="px-2 space-y-1">
+              <Button
+                variant="outline"
+                className="w-full mb-2 justify-start"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              >
+                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 mr-2" />
+                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 mr-2" />
+                Toggle theme
               </Button>
-            ) : (
-              <>
-                <Button variant="outline" onClick={toggleSignIn}>
-                  <LogIn className="mr-2 h-4 w-4" /> Sign In
-                </Button>
-                <Button variant="default" onClick={handleSignUp}>
-                  <UserPlus className="mr-2 h-4 w-4" /> Sign Up
-                </Button>
-              </>
-            )}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon" className="md:hidden">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right">
-                <div className="grid gap-2 py-6">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className="block px-2 py-1 text-lg"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                  {isSignedIn ? (
-                    <Button
-                      variant="outline"
-                      onClick={toggleSignIn}
-                      className="mt-2"
-                    >
-                      <LogOut className="mr-2 h-4 w-4" /> Sign Out
-                    </Button>
-                  ) : (
-                    <>
-                      <Button
-                        variant="outline"
-                        onClick={toggleSignIn}
-                        className="mt-2"
-                      >
-                        <LogIn className="mr-2 h-4 w-4" /> Sign In
-                      </Button>
-                      <Button
-                        variant="default"
-                        onClick={handleSignUp}
-                        className="mt-2"
-                      >
-                        <UserPlus className="mr-2 h-4 w-4" /> Sign Up
-                      </Button>
-                    </>
-                  )}
-                </div>
-              </SheetContent>
-            </Sheet>
-          </nav>
+              <Button variant="outline" className="w-full mb-2">
+                Sign In
+              </Button>
+              <Button className="w-full">Sign Up</Button>
+            </div>
+          </div>
         </div>
-      </nav>
-    </header>
+      )}
+    </nav>
   );
 }
