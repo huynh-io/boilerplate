@@ -12,7 +12,7 @@ const App = (props) => {
   return (
     <Provider store={store}>
       <Authenticator>
-        <RouterProvider router={Router} />;
+        <RouterProvider router={Router} />
       </Authenticator>
     </Provider>
   );
