@@ -2,5 +2,3 @@
 # You can run these commands in separate shells
 api: bundle exec rails s -p 3000
 frontend: sh -c 'cd ./frontend && npm run dev'
-wp-client: bin/shakapacker-dev-server
-wp-server: SERVER_BUNDLE_ONLY=yes bin/shakapacker --watch

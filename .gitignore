@@ -35,15 +35,6 @@
 /config/credentials/*
 /config/master.key
 
-# React assets
-/public/assets
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
-.yarn
-.yarnrc.yml
-
 # PostgreSQL
 logfile
 config/database.yml
