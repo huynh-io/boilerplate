@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import "./globals.css";
+import Authenticator from "@/components/authenticator";
 
 export const metadata: Metadata = {
   title: "Bellaire",
@@ -32,8 +33,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
+            <Authenticator>
+              <Header />
+              <main className="flex-1">{children}</main>
+            </Authenticator>
           </div>
         </ThemeProvider>
       </body>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { firebaseAuth } from "@/lib/firebase";
 import useStore, { AppState } from "@/lib/store";
