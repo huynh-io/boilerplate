@@ -10,12 +10,19 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 
-export default function SignUpForm() {
+export interface AuthFormProps {
+  type: "SignIn" | "SignUp";
+  onEmailClick?: () => void;
+  onGoogleClick?: () => void;
+}
+
+export default function AuthForm(props: AuthFormProps) {
+  const cta = props.type === "SignIn" ? "Sign In" : "Sign Up";
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Sign up</CardTitle>
-        <CardDescription>Create an account to get started</CardDescription>
+        <CardTitle className="text-2xl font-bold">{cta}</CardTitle>
+        <CardDescription></CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
@@ -33,9 +40,9 @@ export default function SignUpForm() {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col space-y-4">
-        <Button className="w-full">Sign up</Button>
+        <Button className="w-full">{cta}</Button>
         <Button variant="outline" className="w-full">
-          Sign up with Google
+          {cta} with Google
         </Button>
       </CardFooter>
     </Card>
