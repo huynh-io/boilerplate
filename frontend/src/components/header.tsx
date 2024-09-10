@@ -41,16 +41,20 @@ export default function Header() {
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="h-9 w-9" // Ensure consistent height with other buttons
+              className="h-9 w-9"
             >
               <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
-            <Button variant="outline" className="h-9">
-              Sign In
-            </Button>
-            <Button className="h-9">Sign Up</Button>
+            <Link href="/sign_in">
+              <Button variant="outline" className="h-9">
+                Sign In
+              </Button>
+            </Link>
+            <Link href="/sign_up">
+              <Button className="h-9">Sign Up</Button>
+            </Link>
           </div>
           <div className="md:hidden">
             <Button
@@ -94,10 +98,14 @@ export default function Header() {
                 <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 mr-2" />
                 Toggle theme
               </Button>
-              <Button variant="outline" className="w-full mb-2">
-                Sign In
-              </Button>
-              <Button className="w-full">Sign Up</Button>
+              <Link href="/sign_in">
+                <Button variant="outline" className="w-full mb-2">
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/sign_up">
+                <Button className="w-full">Sign Up</Button>
+              </Link>
             </div>
           </div>
         </div>
