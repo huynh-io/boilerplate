@@ -12,7 +12,7 @@ export interface AppState {
 // TODO:
 // - slice up the store once this file gets too large
 // - fix redux chrome devtools integration
-const useStore = create<AppState>()(
+const useAppStore = create<AppState>()(
   devtools(
     persist(
       (set, get) => ({
@@ -34,4 +34,4 @@ const useStore = create<AppState>()(
   )
 );
 
-export default useStore;
+export default useAppStore;

@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import { firebaseAuth } from "@/lib/firebase";
-import useStore, { AppState } from "@/lib/store";
+import useAppStore, { AppState } from "@/lib/store";
 
 const Authenticator = (props: { children: any }) => {
-  const { authenticated, authenticate } = useStore((state: AppState) => {
+  const { authenticated, authenticate } = useAppStore((state: AppState) => {
     return {
       authenticated: state.authenticated,
       authenticate: state.authenticate,

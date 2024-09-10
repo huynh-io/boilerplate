@@ -1,14 +1,34 @@
 "use client";
 
-import * as React from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
+import { signOut as firebaseSignOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
+import useAppStore, { AppState } from "@/lib/store";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { firebaseAuth } from "@/lib/firebase";
 
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const router = useRouter();
+  const { authenticated, authenticate } = useAppStore((state: AppState) => {
+    return {
+      authenticated: state.authenticated,
+      authenticate: state.authenticate,
+    };
+  });
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  // TODO:
+  // - refactor sign in/up/out into store
+  // - fix auth blip in UI upon refresh
+  const signOut = () => {
+    firebaseSignOut(firebaseAuth);
+    router.push("/");
+  };
 
   return (
     <nav className="bg-background border-b">
@@ -47,14 +67,22 @@ export default function Header() {
               <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
-            <Link href="/sign_in">
-              <Button variant="outline" className="h-9">
-                Sign In
+            {authenticated ? (
+              <Button variant="outline" className="h-9" onClick={signOut}>
+                Sign Out
               </Button>
-            </Link>
-            <Link href="/sign_up">
-              <Button className="h-9">Sign Up</Button>
-            </Link>
+            ) : (
+              <>
+                <Link href="/sign_in">
+                  <Button variant="outline" className="h-9">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link href="/sign_up">
+                  <Button className="h-9">Sign Up</Button>
+                </Link>
+              </>
+            )}
           </div>
           <div className="md:hidden">
             <Button
@@ -98,14 +126,22 @@ export default function Header() {
                 <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 mr-2" />
                 Toggle theme
               </Button>
-              <Link href="/sign_in">
-                <Button variant="outline" className="w-full mb-2">
-                  Sign In
+              {authenticated ? (
+                <Button variant="outline" className="h-9" onClick={signOut}>
+                  Sign Out
                 </Button>
-              </Link>
-              <Link href="/sign_up">
-                <Button className="w-full">Sign Up</Button>
-              </Link>
+              ) : (
+                <>
+                  <Link href="/sign_in">
+                    <Button variant="outline" className="w-full mb-2">
+                      Sign In
+                    </Button>
+                  </Link>
+                  <Link href="/sign_up">
+                    <Button className="w-full">Sign Up</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
