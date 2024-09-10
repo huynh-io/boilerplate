@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import "./globals.css";
@@ -36,7 +35,6 @@ export default function RootLayout({
             <Header />
             <main className="flex-1">{children}</main>
           </div>
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>
