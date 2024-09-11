@@ -5,11 +5,9 @@ import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useAppStore, { AppState } from "@/lib/store";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Header() {
-  const router = useRouter();
   const { authenticated, signOut } = useAppStore((state: AppState) => {
     return {
       authenticated: state.authenticated,
@@ -19,12 +17,6 @@ export default function Header() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
-
-  // TODO:
-  // - fix auth blip in UI upon refresh
-  useEffect(() => {
-    router.push("/");
-  }, [authenticated]);
 
   return (
     <nav className="bg-background border-b">

@@ -12,6 +12,8 @@ import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
 export interface AppState {
   authenticated: boolean;
   authenticate: (auth: boolean) => void;
+  authenticationInitialized: boolean;
+  initializedAuthentication: () => void;
   signInWithEmail: (email: string, password: string) => void;
   signInWithGoogle: () => void;
   signOut: () => void;
@@ -29,14 +31,16 @@ const useAppStore = create<AppState>()(
         authenticate: (auth: boolean) => {
           set({ authenticated: auth });
         },
+        authenticationInitialized: false,
+        initializedAuthentication: () => {
+          set({ authenticationInitialized: true });
+        },
         signInWithEmail: async (email, password) => {
           const userCredential = await signInWithEmailAndPassword(
             firebaseAuth,
             email,
             password
           );
-
-          get().authenticate(true);
 
           return userCredential.user;
         },
@@ -46,14 +50,10 @@ const useAppStore = create<AppState>()(
             googleAuthProvider
           );
 
-          get().authenticate(true);
-
           return userCredential.user;
         },
         signOut: async () => {
           await firebaseSignOut(firebaseAuth);
-
-          get().authenticate(false);
         },
         signUpWithEmail: async (email, password) => {
           const userCredential = await createUserWithEmailAndPassword(
@@ -61,7 +61,6 @@ const useAppStore = create<AppState>()(
             email,
             password
           );
-          get().authenticate(true);
 
           return userCredential.user;
         },
