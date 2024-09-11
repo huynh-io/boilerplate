@@ -27,7 +27,7 @@ const Authenticator = (props: { children: React.ReactNode }) => {
 
       if (user) {
         authenticate(true);
-        router.push("/about");
+        router.push("/");
       } else {
         authenticate(false);
         router.push("/");
