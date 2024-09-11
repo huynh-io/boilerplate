@@ -1,48 +1,25 @@
 "use client";
 
 import AuthForm from "@/components/auth-form";
-import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import useAppStore, { AppState } from "@/lib/store";
 
 export default function SignUpPage() {
-  const router = useRouter();
-
-  const signUpWithEmail = async (
-    email: string | undefined,
-    password: string | undefined
-  ) => {
-    // TODO: Error handling
-    if (!email || !password) {
-      return;
+  const { authenticated, signUpWithEmail, signInWithGoogle } = useAppStore(
+    (state: AppState) => {
+      return {
+        authenticated: state.authenticated,
+        signUpWithEmail: state.signUpWithEmail,
+        signInWithGoogle: state.signInWithGoogle,
+      };
     }
-
-    const userCredential = await createUserWithEmailAndPassword(
-      firebaseAuth,
-      email,
-      password
-    );
-
-    router.push("/");
-    return userCredential.user;
-  };
-
-  const signUpWithGoogle = async () => {
-    const userCredential = await signInWithPopup(
-      firebaseAuth,
-      googleAuthProvider
-    );
-
-    router.push("/");
-    return userCredential.user;
-  };
+  );
 
   return (
     <div className="flex items-start justify-center min-h-screen bg-background p-10">
       <AuthForm
         type="SignUp"
         onEmail={signUpWithEmail}
-        onGoogle={signUpWithGoogle}
+        onGoogle={signInWithGoogle}
       />
     </div>
   );

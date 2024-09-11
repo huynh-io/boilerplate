@@ -3,19 +3,17 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
-import { signOut as firebaseSignOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
 import useAppStore, { AppState } from "@/lib/store";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { firebaseAuth } from "@/lib/firebase";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const router = useRouter();
-  const { authenticated, authenticate } = useAppStore((state: AppState) => {
+  const { authenticated, signOut } = useAppStore((state: AppState) => {
     return {
       authenticated: state.authenticated,
-      authenticate: state.authenticate,
+      signOut: state.signOut,
     };
   });
 
@@ -23,12 +21,10 @@ export default function Header() {
   const { theme, setTheme } = useTheme();
 
   // TODO:
-  // - refactor sign in/up/out into store
   // - fix auth blip in UI upon refresh
-  const signOut = () => {
-    firebaseSignOut(firebaseAuth);
+  useEffect(() => {
     router.push("/");
-  };
+  }, [authenticated]);
 
   return (
     <nav className="bg-background border-b">

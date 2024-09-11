@@ -1,12 +1,21 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import type {} from "@redux-devtools/extension";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signOut as firebaseSignOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
 
 export interface AppState {
   authenticated: boolean;
   authenticate: (auth: boolean) => void;
-  signUpWithEmail: () => void;
-  signUpWithGoogle: () => void;
+  signInWithEmail: (email: string, password: string) => void;
+  signInWithGoogle: () => void;
+  signOut: () => void;
+  signUpWithEmail: (email: string, password: string) => void;
 }
 
 // TODO:
@@ -20,11 +29,41 @@ const useAppStore = create<AppState>()(
         authenticate: (auth: boolean) => {
           set({ authenticated: auth });
         },
-        signUpWithEmail: () => {
-          console.log("Signing up with email");
+        signInWithEmail: async (email, password) => {
+          const userCredential = await signInWithEmailAndPassword(
+            firebaseAuth,
+            email,
+            password
+          );
+
+          get().authenticate(true);
+
+          return userCredential.user;
         },
-        signUpWithGoogle: () => {
-          console.log("Signing up with Google");
+        signInWithGoogle: async () => {
+          const userCredential = await signInWithPopup(
+            firebaseAuth,
+            googleAuthProvider
+          );
+
+          get().authenticate(true);
+
+          return userCredential.user;
+        },
+        signOut: async () => {
+          await firebaseSignOut(firebaseAuth);
+
+          get().authenticate(false);
+        },
+        signUpWithEmail: async (email, password) => {
+          const userCredential = await createUserWithEmailAndPassword(
+            firebaseAuth,
+            email,
+            password
+          );
+          get().authenticate(true);
+
+          return userCredential.user;
         },
       }),
       {

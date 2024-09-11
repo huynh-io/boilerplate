@@ -15,7 +15,7 @@ import React from "react";
 
 export interface AuthFormProps {
   type: "SignIn" | "SignUp";
-  onEmail?: (email: string | undefined, password: string | undefined) => void;
+  onEmail?: (email: string, password: string) => void;
   onGoogle?: () => void;
 }
 
@@ -27,7 +27,12 @@ export default function AuthForm(props: AuthFormProps) {
 
   const onEmailSubmit = () => {
     if (props.onEmail) {
-      props.onEmail(emailInput.current?.value, passwordInput.current?.value);
+      if (!emailInput.current || !passwordInput.current) {
+        // TODO: Error handling
+        return;
+      }
+
+      props.onEmail(emailInput.current.value, passwordInput.current.value);
     }
   };
 
