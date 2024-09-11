@@ -4,14 +4,15 @@ namespace :deploy do # rubocop:disable Metrics/BlockLength
   desc 'Deploy app to Heroku'
 
   task build_assets: :environment do
-    puts('Cleaning up public directory 🧹')
-    `rm -rf public`
+    puts('Cleaning up old assets 🧹')
+    system('cd frontend && rm -rf build')
+    system('rm -rf public')
 
     puts('Building assets 🏗')
-    `NODE_ENV=production cd frontend && npm run build`
+    system('cd frontend && NODE_ENV=production npm run build')
 
     puts('Moving assets to public directory 🚚')
-    `mv frontend/build public`
+    system('cp -r frontend/build public')
   end
 
   # APP_NAME=your-app-name rake deploy:production
