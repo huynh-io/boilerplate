@@ -26,7 +26,8 @@ export interface AppState {
 const useAppStore = create<AppState>()(
   devtools(
     persist(
-      (set, get) => ({
+      // set (set state), get (get actions) are available here
+      (set) => ({
         authenticated: false,
         authenticate: (auth: boolean) => {
           set({ authenticated: auth });

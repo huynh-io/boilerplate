@@ -4,7 +4,7 @@ import AuthForm from "@/components/auth-form";
 import useAppStore, { AppState } from "@/lib/store";
 
 export default function SignUpPage() {
-  const { authenticated, signUpWithEmail, signInWithGoogle } = useAppStore(
+  const { signUpWithEmail, signInWithGoogle } = useAppStore(
     (state: AppState) => {
       return {
         authenticated: state.authenticated,

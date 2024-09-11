@@ -1,27 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { firebaseAuth } from "@/lib/firebase";
 import useAppStore, { AppState } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import FullPageSpinner from "./full-page-spinner";
 
-const Authenticator = (props: { children: any }) => {
+const Authenticator = (props: { children: React.ReactNode }) => {
   const router = useRouter();
 
-  const {
-    authenticated,
-    authenticate,
-    authenticationInitialized,
-    initializedAuthentication,
-  } = useAppStore((state: AppState) => {
-    return {
-      authenticated: state.authenticated,
-      authenticate: state.authenticate,
-      authenticationInitialized: state.authenticationInitialized,
-      initializedAuthentication: state.initializedAuthentication,
-    };
-  });
+  const { authenticate, authenticationInitialized, initializedAuthentication } =
+    useAppStore((state: AppState) => {
+      return {
+        authenticated: state.authenticated,
+        authenticate: state.authenticate,
+        authenticationInitialized: state.authenticationInitialized,
+        initializedAuthentication: state.initializedAuthentication,
+      };
+    });
 
   useEffect(() => {
     // Run only once on mount.
@@ -42,7 +38,8 @@ const Authenticator = (props: { children: any }) => {
     return () => {
       unsubscribe();
     };
-  }, []);
+    // Need the [] to ensure this only runs once.
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!authenticationInitialized) {
     return <FullPageSpinner />;
