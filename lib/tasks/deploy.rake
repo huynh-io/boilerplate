@@ -8,7 +8,7 @@ namespace :deploy do # rubocop:disable Metrics/BlockLength
     `rm -rf public`
 
     puts('Building assets 🏗')
-    `cd frontend && npm run build`
+    `NODE_ENV=production cd frontend && npm run build`
 
     puts('Moving assets to public directory 🚚')
     `mv frontend/build public`
