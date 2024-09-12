@@ -1,8 +1,24 @@
+"use client";
+
+import FullPageSpinner from "@/components/full-page-spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSuppliers } from "@/lib/api-store";
 import { Search } from "lucide-react";
 
 export default function Component() {
+  const { status, data, error } = useSuppliers();
+
+  if (status === "pending") {
+    return <FullPageSpinner />;
+  }
+
+  if (status === "error") {
+    return <div>{error.message}</div>;
+  }
+
+  console.log(data);
+
   return (
     <div className="flex min-h-screen flex-col items-center bg-background p-4">
       <div className="w-full max-w-3xl space-y-12 text-center mt-20 sm:mt-32">
