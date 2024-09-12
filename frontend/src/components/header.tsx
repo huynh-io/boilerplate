@@ -5,7 +5,8 @@ import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import useAppStore, { AppState } from "@/lib/store";
+import useAppStore from "@/lib/store";
+import AppState from "@/lib/app-state";
 import { useState } from "react";
 
 export default function Header() {

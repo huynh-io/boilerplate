@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import AppState from "@/lib/slices/app-state";
+import AppState from "@/lib/app-state";
 import { createAuthenticationSlice } from "@/lib/slices/authentication-slice";
 import { createSupplierSlice } from "@/lib/slices/supplier-slice";
 
@@ -11,4 +11,3 @@ const useAppStore = create<AppState>()((...a) => ({
 }));
 
 export default useAppStore;
-export type { AppState };

@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
-import { AuthenticationSlice } from "@/lib/slices/app-state";
+import { AuthenticationSlice } from "@/lib/app-state";
 
 export const createAuthenticationSlice: StateCreator<AuthenticationSlice> = (
   set

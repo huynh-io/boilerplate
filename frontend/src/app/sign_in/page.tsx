@@ -1,7 +1,8 @@
 "use client";
 
 import AuthForm from "@/components/auth-form";
-import useAppStore, { AppState } from "@/lib/store";
+import useAppStore from "@/lib/store";
+import AppState from "@/lib/app-state";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
