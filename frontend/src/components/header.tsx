@@ -27,7 +27,7 @@ export default function Header() {
   };
 
   return (
-    <nav className="bg-background border-b">
+    <nav className="bg-background border-b relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -84,38 +84,40 @@ export default function Header() {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden">
-          <div className="pt-4 pb-3 border-t border-gray-700">
-            <div className="px-2 space-y-1">
-              <Button
-                variant="outline"
-                className="w-full mb-2 justify-start"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              >
-                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 mr-2" />
-                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 mr-2" />
-                Toggle theme
-              </Button>
-              {authenticated ? (
+        <div className="md:hidden absolute top-16 inset-x-0 z-20">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background border-b shadow-lg">
+            <div className="pt-4 pb-3 border-t border-gray-700">
+              <div className="px-2 space-y-1">
                 <Button
                   variant="outline"
-                  className="h-9"
-                  onClick={signOutAndRedirect}
+                  className="w-full mb-2 justify-start"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 >
-                  Sign Out
+                  <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 mr-2" />
+                  <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 mr-2" />
+                  Toggle theme
                 </Button>
-              ) : (
-                <>
-                  <Link href="/sign-in">
-                    <Button variant="outline" className="w-full mb-2">
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link href="/sign-up">
-                    <Button className="w-full">Sign Up</Button>
-                  </Link>
-                </>
-              )}
+                {authenticated ? (
+                  <Button
+                    variant="outline"
+                    className="h-9"
+                    onClick={signOutAndRedirect}
+                  >
+                    Sign Out
+                  </Button>
+                ) : (
+                  <>
+                    <Link href="/sign-in">
+                      <Button variant="outline" className="w-full mb-2">
+                        Sign In
+                      </Button>
+                    </Link>
+                    <Link href="/sign-up">
+                      <Button className="w-full">Sign Up</Button>
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
