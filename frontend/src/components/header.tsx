@@ -22,7 +22,7 @@ export default function Header() {
   const { theme, setTheme } = useTheme();
   const signOutAndRedirect = async () => {
     await signOut();
-    router.push("/sign_in");
+    router.push("/sign-in");
   };
 
   return (
@@ -56,12 +56,12 @@ export default function Header() {
               </Button>
             ) : (
               <>
-                <Link href="/sign_in">
+                <Link href="/sign-in">
                   <Button variant="outline" className="h-9">
                     Sign In
                   </Button>
                 </Link>
-                <Link href="/sign_up">
+                <Link href="/sign-up">
                   <Button className="h-9">Sign Up</Button>
                 </Link>
               </>
@@ -105,12 +105,12 @@ export default function Header() {
                 </Button>
               ) : (
                 <>
-                  <Link href="/sign_in">
+                  <Link href="/sign-in">
                     <Button variant="outline" className="w-full mb-2">
                       Sign In
                     </Button>
                   </Link>
-                  <Link href="/sign_up">
+                  <Link href="/sign-up">
                     <Button className="w-full">Sign Up</Button>
                   </Link>
                 </>
