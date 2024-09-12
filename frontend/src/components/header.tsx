@@ -7,18 +7,19 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import useAppStore from "@/lib/store";
 import AppState from "@/lib/app-state";
-import { useState } from "react";
 
 export default function Header() {
   const router = useRouter();
-  const { authenticated, signOut } = useAppStore((state: AppState) => {
-    return {
-      authenticated: state.authenticated,
-      signOut: state.signOut,
-    };
-  });
+  const { authenticated, signOut, isMobileMenuOpen, setMobileMenuOpen } =
+    useAppStore((state: AppState) => {
+      return {
+        authenticated: state.authenticated,
+        isMobileMenuOpen: state.isMobileMenuOpen,
+        setMobileMenuOpen: state.setMobileMenuOpen,
+        signOut: state.signOut,
+      };
+    });
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const signOutAndRedirect = async () => {
     await signOut();
@@ -70,7 +71,7 @@ export default function Header() {
           <div className="md:hidden">
             <Button
               variant="ghost"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />

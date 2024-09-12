@@ -9,11 +9,11 @@ export interface AuthenticationSlice {
   signUpWithEmail: (email: string, password: string) => void;
 }
 
-export interface SupplierSlice {
-  suppliers: [];
-  selectedSupplier: null;
+export interface MobileSlice {
+  isMobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
 }
 
-type AppState = AuthenticationSlice & SupplierSlice;
+type AppState = AuthenticationSlice & MobileSlice;
 
 export default AppState;
