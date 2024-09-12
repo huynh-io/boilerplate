@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import "./globals.css";
 import Authenticator from "@/components/authenticator";
+import ApiProvider from "@/components/api-provider";
 
 export const metadata: Metadata = {
   title: "Bellaire",
@@ -32,12 +33,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Authenticator>
-            <div className="relative flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-            </div>
-          </Authenticator>
+          <ApiProvider>
+            <Authenticator>
+              <div className="relative flex min-h-screen flex-col">
+                <Header />
+                <main className="flex-1">{children}</main>
+              </div>
+            </Authenticator>
+          </ApiProvider>
         </ThemeProvider>
       </body>
     </html>
