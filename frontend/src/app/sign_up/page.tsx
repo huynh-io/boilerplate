@@ -2,9 +2,12 @@
 
 import AuthForm from "@/components/auth-form";
 import useAppStore, { AppState } from "@/lib/store";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SignUpPage() {
-  const { signUpWithEmail, signInWithGoogle } = useAppStore(
+  const router = useRouter();
+  const { authenticated, signUpWithEmail, signInWithGoogle } = useAppStore(
     (state: AppState) => {
       return {
         authenticated: state.authenticated,
@@ -13,6 +16,12 @@ export default function SignUpPage() {
       };
     }
   );
+
+  useEffect(() => {
+    if (authenticated) {
+      router.push("/");
+    }
+  }, [authenticated, router]);
 
   return (
     <div className="flex items-start justify-center min-h-screen bg-background p-10">

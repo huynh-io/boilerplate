@@ -4,10 +4,12 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import useAppStore, { AppState } from "@/lib/store";
 import { useState } from "react";
 
 export default function Header() {
+  const router = useRouter();
   const { authenticated, signOut } = useAppStore((state: AppState) => {
     return {
       authenticated: state.authenticated,
@@ -17,6 +19,10 @@ export default function Header() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const signOutAndRedirect = async () => {
+    await signOut();
+    router.push("/sign_in");
+  };
 
   return (
     <nav className="bg-background border-b">
@@ -40,7 +46,11 @@ export default function Header() {
               <span className="sr-only">Toggle theme</span>
             </Button>
             {authenticated ? (
-              <Button variant="outline" className="h-9" onClick={signOut}>
+              <Button
+                variant="outline"
+                className="h-9"
+                onClick={signOutAndRedirect}
+              >
                 Sign Out
               </Button>
             ) : (
@@ -85,7 +95,11 @@ export default function Header() {
                 Toggle theme
               </Button>
               {authenticated ? (
-                <Button variant="outline" className="h-9" onClick={signOut}>
+                <Button
+                  variant="outline"
+                  className="h-9"
+                  onClick={signOutAndRedirect}
+                >
                   Sign Out
                 </Button>
               ) : (
