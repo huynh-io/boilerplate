@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 import { firebaseAuth } from "@/lib/firebase";
-import useAppStore from "@/lib/store";
-import AppState from "@/lib/app-state";
+import { useAppStore, AppState } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
 
 const Authenticator = (props: { children: React.ReactNode }) => {

@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import AppState from "@/lib/app-state";
-import { createAuthenticationSlice } from "@/lib/slices/authentication-slice";
-import { createMobileSlice } from "@/lib/slices/mobile-slice";
+import AppState from "./app-state";
+import { createAuthenticationSlice } from "./slices/authentication-slice";
+import { createMobileSlice } from "./slices/mobile-slice";
 
 // TODO:
 // - fix redux chrome devtools integration

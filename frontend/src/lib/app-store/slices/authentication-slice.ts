@@ -6,7 +6,17 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
-import { AuthenticationSlice } from "@/lib/app-state";
+
+export interface AuthenticationSlice {
+  authenticated: boolean;
+  authenticationInitialized: boolean;
+  authenticate: (auth: boolean) => void;
+  initializedAuthentication: () => void;
+  signInWithEmail: (email: string, password: string) => void;
+  signInWithGoogle: () => void;
+  signOut: () => void;
+  signUpWithEmail: (email: string, password: string) => void;
+}
 
 export const createAuthenticationSlice: StateCreator<AuthenticationSlice> = (
   set

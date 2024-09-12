@@ -1,6 +1,9 @@
 import { StateCreator } from "zustand";
-import { MobileSlice } from "@/lib/app-state";
 
+export interface MobileSlice {
+  isMobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+}
 export const createMobileSlice: StateCreator<MobileSlice> = (set) => ({
   isMobileMenuOpen: false,
   setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
