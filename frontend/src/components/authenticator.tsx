@@ -5,7 +5,7 @@ import { firebaseAuth } from "@/lib/firebase";
 import { useAppStore, AppState } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
 
-const Authenticator = (props: { children: React.ReactNode }) => {
+export default function Authenticator(props: { children: React.ReactNode }) {
   const { authenticate, authenticationInitialized, initializedAuthentication } =
     useAppStore((state: AppState) => {
       return {
@@ -36,6 +36,4 @@ const Authenticator = (props: { children: React.ReactNode }) => {
   }
 
   return props.children;
-};
-
-export default Authenticator;
+}
