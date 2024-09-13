@@ -1,23 +1,26 @@
 "use client";
 
 import FullPageSpinner from "@/components/full-page-spinner";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import SearchForm from "@/components/search-form";
 import { useSuppliers } from "@/lib/api-store";
-import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Component() {
-  const { status, data, error } = useSuppliers();
+  const router = useRouter();
+  const suppliers = useSuppliers();
 
-  if (status === "pending") {
+  if (suppliers.isPending) {
     return <FullPageSpinner />;
   }
 
-  if (status === "error") {
-    return <div>{error.message}</div>;
+  if (suppliers.isError) {
+    return <div>{suppliers.error.message}</div>;
   }
 
-  console.log(data);
+  const onSearch = (event: React.FormEvent) => {
+    // TODO: Propagate search query
+    router.push("/search");
+  };
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-background p-4">
@@ -25,23 +28,9 @@ export default function Component() {
         <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
           What are you craving?
         </h1>
-        <form className="w-full">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              className="w-full pl-10 pr-4 py-6 text-lg"
-              placeholder="Search for anything..."
-              type="search"
-            />
-            <Button
-              className="absolute right-1 top-1/2 -translate-y-1/2"
-              size="sm"
-              type="submit"
-            >
-              Search
-            </Button>
-          </div>
-        </form>
+
+        <SearchForm onSearch={onSearch} />
+
         <p className="text-xs text-muted-foreground">
           Press Enter to search or use the search button
         </p>
