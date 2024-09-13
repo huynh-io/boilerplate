@@ -7,7 +7,6 @@ export const apiQueryClient = new QueryClient({
     queries: {
       retry: 3, // 3 retries before stopping
       gcTime: 1000 * 60 * 60 * 24, // 24 hours
-      staleTime: 1000 * 60 * 60 * 2, // 1 hour
     },
   },
 });
