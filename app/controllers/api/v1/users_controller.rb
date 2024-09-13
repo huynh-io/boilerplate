@@ -17,8 +17,7 @@ module Api
       end
 
       def index
-        # TODO: pagination
-        @users = User.all
+        @pagy, @users = pagy(User.all)
         render :index, status: :ok
       end
 

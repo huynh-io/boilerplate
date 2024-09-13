@@ -4,8 +4,7 @@ module Api
   module V1
     class SuppliersController < ApplicationController
       def index
-        # TODO: pagination
-        @suppliers = Supplier.all
+        @pagy, @suppliers = pagy(Supplier.all)
         render :index, status: :ok
       end
     end
