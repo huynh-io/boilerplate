@@ -2,13 +2,11 @@
 
 import { useEffect } from "react";
 import { firebaseAuth } from "@/lib/firebase";
-import useAppStore, { AppState } from "@/lib/store";
-import { useRouter } from "next/navigation";
+import { useAppStore, AppState } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
+import { useUsersVerifyIdToken } from "@/lib/api-store";
 
-const Authenticator = (props: { children: React.ReactNode }) => {
-  const router = useRouter();
-
+export default function Authenticator(props: { children: React.ReactNode }) {
   const { authenticate, authenticationInitialized, initializedAuthentication } =
     useAppStore((state: AppState) => {
       return {
@@ -19,18 +17,21 @@ const Authenticator = (props: { children: React.ReactNode }) => {
       };
     });
 
+  const verifyIdToken = useUsersVerifyIdToken();
+
   useEffect(() => {
     // Run only once on mount.
     const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
       // Auth is only initialized once we start receiving auth state events.
       initializedAuthentication();
+      authenticate(user !== null);
 
+      // TODO:
+      // - frontend sets API key on header for further calls to api
       if (user) {
-        authenticate(true);
-        router.push("/about");
-      } else {
-        authenticate(false);
-        router.push("/");
+        user.getIdToken().then((idToken) => {
+          verifyIdToken.mutate(idToken);
+        });
       }
     });
 
@@ -41,11 +42,13 @@ const Authenticator = (props: { children: React.ReactNode }) => {
     // Need the [] to ensure this only runs once.
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!authenticationInitialized) {
+  if (!authenticationInitialized || verifyIdToken.isPending) {
     return <FullPageSpinner />;
   }
 
-  return props.children;
-};
+  if (verifyIdToken.isError) {
+    return <div>Error verifying id token</div>;
+  }
 
-export default Authenticator;
+  return props.children;
+}

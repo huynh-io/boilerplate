@@ -25,7 +25,9 @@ export default function AuthForm(props: AuthFormProps) {
 
   const cta = props.type === "SignIn" ? "Sign In" : "Sign Up";
 
-  const onEmailSubmit = () => {
+  const onEmailSubmit: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+
     if (props.onEmail) {
       if (!emailInput.current || !passwordInput.current) {
         // TODO: Error handling
@@ -38,40 +40,42 @@ export default function AuthForm(props: AuthFormProps) {
 
   return (
     <Card className="w-full max-w-md mx-auto">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">{cta}</CardTitle>
-        <CardDescription></CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            ref={emailInput}
-            type="email"
-            placeholder="me@example.com"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
-          <Input
-            id="password"
-            ref={passwordInput}
-            type="password"
-            placeholder="password"
-            required
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <Button className="w-full" onClick={onEmailSubmit}>
-          {cta}
-        </Button>
-        <Button variant="outline" className="w-full" onClick={props.onGoogle}>
-          {cta} with Google
-        </Button>
-      </CardFooter>
+      <form>
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold">{cta}</CardTitle>
+          <CardDescription></CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              ref={emailInput}
+              type="email"
+              placeholder="me@example.com"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              ref={passwordInput}
+              type="password"
+              placeholder="password"
+              required
+            />
+          </div>
+        </CardContent>
+        <CardFooter className="flex flex-col space-y-4">
+          <Button className="w-full" onClick={onEmailSubmit} type="submit">
+            {cta}
+          </Button>
+          <Button variant="outline" className="w-full" onClick={props.onGoogle}>
+            {cta} with Google
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 }
