@@ -40,6 +40,9 @@ gem 'rack-cors'
 # Use the Firebase ID Token gem to verify Firebase ID tokens
 gem 'firebase_id_token', '~> 3.0'
 
+# Pagination
+gem 'pagy', '~> 9.0'
+
 group :development, :test do
   # Annotation of models database schema
   gem 'annotate', '~> 3.2'
