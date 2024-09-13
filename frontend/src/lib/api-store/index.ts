@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
@@ -30,26 +31,27 @@ type Supplier = {
 export function useSuppliers() {
   return useQuery({
     queryKey: ["suppliers"],
-    queryFn: async (): Promise<Array<Supplier>> => {
-      const response = await fetch(`${apiUrl}/api/v1/suppliers`);
-      return await response.json();
+    queryFn: async (): Promise<Supplier[]> => {
+      const response = await axios.get<Supplier[]>(
+        `${apiUrl}/api/v1/suppliers`
+      );
+
+      return response.data;
     },
   });
 }
 
 export function useUsersVerifyIdToken() {
   return useMutation({
-    mutationFn: async (id_token: string): Promise<Object> => {
-      const response = await fetch(`${apiUrl}/api/v1/users/verify_id_token`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id_token }),
-      });
+    mutationFn: async (id_token: string): Promise<any> => {
+      const response = await axios.post(
+        `${apiUrl}/api/v1/users/verify_id_token`,
+        {
+          id_token,
+        }
+      );
 
-      return await response.json();
+      return response.data;
     },
   });
 }
