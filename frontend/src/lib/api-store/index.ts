@@ -43,6 +43,8 @@ export function useSuppliers() {
 
 export function useUsersVerifyIdToken() {
   return useMutation({
+    // TODO: type this once we have the API response
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mutationFn: async (id_token: string): Promise<any> => {
       const response = await apiClient.post("/api/v1/users/verify_id_token", {
         id_token,

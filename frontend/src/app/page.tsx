@@ -1,13 +1,11 @@
 "use client";
 
-import FullPageSpinner from "@/components/full-page-spinner";
 import SearchForm from "@/components/search-form";
-import { useSuppliers } from "@/lib/api-store";
 import { useRouter } from "next/navigation";
 
 export default function Component() {
   const router = useRouter();
-  const onSearch = (event: React.FormEvent) => {
+  const onSearch = () => {
     // TODO: Propagate search query
     router.push("/search");
   };
