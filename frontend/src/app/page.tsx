@@ -7,16 +7,6 @@ import { useRouter } from "next/navigation";
 
 export default function Component() {
   const router = useRouter();
-  const suppliers = useSuppliers();
-
-  if (suppliers.isPending) {
-    return <FullPageSpinner />;
-  }
-
-  if (suppliers.isError) {
-    return <div>{suppliers.error.message}</div>;
-  }
-
   const onSearch = (event: React.FormEvent) => {
     // TODO: Propagate search query
     router.push("/search");
