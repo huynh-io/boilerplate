@@ -21,6 +21,9 @@ export const apiPersisterOptions = {
 };
 
 const apiUrl = process.env.API_URL;
+const apiClient = axios.create({
+  baseURL: apiUrl,
+});
 
 // TODO: consider moving into individual files
 type Supplier = {
@@ -32,9 +35,7 @@ export function useSuppliers() {
   return useQuery({
     queryKey: ["suppliers"],
     queryFn: async (): Promise<Supplier[]> => {
-      const response = await axios.get<Supplier[]>(
-        `${apiUrl}/api/v1/suppliers`
-      );
+      const response = await apiClient.get<Supplier[]>("/api/v1/suppliers");
 
       return response.data;
     },
@@ -44,12 +45,9 @@ export function useSuppliers() {
 export function useUsersVerifyIdToken() {
   return useMutation({
     mutationFn: async (id_token: string): Promise<any> => {
-      const response = await axios.post(
-        `${apiUrl}/api/v1/users/verify_id_token`,
-        {
-          id_token,
-        }
-      );
+      const response = await apiClient.post("/api/v1/users/verify_id_token", {
+        id_token,
+      });
 
       return response.data;
     },
