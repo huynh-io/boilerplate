@@ -23,7 +23,6 @@ RSpec.describe Users::Creator, type: :service do
     context 'with valid params' do
       it 'creates a new User' do
         expect { described_class.call(params: valid_params) }.to change(User, :count).by(1)
-
         user = User.last
         expect(user.email).to eq(valid_params[:email])
         expect(user.refresh_token).to eq(valid_params[:refresh_token])
