@@ -37,7 +37,7 @@ export default function RootLayout({
             <Authenticator>
               <div className="relative flex min-h-screen flex-col">
                 <Header />
-                <main className="flex-1">{children}</main>
+                <main className="flex-1 mt-14">{children}</main>
               </div>
             </Authenticator>
           </ApiProvider>

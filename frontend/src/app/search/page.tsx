@@ -76,15 +76,15 @@ export default function SupplierSearch() {
   }, [inView]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-white shadow-md fixed top-0 left-0 right-0 z-10">
+    <div className="min-h-screen flex flex-col pt-32">
+      <header className="bg-background border-b shadow-md fixed top-14 left-0 right-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-3xl font-bold mb-4">What are you craving?</h1>
           <SearchForm />
         </div>
       </header>
 
-      <div className="flex-grow mt-32 container mx-auto px-4 py-8">
+      <div className="flex-grow container mx-auto px-4 py-8">
         <ul className="space-y-4">
           {suppliers.map((supplier) => (
             <li
