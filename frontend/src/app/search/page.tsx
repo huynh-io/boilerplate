@@ -38,11 +38,11 @@ export default function SupplierSearch() {
         </p>
         <p className="flex items-center">
           <PhoneIcon className="mr-2 h-4 w-4" />
-          Phone place holder
+          {supplier.phone}
         </p>
         <p className="flex items-center">
           <MailIcon className="mr-2 h-4 w-4" />
-          email place holder
+          {supplier.email}
         </p>
       </div>
     </li>
