@@ -1,5 +1,6 @@
 "use client";
 
+import debounce from "debounce";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
@@ -10,11 +11,16 @@ export default function SupplierSearch() {
   const { ref, inView } = useInView();
   const { error, isError, isFetching, data, fetchNextPage } = useSuppliers();
 
-  useEffect(() => {
-    if (inView && !isFetching) {
-      fetchNextPage();
-    }
-  }, [inView, isFetching, fetchNextPage]);
+  useEffect(
+    debounce(() => {
+      if (inView && !isFetching) {
+        fetchNextPage();
+        // Shift the UI up so we do not continue fetch paged data
+        window.scrollBy({ top: -300, behavior: "smooth" });
+      }
+    }, 1000),
+    [inView, isFetching, fetchNextPage]
+  );
 
   if (isError) {
     return <div>{error.message}</div>;
