@@ -5,7 +5,9 @@ require 'rails_helper'
 RSpec.describe Suppliers::Creator, type: :service do
   let(:valid_params) do
     {
-      name: Faker::Company.name
+      name: Faker::Company.name,
+      email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.phone_number
     }
   end
 
@@ -20,6 +22,8 @@ RSpec.describe Suppliers::Creator, type: :service do
 
         supplier = Supplier.order(:created_at).last
         expect(supplier.name).to eq(valid_params[:name])
+        expect(supplier.email).to eq(valid_params[:email])
+        expect(supplier.phone).to eq(valid_params[:phone])
       end
     end
 
