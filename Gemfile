@@ -43,6 +43,9 @@ gem 'firebase_id_token', '~> 3.0'
 # Pagination
 gem 'pagy', '~> 9.0'
 
+# Need explicit dependency
+gem 'csv', '~> 3.3'
+
 group :development, :test do
   # Annotation of models database schema
   gem 'annotate', '~> 3.2'
