@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-class ApplicationController < ActionController::Base
-  def index
-    # Propagate bootup Rails environment to the React client
-    @props = {}
-  end
+class ApplicationController < ActionController::API
+  include Pagy::Backend
 end

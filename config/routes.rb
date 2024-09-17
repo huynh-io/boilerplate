@@ -3,13 +3,12 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :users
+      resources :users do
+        post :verify_id_token, on: :collection
+      end
+      resources :suppliers
     end
   end
-
-  root 'application#index'
-  # Rails matches routes from top to bottom. Everything that doesn't hit an API route above will defer to React Router.
-  get '*path', to: 'application#index'
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

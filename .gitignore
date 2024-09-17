@@ -10,7 +10,7 @@
 /.bundle
 
 # Ignore all environment files (except templates).
-/.env*
+/**/.env*
 !/.env*.erb
 
 # Ignore all logfiles and tempfiles.
@@ -34,15 +34,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/credentials/*
 /config/master.key
-
-# React assets
-/public/assets
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
-.yarn
-.yarnrc.yml
 
 # PostgreSQL
 logfile
