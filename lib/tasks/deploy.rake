@@ -1,19 +1,7 @@
 # frozen_string_literal: true
 
-namespace :deploy do # rubocop:disable Metrics/BlockLength
+namespace :deploy do
   desc 'Deploy app to Heroku'
-
-  task build_assets: :environment do
-    puts('Cleaning up old assets 🧹')
-    system('cd frontend && rm -rf build')
-    system('rm -rf public')
-
-    puts('Building assets 🏗')
-    system('cd frontend && NODE_ENV=production npm run build')
-
-    puts('Moving assets to public directory 🚚')
-    system('cp -r frontend/build public')
-  end
 
   # APP_NAME=your-app-name rake deploy:production
   # APP_NAME=your-app-name rake deploy:staging
