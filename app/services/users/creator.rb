@@ -6,7 +6,7 @@ module Users
 
     # init
     def initialize(params:)
-      params = params.with_indifferent_access
+      params = params.with_indifferent_access if params.present?
 
       @email = params[:email]
       @refresh_token = params[:refresh_token]
