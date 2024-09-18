@@ -37,12 +37,17 @@ export type Supplier = {
   phone: string;
 };
 
-export function useSuppliers() {
+export function useSuppliers(search?: string) {
   return useInfiniteQuery({
     queryKey: ["suppliers"],
     queryFn: async ({ pageParam }): Promise<Supplier[]> => {
+      const urlWithPage = `/api/v1/suppliers?page=${pageParam}`;
+      const urlWithPageAndSearch = search
+        ? `${urlWithPage}&search=${search}`
+        : urlWithPage;
+
       const response = await apiClient.get<{ suppliers: Supplier[] }>(
-        `/api/v1/suppliers?page=${pageParam}`
+        urlWithPageAndSearch
       );
 
       return response.data.suppliers;
