@@ -12,7 +12,7 @@ RSpec.describe Suppliers::Searcher, type: :service do
 
     context 'with a search param' do
       it 'returns an AREL with suppliers that fuzzy match the search param' do
-        scope = described_class.call(search: '3')
+        scope = described_class.call(query: '3')
         expect(scope.count).to eq(1)
       end
     end

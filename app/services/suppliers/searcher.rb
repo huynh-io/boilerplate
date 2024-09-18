@@ -2,21 +2,21 @@
 
 module Suppliers
   class Searcher < ApplicationService
-    attr_accessor :search
+    attr_accessor :query
 
-    def initialize(search: nil)
-      @search = search
+    def initialize(query: nil)
+      @query = query
     end
 
-    # TODO: dumb search for now. This acts as the entry point for more sophisticated search via:
+    # TODO: dumb query for now. This acts as the entry point for more sophisticated query via:
     # - pg_search
     # - elasticsearch
-    # - searchkick
+    # - querykick
     # - etc.
     def call
-      return Supplier.all if search.nil?
+      return Supplier.all if query.nil?
 
-      Supplier.where('name ILIKE ?', "%#{search}%")
+      Supplier.where('name ILIKE ?', "%#{query}%")
     end
   end
 end

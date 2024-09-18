@@ -4,7 +4,7 @@ module Api
   module V1
     class SuppliersController < ApplicationController
       def index
-        scope = Suppliers::Searcher.call(index_params[:search])
+        scope = Suppliers::Searcher.call(query: index_params[:query])
         @pagy, @suppliers = pagy(scope)
 
         render :index, status: :ok
@@ -13,7 +13,7 @@ module Api
       private
 
       def index_params
-        params.permit(:page, :search)
+        params.permit(:page, :query)
       end
     end
   end
