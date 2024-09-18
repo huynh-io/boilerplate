@@ -5,10 +5,8 @@ import { useRouter } from "next/navigation";
 
 export default function Component() {
   const router = useRouter();
-  // const onSearch = (event: React.FormEvent) => {
-  const onSearch = () => {
-    // TODO: Propagate search query
-    router.push("/search");
+  const onSearch = (query: string) => {
+    router.push(`/search?q=${query}`);
   };
 
   return (
