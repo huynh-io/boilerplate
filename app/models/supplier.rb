@@ -20,5 +20,4 @@
 class Supplier < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :phone, phone: { possible: true, allow_blank: true }
 end

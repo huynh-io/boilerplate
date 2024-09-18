@@ -47,7 +47,6 @@ gem 'pagy', '~> 9.0'
 gem 'csv', '~> 3.3'
 
 # Validate & parse phone numbers
-gem 'phonelib', '~> 0.9.2'
 
 group :development, :test do
   # Annotation of models database schema

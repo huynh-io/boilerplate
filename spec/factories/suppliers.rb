@@ -21,6 +21,5 @@ FactoryBot.define do
   factory :supplier do
     name { Faker::Company.name }
     email { Faker::Internet.email }
-    phone { Faker::PhoneNumber.phone_number }
   end
 end
