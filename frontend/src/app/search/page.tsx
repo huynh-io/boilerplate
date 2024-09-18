@@ -6,10 +6,17 @@ import { useInView } from "react-intersection-observer";
 import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
 import SearchForm from "@/components/search-form";
 import { useSuppliers, Supplier } from "@/lib/api-store";
+import { useSearchParams } from "next/navigation";
 
 export default function SupplierSearch() {
   const { ref, inView } = useInView();
-  const { error, isError, isFetching, data, fetchNextPage } = useSuppliers();
+
+  const searchParams = useSearchParams();
+  const query = searchParams.get("q") ?? undefined;
+
+  const { error, isError, isFetching, data, fetchNextPage } = useSuppliers({
+    query: query,
+  });
 
   useEffect(
     debounce(() => {

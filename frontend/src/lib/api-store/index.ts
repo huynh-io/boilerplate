@@ -37,7 +37,7 @@ export type Supplier = {
   phone: string;
 };
 
-export function useSuppliers(query?: string) {
+export function useSuppliers({ query }: { query?: string }) {
   return useInfiniteQuery({
     queryKey: ["suppliers"],
     queryFn: async ({ pageParam }): Promise<Supplier[]> => {
