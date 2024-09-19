@@ -19,5 +19,5 @@
 class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   # TODO: remove this since frontend + firebase auth will handle this
-  validates :refresh_token, presence: true
+  # validates :refresh_token, presence: true
 end
