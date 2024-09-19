@@ -4,10 +4,11 @@ import debounce from "debounce";
 import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
 import SearchForm from "@/components/search-form";
 import { useSuppliers, Supplier } from "@/lib/api-store";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 export default function SupplierSearch() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("q") ?? undefined;
 
@@ -20,6 +21,10 @@ export default function SupplierSearch() {
       fetchNextPage();
     }
   }, 100);
+
+  const onSearch = (query: string) => {
+    router.push(`/search?q=${query}`);
+  };
 
   if (isError) {
     return <div>{error.message}</div>;
@@ -52,7 +57,7 @@ export default function SupplierSearch() {
       <header className="bg-background border-b shadow-md fixed top-14 left-0 right-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-3xl font-bold mb-4">What are you craving?</h1>
-          <SearchForm initialQuery={query} />
+          <SearchForm initialQuery={query} onSearch={onSearch} />
         </div>
       </header>
 
