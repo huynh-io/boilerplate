@@ -12,9 +12,10 @@ export default function SupplierSearch() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") ?? undefined;
 
-  const { error, isError, isFetching, data, fetchNextPage } = useSuppliers({
-    query: query,
-  });
+  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } =
+    useSuppliers({
+      query: query,
+    });
 
   const onLoadMore = debounce(() => {
     if (!isFetching) {
@@ -64,15 +65,17 @@ export default function SupplierSearch() {
       <div className="flex-grow container mx-auto px-4 py-8">
         <ul className="space-y-4">{suppliersList}</ul>
 
-        <div className="flex justify-center mt-4">
-          {isFetching ? (
-            <Loader2Icon className="animate-spin h-6 w-4 text-gray-500" />
-          ) : (
-            <Button variant="outline" size="sm" onClick={onLoadMore}>
-              Load More
-            </Button>
-          )}
-        </div>
+        {hasNextPage && (
+          <div className="flex justify-center mt-4">
+            {isFetching ? (
+              <Loader2Icon className="animate-spin h-6 w-4 text-gray-500" />
+            ) : (
+              <Button variant="outline" size="sm" onClick={onLoadMore}>
+                Load More
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
