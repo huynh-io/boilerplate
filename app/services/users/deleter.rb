@@ -4,7 +4,6 @@ module Users
   class Deleter < ApplicationService
     attr_accessor :user_id
 
-    # init
     def initialize(user_id:)
       @user_id = user_id
     end
@@ -14,7 +13,6 @@ module Users
 
       # TODO: error handling
 
-      # Delete the user
       user.destroy
     end
   end
