@@ -2,24 +2,19 @@
 
 module Users
   class Creator < ApplicationService
-    attr_accessor :email, :refresh_token, :custom_metadata, :email_verified
+    attr_accessor :email, :custom_metadata
 
-    # init
     def initialize(params:)
-      params = params.with_indifferent_access if params.present?
+      params = params.to_h.with_indifferent_access
 
       @email = params[:email]
-      @refresh_token = params[:refresh_token]
       @custom_metadata = params[:custom_metadata]
-      @email_verified = params[:email_verified]
     end
 
     def call
       User.create!(
         email:,
-        refresh_token:,
-        custom_metadata:,
-        email_verified:
+        custom_metadata:
       )
     end
   end

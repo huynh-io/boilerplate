@@ -27,4 +27,28 @@ RSpec.describe 'Api::V1::Users' do
       expect(first_object).to have_key('created_at')
     end
   end
+
+  describe 'POST /api/v1/users' do
+    let(:params) do
+      { email: Faker::Internet.email }
+    end
+    let(:post_request) { post('/api/v1/users', params:) }
+
+    before do
+      post_request
+    end
+
+    it 'returns 200' do
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'returns the created user' do
+      expect(response_body).to be_an_instance_of(Hash)
+
+      expect(response_body).to have_key('id')
+      expect(response_body).to have_key('email')
+      expect(response_body).to have_key('updated_at')
+      expect(response_body).to have_key('created_at')
+    end
+  end
 end
