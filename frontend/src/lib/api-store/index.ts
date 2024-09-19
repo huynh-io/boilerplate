@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import {
   keepPreviousData,
@@ -6,6 +6,7 @@ import {
   useInfiniteQuery,
   useMutation,
 } from "@tanstack/react-query";
+import { useAppStore } from "../app-store";
 
 export const apiQueryClient = new QueryClient({
   defaultOptions: {
@@ -24,9 +25,21 @@ export const apiPersisterOptions = {
   persister: apiPersister,
 };
 
-const apiUrl = process.env.API_URL;
-const apiClient = axios.create({
+// TODO: move to a separate file
+export const apiUrl = process.env.API_URL;
+export const apiClient = axios.create({
   baseURL: apiUrl,
+});
+
+apiClient.interceptors.request.use((config) => {
+  // TODO: consider switching to an access token that our API provides after it verifies the ID token
+  // This is a total hack to interpret the ID token as an API key as well.
+  //
+  // https://auth0.com/blog/id-token-access-token-what-is-the-difference/
+  const idToken = useAppStore.getState().idToken ?? "";
+  config.headers.Authorization = `Bearer ${idToken}`;
+
+  return config;
 });
 
 // TODO: consider moving into individual files
