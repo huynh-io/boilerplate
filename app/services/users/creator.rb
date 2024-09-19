@@ -5,7 +5,7 @@ module Users
     attr_accessor :email, :custom_metadata
 
     def initialize(params:)
-      params = params.with_indifferent_access
+      params = params.to_h.with_indifferent_access
 
       @email = params[:email]
       @custom_metadata = params[:custom_metadata]
