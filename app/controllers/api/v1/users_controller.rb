@@ -34,7 +34,7 @@ module Api
       end
 
       def user_params
-        params.permit(:email, :refresh_token, :custom_metadata, :email_verified)
+        params.permit(:email, :custom_metadata)
       end
     end
   end
