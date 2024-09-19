@@ -1,33 +1,31 @@
 "use client";
 
 import debounce from "debounce";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
 import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
 import SearchForm from "@/components/search-form";
 import { useSuppliers, Supplier } from "@/lib/api-store";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function SupplierSearch() {
-  const { ref, inView } = useInView();
-
+  const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("q") ?? undefined;
 
-  const { error, isError, isFetching, data, fetchNextPage } = useSuppliers({
-    query: query,
-  });
+  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } =
+    useSuppliers({
+      query: query,
+    });
 
-  useEffect(
-    debounce(() => {
-      if (inView && !isFetching) {
-        fetchNextPage();
-        // Shift the UI up so we do not continue fetch paged data
-        window.scrollBy({ top: -300, behavior: "smooth" });
-      }
-    }, 1000),
-    [inView, isFetching, fetchNextPage]
-  );
+  const onLoadMore = debounce(() => {
+    if (!isFetching) {
+      fetchNextPage();
+    }
+  }, 100);
+
+  const onSearch = (query: string) => {
+    router.push(`/search?q=${query}`);
+  };
 
   if (isError) {
     return <div>{error.message}</div>;
@@ -60,18 +58,24 @@ export default function SupplierSearch() {
       <header className="bg-background border-b shadow-md fixed top-14 left-0 right-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-3xl font-bold mb-4">What are you craving?</h1>
-          <SearchForm />
+          <SearchForm initialQuery={query} onSearch={onSearch} />
         </div>
       </header>
 
       <div className="flex-grow container mx-auto px-4 py-8">
         <ul className="space-y-4">{suppliersList}</ul>
 
-        <div ref={ref} className="flex justify-center mt-4">
-          {isFetching && (
-            <Loader2Icon className="animate-spin h-6 w-4 text-gray-500" />
-          )}
-        </div>
+        {hasNextPage && (
+          <div className="flex justify-center mt-4">
+            {isFetching ? (
+              <Loader2Icon className="animate-spin h-6 w-4 text-gray-500" />
+            ) : (
+              <Button variant="outline" size="sm" onClick={onLoadMore}>
+                Load More
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
