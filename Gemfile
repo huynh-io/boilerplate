@@ -46,6 +46,8 @@ gem 'pagy', '~> 9.0'
 # Need explicit dependency
 gem 'csv', '~> 3.3'
 
+# Validate & parse phone numbers
+
 group :development, :test do
   # Annotation of models database schema
   gem 'annotate', '~> 3.2'

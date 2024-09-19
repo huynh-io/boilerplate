@@ -1,6 +1,11 @@
 import axios from "axios";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  QueryClient,
+  useInfiniteQuery,
+  useMutation,
+} from "@tanstack/react-query";
 
 export const apiQueryClient = new QueryClient({
   defaultOptions: {
@@ -25,19 +30,40 @@ const apiClient = axios.create({
 });
 
 // TODO: consider moving into individual files
-type Supplier = {
+export type Supplier = {
   id: string;
   name: string;
+  email: string;
+  phone: string;
 };
 
-export function useSuppliers() {
-  return useQuery({
+export function useSuppliers({ query }: { query?: string }) {
+  return useInfiniteQuery({
     queryKey: ["suppliers"],
-    queryFn: async (): Promise<Supplier[]> => {
-      const response = await apiClient.get<Supplier[]>("/api/v1/suppliers");
+    queryFn: async ({ pageParam }): Promise<Supplier[]> => {
+      const urlWithPage = `/api/v1/suppliers?page=${pageParam}`;
+      const urlWithPageAndSearch = query
+        ? `${urlWithPage}&query=${query}`
+        : urlWithPage;
 
-      return response.data;
+      const response = await apiClient.get<{ suppliers: Supplier[] }>(
+        urlWithPageAndSearch
+      );
+
+      return response.data.suppliers;
     },
+    initialPageParam: 1,
+    getNextPageParam: (_lastPage, _allPages, lastPageParam) => {
+      return lastPageParam + 1;
+    },
+    getPreviousPageParam: (_firstPage, _allPages, firstPageParam) => {
+      if (firstPageParam <= 1) {
+        return 0;
+      }
+
+      return firstPageParam - 1;
+    },
+    placeholderData: keepPreviousData,
   });
 }
 

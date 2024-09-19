@@ -69,11 +69,11 @@
 
 # Headers extra: http response headers (and other helpers) useful for API pagination
 # See https://ddnexus.github.io/pagy/docs/extras/headers
-# require 'pagy/extras/headers'
-# Pagy::DEFAULT[:headers] = { page: 'Current-Page',
-#                            limit: 'Page-Items',
-#                            count: 'Total-Count',
-#                            pages: 'Total-Pages' }     # default
+require 'pagy/extras/headers'
+Pagy::DEFAULT[:headers] = { page: 'Current-Page',
+                            limit: 'Page-Items',
+                            count: 'Total-Count',
+                            pages: 'Total-Pages' } # default
 
 # Keyset extra: Paginate with the Pagy keyset pagination technique
 # See https://ddnexus.github.io/pagy/docs/extras/keyset
@@ -145,8 +145,8 @@
 
 # Overflow extra: Allow for easy handling of overflowing pages
 # See https://ddnexus.github.io/pagy/docs/extras/overflow
-# require 'pagy/extras/overflow'
-# Pagy::DEFAULT[:overflow] = :empty_page    # default  (other options: :last_page and :exception)
+require 'pagy/extras/overflow'
+Pagy::DEFAULT[:overflow] = :empty_page # default  (other options: :last_page and :exception)
 
 # Trim extra: Remove the page=1 param from links
 # See https://ddnexus.github.io/pagy/docs/extras/trim
