@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
 export interface SearchFormProps {
+  initialQuery?: string;
   onSearch?: (search: string) => void;
 }
 
@@ -26,6 +27,7 @@ export default function SearchForm(props: SearchFormProps) {
           placeholder="Search for anything..."
           name="search"
           type="search"
+          defaultValue={props.initialQuery}
         />
         <Button
           className="absolute right-1 top-1/2 -translate-y-1/2"

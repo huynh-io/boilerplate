@@ -52,7 +52,7 @@ export default function SupplierSearch() {
       <header className="bg-background border-b shadow-md fixed top-14 left-0 right-0 z-10">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-3xl font-bold mb-4">What are you craving?</h1>
-          <SearchForm />
+          <SearchForm initialQuery={query} />
         </div>
       </header>
 
