@@ -1,16 +1,13 @@
 "use client";
 
 import debounce from "debounce";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
 import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
 import SearchForm from "@/components/search-form";
 import { useSuppliers, Supplier } from "@/lib/api-store";
 import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function SupplierSearch() {
-  const { ref, inView } = useInView();
-
   const searchParams = useSearchParams();
   const query = searchParams.get("q") ?? undefined;
 
@@ -18,16 +15,11 @@ export default function SupplierSearch() {
     query: query,
   });
 
-  useEffect(
-    debounce(() => {
-      if (inView && !isFetching) {
-        fetchNextPage();
-        // Shift the UI up so we do not continue fetch paged data
-        window.scrollBy({ top: -300, behavior: "smooth" });
-      }
-    }, 1000),
-    [inView, isFetching, fetchNextPage]
-  );
+  const onLoadMore = debounce(() => {
+    if (!isFetching) {
+      fetchNextPage();
+    }
+  }, 100);
 
   if (isError) {
     return <div>{error.message}</div>;
@@ -67,9 +59,13 @@ export default function SupplierSearch() {
       <div className="flex-grow container mx-auto px-4 py-8">
         <ul className="space-y-4">{suppliersList}</ul>
 
-        <div ref={ref} className="flex justify-center mt-4">
-          {isFetching && (
+        <div className="flex justify-center mt-4">
+          {isFetching ? (
             <Loader2Icon className="animate-spin h-6 w-4 text-gray-500" />
+          ) : (
+            <Button variant="outline" size="sm" onClick={onLoadMore}>
+              Load More
+            </Button>
           )}
         </div>
       </div>
