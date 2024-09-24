@@ -10,8 +10,7 @@ import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
 export interface AuthenticationSlice {
   authenticated: boolean;
   authenticationInitialized: boolean;
-  authenticate: (auth: boolean) => void;
-  initializedAuthentication: () => void;
+  idToken?: string;
   signInWithEmail: (email: string, password: string) => void;
   signInWithGoogle: () => void;
   signOut: () => void;
@@ -23,11 +22,9 @@ export const createAuthenticationSlice: StateCreator<AuthenticationSlice> = (
 ) => ({
   authenticated: false,
   authenticationInitialized: false,
+  idToken: undefined,
   authenticate: (auth: boolean) => {
     set({ authenticated: auth });
-  },
-  initializedAuthentication: () => {
-    set({ authenticationInitialized: true });
   },
   signInWithEmail: async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(

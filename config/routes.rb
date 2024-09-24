@@ -3,9 +3,7 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :users do
-        post :verify_id_token, on: :collection
-      end
+      resources :user
       resources :suppliers
     end
   end
