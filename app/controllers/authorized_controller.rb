@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AuthorizedController < ActionController::API
+class AuthorizedController < ApplicationController
   before_action :authorize_request
 
   private
