@@ -57,4 +57,22 @@ RSpec.describe 'Api::V1::Suppliers' do
       end
     end
   end
+
+  describe 'POST /api/v1/suppliers' do
+    let(:params) do
+      { name: Faker::Company.name,
+        email: Faker::Internet.email,
+        phone: Faker::PhoneNumber.cell_phone }
+    end
+
+    let(:post_request) { post('/api/v1/suppliers', params:) }
+
+    before do
+      post_request
+    end
+
+    it 'returns 200' do
+      expect(response).to have_http_status(:success)
+    end
+  end
 end

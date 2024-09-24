@@ -10,10 +10,20 @@ module Api
         render :index, status: :ok
       end
 
+      def create
+        @supplier = Suppliers::Creator.call(params: supplier_create_params)
+
+        # TODO: render
+      end
+
       private
 
       def index_params
         params.permit(:page, :query)
+      end
+
+      def supplier_create_params
+        params.permit(:name, :email, :phone_number)
       end
     end
   end

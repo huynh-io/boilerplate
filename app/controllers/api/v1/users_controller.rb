@@ -22,7 +22,7 @@ module Api
       end
 
       def create
-        @user = Users::Creator.call(params: user_create_params)
+        @user = Users::Creator.call(params: supplier_create_params)
 
         render :show, status: :ok
       end
@@ -33,7 +33,7 @@ module Api
         params.permit(:id_token)
       end
 
-      def user_create_params
+      def supplier_create_params
         params.permit(:email, :custom_metadata)
       end
     end
