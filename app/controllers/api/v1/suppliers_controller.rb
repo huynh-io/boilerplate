@@ -9,12 +9,6 @@ module Api
 
         render :index, status: :ok
       end
-
-      private
-
-      def index_params
-        params.permit(:page, :query)
-      end
     end
   end
 end

@@ -31,10 +31,6 @@ module Api
       def create_params
         params.permit(:supplier_id, item_data: [:name])
       end
-
-      def index_params
-        params.permit(:page)
-      end
     end
   end
 end

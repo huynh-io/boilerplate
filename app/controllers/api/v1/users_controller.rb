@@ -17,10 +17,6 @@ module Api
 
       private
 
-      def verify_id_token_params
-        params.permit(:id_token)
-      end
-
       def user_create_params
         params.permit(:email, :custom_metadata)
       end
