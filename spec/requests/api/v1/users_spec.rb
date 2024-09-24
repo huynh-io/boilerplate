@@ -16,7 +16,7 @@ RSpec.describe 'Api::V1::Users' do
       expect(response).to have_http_status(:success)
     end
 
-    it 'returns an appropriate general response payload' do
+    it 'returns an array of users' do
       expect(response_body).to be_an_instance_of(Hash)
       expect(response_body['users']).to be_an_instance_of(Array)
 

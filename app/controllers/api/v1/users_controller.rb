@@ -5,6 +5,7 @@ module Api
     class UsersController < ApplicationController
       def index
         @pagy, @users = pagy(User.all)
+
         render :index, status: :ok
       end
 
