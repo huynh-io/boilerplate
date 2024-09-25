@@ -4,37 +4,42 @@ require 'rails_helper'
 require 'requests_helper'
 
 RSpec.describe 'Api::V1::Users' do
-  describe 'GET /api/v1/users' do
-    let(:get_request) { get '/api/v1/users' }
+  # TODO: Move into Admin namespace
+  # describe 'GET /api/v1/users' do
+  #   let(:get_request) { get '/api/v1/users' }
 
-    before do
-      create(:user)
-      get_request
-    end
+  #   before do
+  #     create(:user)
+  #     get_request
+  #   end
 
-    it 'returns 200' do
-      expect(response).to have_http_status(:success)
-    end
+  #   it 'returns 200' do
+  #     expect(response).to have_http_status(:success)
+  #   end
 
-    it 'returns an appropriate general response payload' do
-      expect(response_body).to be_an_instance_of(Hash)
-      expect(response_body['users']).to be_an_instance_of(Array)
+  #   it 'returns an array of users' do
+  #     expect(response_body).to be_an_instance_of(Hash)
+  #     expect(response_body['users']).to be_an_instance_of(Array)
 
-      first_object = response_body['users'].first
-      expect(first_object).to have_key('id')
-      expect(first_object).to have_key('email')
-      expect(first_object).to have_key('updated_at')
-      expect(first_object).to have_key('created_at')
-    end
-  end
+  #     first_object = response_body['users'].first
+  #     expect(first_object).to have_key('id')
+  #     expect(first_object).to have_key('email')
+  #     expect(first_object).to have_key('updated_at')
+  #     expect(first_object).to have_key('created_at')
+  #   end
+  # end
 
   describe 'POST /api/v1/users' do
     let(:params) do
+      { id_token: 'SOMERANDOM.JWT' }
+    end
+    let(:decoded) do
       { email: Faker::Internet.email }
     end
     let(:post_request) { post('/api/v1/users', params:) }
 
     before do
+      allow(Users::IdTokenVerifier).to receive(:call).and_return(decoded)
       post_request
     end
 
@@ -47,6 +52,7 @@ RSpec.describe 'Api::V1::Users' do
 
       expect(response_body).to have_key('id')
       expect(response_body).to have_key('email')
+      expect(response_body).to have_key('access_token')
       expect(response_body).to have_key('updated_at')
       expect(response_body).to have_key('created_at')
     end

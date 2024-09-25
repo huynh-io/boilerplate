@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
+import applyCaseMiddleware from "axios-case-converter";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import {
   keepPreviousData,
@@ -27,27 +28,26 @@ export const apiPersisterOptions = {
 
 // TODO: move to a separate file
 export const apiUrl = process.env.API_URL;
-export const apiClient = axios.create({
-  baseURL: apiUrl,
-});
+export const apiClient = applyCaseMiddleware(
+  axios.create({
+    baseURL: apiUrl,
+  }),
+  { ignoreHeaders: true }
+);
 
 apiClient.interceptors.request.use((config) => {
-  // TODO: consider switching to an access token that our API provides after it verifies the ID token
-  // This is a total hack to interpret the ID token as an API key as well.
-  //
-  // https://auth0.com/blog/id-token-access-token-what-is-the-difference/
-  const idToken = useAppStore.getState().idToken ?? "";
-  config.headers.Authorization = `Bearer ${idToken}`;
+  const accessToken = useAppStore.getState().currentUser?.accessToken ?? "";
+  config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
 });
 
 // TODO: consider moving into individual files
 export type Supplier = {
-  id: string;
-  name: string;
   email: string;
+  name: string;
   phone: string;
+  id: string;
 };
 
 export function useSuppliers({ query }: { query?: string }) {
@@ -84,12 +84,16 @@ export function useSuppliers({ query }: { query?: string }) {
   });
 }
 
-export function useUsersVerifyIdToken() {
+export type User = {
+  accessToken: string;
+  email: string;
+  id: string;
+};
+
+export function useUsersCreate() {
   return useMutation({
-    // Temporarily disable until we can work on the user model
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mutationFn: async (id_token: string): Promise<any> => {
-      const response = await apiClient.post("/api/v1/users/verify_id_token", {
+    mutationFn: async (id_token: string): Promise<User> => {
+      const response = await apiClient.post("/api/v1/users", {
         id_token,
       });
 

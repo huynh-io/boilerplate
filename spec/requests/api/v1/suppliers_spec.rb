@@ -17,7 +17,7 @@ RSpec.describe 'Api::V1::Suppliers' do
         expect(response).to have_http_status(:success)
       end
 
-      it 'returns a list of suppliers' do
+      it 'returns an array of suppliers' do
         expect(response_body).to be_an_instance_of(Hash)
         expect(response_body['suppliers']).to be_an_instance_of(Array)
 
@@ -44,7 +44,7 @@ RSpec.describe 'Api::V1::Suppliers' do
         expect(response).to have_http_status(:success)
       end
 
-      it 'returns a filtered list of suppliers' do
+      it 'returns a filtered array of suppliers' do
         expect(response_body).to be_an_instance_of(Hash)
         expect(response_body['suppliers']).to be_an_instance_of(Array)
         expect(response_body['suppliers'].count).to eq(1)

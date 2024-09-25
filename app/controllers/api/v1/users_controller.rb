@@ -3,25 +3,18 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      def index
-        @pagy, @users = pagy(User.all)
-        render :index, status: :ok
-      end
-
       def create
-        @user = Users::Creator.call(params: user_create_params)
+        decoded = Users::IdTokenVerifier.call(id_token: user_create_params[:id_token])
+        @user = Users::Creator.call(params: decoded)
+        @access_token = @user.access_token
 
         render :show, status: :ok
       end
 
       private
 
-      def verify_id_token_params
-        params.permit(:id_token)
-      end
-
       def user_create_params
-        params.permit(:email, :custom_metadata)
+        params.permit(:id_token)
       end
     end
   end
