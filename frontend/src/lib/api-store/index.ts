@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
+import applyCaseMiddleware from "axios-case-converter";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import {
   keepPreviousData,
@@ -27,9 +28,12 @@ export const apiPersisterOptions = {
 
 // TODO: move to a separate file
 export const apiUrl = process.env.API_URL;
-export const apiClient = axios.create({
-  baseURL: apiUrl,
-});
+export const apiClient = applyCaseMiddleware(
+  axios.create({
+    baseURL: apiUrl,
+  }),
+  { ignoreHeaders: true }
+);
 
 apiClient.interceptors.request.use((config) => {
   const accessToken = useAppStore.getState().currentUser?.accessToken ?? "";
