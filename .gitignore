@@ -42,3 +42,5 @@ config/database.yml
 /public/packs
 /public/packs-test
 
+
+/config/credentials/production.key
