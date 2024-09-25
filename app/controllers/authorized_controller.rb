@@ -10,16 +10,14 @@ class AuthorizedController < ApplicationController
   end
 
   def current_user
-    decoded = verify_id_token
+    return unless access_token
 
-    return unless decoded
-
-    User.find_by(email: decoded['email'])
+    User.find_by(access_token:)
   end
 
-  def verify_id_token
-    # TODO: fetch certificate on a regular basis
-    FirebaseIdToken::Certificates.request
-    FirebaseIdToken::Signature.verify(verify_id_token_params[:id_token])
+  def access_token
+    # Expected header format:
+    #  Authorization: Bearer <token>
+    request.headers['Authorization']&.split&.last
   end
 end
