@@ -5,6 +5,7 @@
 # Table name: users
 #
 #  id              :uuid             not null, primary key
+#  access_token    :string
 #  custom_metadata :jsonb
 #  email           :string
 #  created_at      :datetime         not null
