@@ -3,9 +3,9 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :users
-      resources :suppliers
-      resources :catalog_items
+      resources :catalog_items, only: %i[index show]
+      resources :users, only: %i[create]
+      resources :suppliers, only: %i[index show]
     end
   end
 

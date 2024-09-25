@@ -10,5 +10,17 @@ module Api
         render :index, status: :ok
       end
     end
+
+    def show
+      @supplier = Supplier.find(show_params[:supplier_id])
+
+      render :show, status: :ok
+    end
+
+    private
+
+    def show_params
+      params.permit(:supplier_id)
+    end
   end
 end

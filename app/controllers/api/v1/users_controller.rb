@@ -3,12 +3,6 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      def index
-        @pagy, @users = pagy(User.all)
-
-        render :index, status: :ok
-      end
-
       def create
         @user = Users::Creator.call(params: user_create_params)
 

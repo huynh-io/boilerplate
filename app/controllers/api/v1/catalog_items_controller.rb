@@ -16,11 +16,15 @@ module Api
         render :show, status: :ok
       end
 
-      def create
-        @catalog_item = CatalogItems::Creator.call(params: create_params)
+      # TODO:
+      # - move this action specifically under admin namespace
+      # - Make it a protected action that only the user with the right permissions can access
+      # - Add the notion of an admin
+      # def create
+      #   @catalog_item = CatalogItems::Creator.call(params: create_params)
 
-        render :show, status: :ok
-      end
+      #   render :show, status: :ok
+      # end
 
       private
 
@@ -28,9 +32,9 @@ module Api
         params.permit(:id)
       end
 
-      def create_params
-        params.permit(:supplier_id, item_data: [:name])
-      end
+      # def create_params
+      #   params.permit(:supplier_id, item_data: [:name])
+      # end
     end
   end
 end

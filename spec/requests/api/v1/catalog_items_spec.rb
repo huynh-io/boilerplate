@@ -51,30 +51,4 @@ RSpec.describe 'Api::V1::CatalogItems' do
       expect(response_body).to have_key('created_at')
     end
   end
-
-  describe 'POST /api/v1/catalog_items' do
-    let(:supplier) { create(:supplier) }
-    let(:params) do
-      { supplier_id: supplier.id, item_data: { name: 'hi' } }
-    end
-    let(:post_request) { post('/api/v1/catalog_items', params:) }
-
-    before do
-      post_request
-    end
-
-    it 'returns 200' do
-      expect(response).to have_http_status(:success)
-    end
-
-    it 'returns the created catalog_item' do
-      expect(response_body).to be_an_instance_of(Hash)
-
-      expect(response_body).to have_key('id')
-      expect(response_body).to have_key('supplier_id')
-      expect(response_body).to have_key('item_data')
-      expect(response_body).to have_key('updated_at')
-      expect(response_body).to have_key('created_at')
-    end
-  end
 end
