@@ -2,20 +2,18 @@
 
 module Users
   class Creator < ApplicationService
-    attr_accessor :email, :custom_metadata
+    attr_accessor :params
 
     def initialize(params:)
-      params = params.to_h.with_indifferent_access
-
-      @email = params[:email]
-      @custom_metadata = params[:custom_metadata]
+      @params = params.to_h.with_indifferent_access
     end
 
     def call
-      User.create!(
-        email:,
-        custom_metadata:
-      )
+      puts params
+      # User.create!(
+      #   email:,
+      #   custom_metadata:
+      # )
     end
   end
 end

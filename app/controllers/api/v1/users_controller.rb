@@ -4,7 +4,8 @@ module Api
   module V1
     class UsersController < ApplicationController
       def create
-        @user = Users::Creator.call(params: user_create_params)
+        decoded = Users::IdTokenVerifier.call(id_token: user_create_params[:id_token])
+        @user = Users::Creator.call(params: decoded)
 
         render :show, status: :ok
       end
@@ -12,7 +13,7 @@ module Api
       private
 
       def user_create_params
-        params.permit(:email, :custom_metadata)
+        params.permit(:id_token)
       end
     end
   end

@@ -31,7 +31,7 @@ RSpec.describe 'Api::V1::Users' do
 
   describe 'POST /api/v1/users' do
     let(:params) do
-      { email: Faker::Internet.email }
+      { id_token: 'SOMERANDOM.JWT' }
     end
     let(:post_request) { post('/api/v1/users', params:) }
 
@@ -48,6 +48,7 @@ RSpec.describe 'Api::V1::Users' do
 
       expect(response_body).to have_key('id')
       expect(response_body).to have_key('email')
+      expect(response_body).to have_key('access_token')
       expect(response_body).to have_key('updated_at')
       expect(response_body).to have_key('created_at')
     end
