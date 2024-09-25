@@ -17,4 +17,5 @@
 #
 class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  encrypts :access_token
 end

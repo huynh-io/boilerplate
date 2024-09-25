@@ -9,7 +9,17 @@ module Users
     end
 
     def call
-      User.find_or_create_by!(email: params[:email])
+      user = User.find_or_create_by!(email: params[:email])
+      ensure_access_token!(user:)
+      user
+    end
+
+    private
+
+    def ensure_access_token!(user:)
+      return if user.access_token.present?
+
+      user.update!(access_token: SecureRandom.uuid)
     end
   end
 end
