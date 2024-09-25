@@ -6,10 +6,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
+import { User } from "@/lib/api-store";
 
 export interface AuthenticationSlice {
   authenticated: boolean;
   authenticationInitialized: boolean;
+  currentUser?: User;
   idToken?: string;
   signInWithEmail: (email: string, password: string) => void;
   signInWithGoogle: () => void;
@@ -23,9 +25,11 @@ export const createAuthenticationSlice: StateCreator<AuthenticationSlice> = (
   authenticated: false,
   authenticationInitialized: false,
   idToken: undefined,
+  currentUser: undefined,
   authenticate: (auth: boolean) => {
     set({ authenticated: auth });
   },
+  // TODO: Move this over to react query
   signInWithEmail: async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(
       firebaseAuth,

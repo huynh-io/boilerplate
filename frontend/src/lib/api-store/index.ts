@@ -32,22 +32,18 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use((config) => {
-  // TODO: consider switching to an access token that our API provides after it verifies the ID token
-  // This is a total hack to interpret the ID token as an API key as well.
-  //
-  // https://auth0.com/blog/id-token-access-token-what-is-the-difference/
-  const idToken = useAppStore.getState().idToken ?? "";
-  config.headers.Authorization = `Bearer ${idToken}`;
+  const accessToken = useAppStore.getState().currentUser?.accessToken ?? "";
+  config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
 });
 
 // TODO: consider moving into individual files
 export type Supplier = {
-  id: string;
-  name: string;
   email: string;
+  name: string;
   phone: string;
+  id: string;
 };
 
 export function useSuppliers({ query }: { query?: string }) {
@@ -84,11 +80,15 @@ export function useSuppliers({ query }: { query?: string }) {
   });
 }
 
+export type User = {
+  accessToken: string;
+  email: string;
+  id: string;
+};
+
 export function useUsersCreate() {
   return useMutation({
-    // Temporarily disable until we can work on the user model
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    mutationFn: async (id_token: string): Promise<any> => {
+    mutationFn: async (id_token: string): Promise<User> => {
       const response = await apiClient.post("/api/v1/users", {
         id_token,
       });
