@@ -4,27 +4,29 @@ import { useEffect } from "react";
 import { firebaseAuth } from "@/lib/firebase";
 import { useAppStore, AppState } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
-import { useUsersVerifyIdToken } from "@/lib/api-store";
+import { useUsersCreate } from "@/lib/api-store";
 
 export default function Authenticator(props: { children: React.ReactNode }) {
+  const { mutate: createUser } = useUsersCreate();
   const { authenticationInitialized } = useAppStore((state: AppState) => {
     return { authenticationInitialized: state.authenticationInitialized };
   });
 
   useEffect(() => {
     // Run only once on mount.
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged(async (user) => {
       // Auth is only initialized once we start receiving auth state events.
       useAppStore.setState({
         authenticationInitialized: true,
       });
 
       if (user) {
-        user.getIdToken().then((idToken) => {
-          useAppStore.setState({
-            authenticated: true,
-            idToken,
-          });
+        const idToken = await user.getIdToken();
+        await createUser(idToken);
+
+        useAppStore.setState({
+          authenticated: true,
+          idToken,
         });
       } else {
         useAppStore.setState({

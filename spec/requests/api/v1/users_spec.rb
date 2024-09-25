@@ -33,9 +33,13 @@ RSpec.describe 'Api::V1::Users' do
     let(:params) do
       { id_token: 'SOMERANDOM.JWT' }
     end
+    let(:decoded) do
+      { email: Faker::Internet.email }
+    end
     let(:post_request) { post('/api/v1/users', params:) }
 
     before do
+      allow(Users::IdTokenVerifier).to receive(:call).and_return(decoded)
       post_request
     end
 

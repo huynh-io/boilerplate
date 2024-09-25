@@ -84,12 +84,12 @@ export function useSuppliers({ query }: { query?: string }) {
   });
 }
 
-export function useUsersVerifyIdToken() {
+export function useUsersCreate() {
   return useMutation({
     // Temporarily disable until we can work on the user model
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     mutationFn: async (id_token: string): Promise<any> => {
-      const response = await apiClient.post("/api/v1/users/verify_id_token", {
+      const response = await apiClient.post("/api/v1/users", {
         id_token,
       });
 

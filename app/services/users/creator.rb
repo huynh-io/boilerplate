@@ -9,11 +9,7 @@ module Users
     end
 
     def call
-      puts params
-      # User.create!(
-      #   email:,
-      #   custom_metadata:
-      # )
+      User.find_or_create_by!(email: params[:email])
     end
   end
 end
