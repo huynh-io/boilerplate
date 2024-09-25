@@ -6,6 +6,7 @@ module Api
       def create
         decoded = Users::IdTokenVerifier.call(id_token: user_create_params[:id_token])
         @user = Users::Creator.call(params: decoded)
+        @access_token = @user.access_token
 
         render :show, status: :ok
       end
