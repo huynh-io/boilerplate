@@ -10,8 +10,7 @@ module Users
 
     def call
       user = User.find_by(id: user_id)
-
-      # TODO: error handling
+      return unless user
 
       user.destroy
     end
