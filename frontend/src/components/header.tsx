@@ -6,24 +6,29 @@ import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useAppStore, AppState } from "@/lib/app-store";
+import { useSignOut } from "@/lib/api-store";
+import { useEffect } from "react";
 
 export default function Header() {
   const router = useRouter();
-  const { authenticated, signOut, isMobileMenuOpen, setMobileMenuOpen } =
-    useAppStore((state: AppState) => {
+  const { authenticated, isMobileMenuOpen, setMobileMenuOpen } = useAppStore(
+    (state: AppState) => {
       return {
         authenticated: state.authenticated,
         isMobileMenuOpen: state.isMobileMenuOpen,
         setMobileMenuOpen: state.setMobileMenuOpen,
-        signOut: state.signOut,
       };
-    });
+    }
+  );
 
   const { theme, setTheme } = useTheme();
-  const signOutAndRedirect = async () => {
-    await signOut();
-    router.push("/sign-in");
-  };
+
+  const { mutate: signOut, isSuccess: isSignOutSuccess } = useSignOut();
+  useEffect(() => {
+    if (isSignOutSuccess) {
+      router.push("/sign-in");
+    }
+  }, [isSignOutSuccess, router]);
 
   return (
     <nav className="bg-background border-b fixed top-0 right-0 left-0 z-50">
@@ -50,7 +55,7 @@ export default function Header() {
               <Button
                 variant="outline"
                 className="h-9"
-                onClick={signOutAndRedirect}
+                onClick={() => signOut()}
               >
                 Sign Out
               </Button>
@@ -100,7 +105,7 @@ export default function Header() {
                   <Button
                     variant="outline"
                     className="h-9"
-                    onClick={signOutAndRedirect}
+                    onClick={() => signOut()}
                   >
                     Sign Out
                   </Button>

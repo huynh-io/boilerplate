@@ -15,7 +15,7 @@ import React from "react";
 
 export interface AuthFormProps {
   type: "SignIn" | "SignUp";
-  onEmail?: (email: string, password: string) => void;
+  onEmail?: ({ email, password }: { email: string; password: string }) => void;
   onGoogle?: () => void;
 }
 
@@ -29,12 +29,14 @@ export default function AuthForm(props: AuthFormProps) {
     event.preventDefault();
 
     if (props.onEmail) {
-      if (!emailInput.current || !passwordInput.current) {
-        // TODO: Error handling
-        return;
+      if (!emailInput.current?.value || !passwordInput.current?.value) {
+        throw new Error("Email and password are missing.");
       }
 
-      props.onEmail(emailInput.current.value, passwordInput.current.value);
+      props.onEmail({
+        email: emailInput.current.value,
+        password: passwordInput.current.value,
+      });
     }
   };
 

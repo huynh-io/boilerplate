@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { firebaseAuth } from "@/lib/firebase";
 import { useAppStore, AppState } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
-import { useUsersCreate } from "@/lib/api-store";
+import { useUsersCreate, firebaseAuth } from "@/lib/api-store";
 
 export default function Authenticator(props: { children: React.ReactNode }) {
-  const { mutate: createUser, data, error } = useUsersCreate();
+  const { mutate: createUser, data: currentUser, error } = useUsersCreate();
   const { authenticationInitialized } = useAppStore((state: AppState) => {
     return { authenticationInitialized: state.authenticationInitialized };
   });
@@ -25,7 +24,7 @@ export default function Authenticator(props: { children: React.ReactNode }) {
 
         if (firebaseUser) {
           const idToken = await firebaseUser.getIdToken();
-          await createUser(idToken);
+          createUser(idToken);
 
           useAppStore.setState({
             authenticated: true,
@@ -50,9 +49,9 @@ export default function Authenticator(props: { children: React.ReactNode }) {
 
   // Run whenever we get the current user from the API.
   useEffect(() => {
-    if (data) {
+    if (currentUser) {
       useAppStore.setState({
-        currentUser: data,
+        currentUser: currentUser,
       });
     }
 
@@ -61,7 +60,7 @@ export default function Authenticator(props: { children: React.ReactNode }) {
         currentUser: undefined,
       });
     }
-  }, [data, error]);
+  }, [currentUser, error]);
 
   if (!authenticationInitialized) {
     return <FullPageSpinner />;

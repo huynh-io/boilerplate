@@ -1,21 +1,19 @@
 "use client";
 
 import AuthForm from "@/components/auth-form";
+import { useSignInWithGoogle, useSignUpWithEmail } from "@/lib/api-store";
 import { useAppStore, AppState } from "@/lib/app-store";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function SignUpPage() {
+  const { mutate: signUpWithEmail } = useSignUpWithEmail();
+  const { mutate: signInWithGoogle } = useSignInWithGoogle();
+
   const router = useRouter();
-  const { authenticated, signUpWithEmail, signInWithGoogle } = useAppStore(
-    (state: AppState) => {
-      return {
-        authenticated: state.authenticated,
-        signUpWithEmail: state.signUpWithEmail,
-        signInWithGoogle: state.signInWithGoogle,
-      };
-    }
-  );
+  const { authenticated } = useAppStore((state: AppState) => {
+    return { authenticated: state.authenticated };
+  });
 
   useEffect(() => {
     if (authenticated) {
