@@ -20,4 +20,6 @@
 class Supplier < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  has_many :catalog_items, dependent: :destroy
 end

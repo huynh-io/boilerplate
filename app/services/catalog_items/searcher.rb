@@ -11,7 +11,7 @@ module CatalogItems
     def call
       return CatalogItem.all if query.nil?
 
-      CatalogItem.where('item_data ->> :key LIKE :value', key: :name, value: "%#{query}%")
+      CatalogItem.where('item_data ->> :key ILIKE :value', key: :name, value: "%#{query}%")
     end
   end
 end
