@@ -4,7 +4,7 @@ import { getAnalytics, isSupported } from "firebase/analytics";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
-  signOut as firebaseSignOut,
+  signOut,
   signInWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
@@ -29,7 +29,7 @@ export const firebaseAnalytics = isSupported().then((yes) =>
 );
 export const googleAuthProvider = new GoogleAuthProvider();
 
-export function useSignInWithEmailAndPassword() {
+export function useSignInWithEmail() {
   return useMutation({
     mutationFn: async ({
       email,
@@ -65,7 +65,7 @@ export function useSignInWithGoogle() {
 export function useSignOut() {
   return useMutation({
     mutationFn: async (): Promise<void> => {
-      await firebaseSignOut(firebaseAuth);
+      await signOut(firebaseAuth);
     },
   });
 }
