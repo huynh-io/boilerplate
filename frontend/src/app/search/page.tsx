@@ -3,17 +3,17 @@
 import debounce from "debounce";
 import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
 import SearchForm from "@/components/search-form";
-import { useSuppliers, Supplier } from "@/lib/api-store";
+import { useSearch, CatalogItem } from "@/lib/api-store";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-export default function SupplierSearch() {
+export default function Search() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("q") ?? undefined;
 
   const { error, isError, isFetching, data, fetchNextPage, hasNextPage } =
-    useSuppliers({
+    useSearch({
       query: query,
     });
 
@@ -31,23 +31,17 @@ export default function SupplierSearch() {
     return <div>{error.message}</div>;
   }
 
-  const suppliers = data?.pages.flat() ?? [];
+  const catalogItems = data?.pages.flat() ?? [];
 
-  const suppliersList = suppliers.map((supplier: Supplier) => (
-    <li key={supplier.id} className="border rounded-lg p-4 hover:bg-gray-50">
-      <h2 className="text-xl font-semibold mb-2">{supplier.name}</h2>
+  const catalogItemsList = catalogItems.map((catalogItem: CatalogItem) => (
+    <li key={catalogItem.id} className="border rounded-lg p-4 hover:bg-gray-50">
+      <h2 className="text-xl font-semibold mb-2">
+        {catalogItem.itemData.name}
+      </h2>
       <div className="text-sm text-gray-600 space-y-1">
         <p className="flex items-center">
           <MapPinIcon className="mr-2 h-4 w-4" />
-          {supplier.name}
-        </p>
-        <p className="flex items-center">
-          <PhoneIcon className="mr-2 h-4 w-4" />
-          {supplier.phone}
-        </p>
-        <p className="flex items-center">
-          <MailIcon className="mr-2 h-4 w-4" />
-          {supplier.email}
+          {catalogItem.itemData.name}
         </p>
       </div>
     </li>
@@ -63,7 +57,7 @@ export default function SupplierSearch() {
       </header>
 
       <div className="flex-grow container mx-auto px-4 py-8">
-        <ul className="space-y-4">{suppliersList}</ul>
+        <ul className="space-y-4">{catalogItemsList}</ul>
 
         {hasNextPage && (
           <div className="flex justify-center mt-4">
