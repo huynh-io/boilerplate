@@ -4,7 +4,7 @@ module Api
   module V1
     class CatalogItemsController < ApplicationController
       def index
-        scope = CatalogItems::Searcher.call
+        scope = CatalogItems::Searcher.call(query: index_params[:query])
         @pagy, @catalog_items = pagy(scope)
 
         render :index, status: :ok

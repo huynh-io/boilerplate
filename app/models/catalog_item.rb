@@ -21,4 +21,6 @@
 #
 class CatalogItem < CatalogObject
   validates :item_data, presence: true
+
+  belongs_to :supplier
 end

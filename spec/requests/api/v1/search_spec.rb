@@ -3,9 +3,9 @@
 require 'rails_helper'
 require 'requests_helper'
 
-RSpec.describe 'Api::V1::CatalogItems' do
-  describe 'GET /api/v1/catalog_items' do
-    let(:get_request) { get '/api/v1/catalog_items' }
+RSpec.describe 'Api::V1::Search' do
+  describe 'GET /api/v1/search' do
+    let(:get_request) { get '/api/v1/search' }
 
     context 'without any params' do
       before do
@@ -31,7 +31,7 @@ RSpec.describe 'Api::V1::CatalogItems' do
     end
 
     context 'with query param' do
-      let(:get_request) { get '/api/v1/catalog_items?query=3' }
+      let(:get_request) { get '/api/v1/search?query=3' }
 
       before do
         create(:catalog_item, item_data: { name: 'Item 1' })
@@ -56,29 +56,6 @@ RSpec.describe 'Api::V1::CatalogItems' do
         expect(first_object).to have_key('updated_at')
         expect(first_object).to have_key('created_at')
       end
-    end
-  end
-
-  describe 'GET /api/v1/catalog_items/:id' do
-    let(:catalog_item) { create(:catalog_item) }
-    let(:get_request) { get "/api/v1/catalog_items/#{catalog_item.id}" }
-
-    before do
-      get_request
-    end
-
-    it 'returns 200' do
-      expect(response).to have_http_status(:success)
-    end
-
-    it 'returns the requested catalog item' do
-      expect(response_body).to be_an_instance_of(Hash)
-
-      expect(response_body).to have_key('id')
-      expect(response_body).to have_key('supplier_id')
-      expect(response_body).to have_key('item_data')
-      expect(response_body).to have_key('updated_at')
-      expect(response_body).to have_key('created_at')
     end
   end
 end
