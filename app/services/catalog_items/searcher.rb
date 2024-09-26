@@ -2,14 +2,16 @@
 
 module CatalogItems
   class Searcher < ApplicationService
-    # TODO: dumb query for now. This acts as the entry point for more sophisticated query via:
-    # - pg_search
-    # - elasticsearch
-    # - querykick
-    # - etc.
+    attr_accessor :query
+
+    def initialize(query: nil)
+      @query = query
+    end
+
     def call
-      # TODO: Implement search query against item_data
-      CatalogItem.all
+      return CatalogItem.all if query.nil?
+
+      CatalogItem.where('item_data ->> :key LIKE :value', key: :name, value: "%#{query}%")
     end
   end
 end
