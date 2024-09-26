@@ -1,6 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { useMutation } from "@tanstack/react-query";
 import { getAnalytics, isSupported } from "firebase/analytics";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signOut as firebaseSignOut,
+  signInWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  User as FirebaseUser,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -19,3 +28,64 @@ export const firebaseAnalytics = isSupported().then((yes) =>
   yes ? getAnalytics(firebaseApp) : null
 );
 export const googleAuthProvider = new GoogleAuthProvider();
+
+export function useSignInWithEmailAndPassword() {
+  return useMutation({
+    mutationFn: async ({
+      email,
+      password,
+    }: {
+      email: string;
+      password: string;
+    }): Promise<FirebaseUser> => {
+      const userCredential = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+
+      return userCredential.user;
+    },
+  });
+}
+
+export function useSignInWithGoogle() {
+  return useMutation({
+    mutationFn: async (): Promise<FirebaseUser> => {
+      const userCredential = await signInWithPopup(
+        firebaseAuth,
+        googleAuthProvider
+      );
+
+      return userCredential.user;
+    },
+  });
+}
+
+export function useSignOut() {
+  return useMutation({
+    mutationFn: async (): Promise<void> => {
+      await firebaseSignOut(firebaseAuth);
+    },
+  });
+}
+
+export function useSignUpWithEmail() {
+  return useMutation({
+    mutationFn: async ({
+      email,
+      password,
+    }: {
+      email: string;
+      password: string;
+    }): Promise<FirebaseUser> => {
+      const userCredential = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+
+      return userCredential.user;
+    },
+  });
+}
