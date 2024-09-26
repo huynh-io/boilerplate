@@ -5,7 +5,7 @@ import {
   signOut as firebaseSignOut,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
+import { firebaseAuth, googleAuthProvider } from "@/lib/api-store";
 import { User } from "@/lib/api-store";
 
 export interface AuthenticationSlice {

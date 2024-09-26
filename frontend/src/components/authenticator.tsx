@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { firebaseAuth } from "@/lib/firebase";
 import { useAppStore, AppState } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
-import { useUsersCreate } from "@/lib/api-store";
+import { useUsersCreate, firebaseAuth } from "@/lib/api-store";
 
 export default function Authenticator(props: { children: React.ReactNode }) {
   const { mutate: createUser, data, error } = useUsersCreate();
