@@ -29,9 +29,8 @@ export default function AuthForm(props: AuthFormProps) {
     event.preventDefault();
 
     if (props.onEmail) {
-      if (!emailInput.current || !passwordInput.current) {
-        // TODO: Error handling
-        return;
+      if (!emailInput.current?.value || !passwordInput.current?.value) {
+        throw new Error("Email and password are missing.");
       }
 
       props.onEmail({

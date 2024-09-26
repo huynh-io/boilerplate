@@ -1,7 +1,6 @@
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { apiClient } from "./api-client";
 
-// TODO: consider moving into individual files
 export type Supplier = {
   email: string;
   name: string;
