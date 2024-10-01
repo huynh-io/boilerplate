@@ -1,7 +1,7 @@
 "use client";
 
 import debounce from "debounce";
-import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
+import { MapPinIcon, Loader2Icon } from "lucide-react";
 import SearchForm from "@/components/search-form";
 import { useSearch, CatalogItem } from "@/lib/api-store";
 import { useSearchParams, useRouter } from "next/navigation";
