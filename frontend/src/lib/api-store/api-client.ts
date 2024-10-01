@@ -51,6 +51,8 @@ export interface GenerateInfiniteQueryOptionsParams {
   queryFn: InfiniteQueryFn;
 }
 
+// TODO: Figure out how to propagte the type of the data so we don't have to cast it
+//  to the expected type in the components
 export function generateInfiniteQueryOptions({
   queryKey,
   queryFn,

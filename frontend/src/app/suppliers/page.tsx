@@ -31,7 +31,7 @@ export default function SupplierSearch() {
     return <div>{error.message}</div>;
   }
 
-  const suppliers = data?.pages.flat() ?? [];
+  const suppliers = (data?.pages.flat() as Supplier[]) ?? [];
 
   const suppliersList = suppliers.map((supplier: Supplier) => (
     <li key={supplier.id} className="border rounded-lg p-4 hover:bg-gray-50">

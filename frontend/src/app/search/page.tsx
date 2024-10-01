@@ -31,7 +31,7 @@ export default function Search() {
     return <div>{error.message}</div>;
   }
 
-  const catalogItems = data?.pages.flat() ?? [];
+  const catalogItems = (data?.pages.flat() as CatalogItem[]) ?? [];
 
   const catalogItemsList = catalogItems.map((catalogItem: CatalogItem) => (
     <li key={catalogItem.id} className="border rounded-lg p-4 hover:bg-gray-50">
