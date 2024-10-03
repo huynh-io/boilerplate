@@ -46,7 +46,8 @@ gem 'pagy', '~> 9.0'
 # Need explicit dependency
 gem 'csv', '~> 3.3'
 
-# Validate & parse phone numbers
+# Use for development, testing, and production seed data
+gem 'faker', '~> 3.4'
 
 group :development, :test do
   # Annotation of models database schema
@@ -62,7 +63,6 @@ group :development, :test do
 
   # Spec fixture data
   gem 'factory_bot_rails'
-  gem 'faker', '~> 3.4'
 
   # Use Pry for debugging
   gem 'pry-rails', '~> 0.3.11'
