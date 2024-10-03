@@ -41,7 +41,7 @@ export default function AuthForm(props: AuthFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-3xl mx-auto">
       <form>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">{cta}</CardTitle>
