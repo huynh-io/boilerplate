@@ -14,6 +14,8 @@ module Users
       FirebaseIdToken::Certificates.request
       decoded = FirebaseIdToken::Signature.verify(id_token)
 
+      return unless decoded
+
       # Decoded looks like:
       #
       # {

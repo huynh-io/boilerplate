@@ -16,6 +16,8 @@
 #  index_users_on_email  (email) UNIQUE
 #
 class User < ApplicationRecord
+  encrypts :email, deterministic: true
+  encrypts :access_token, deterministic: true
+
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  encrypts :access_token
 end

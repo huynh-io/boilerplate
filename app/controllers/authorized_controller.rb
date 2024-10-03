@@ -5,7 +5,7 @@ class AuthorizedController < ApplicationController
 
   private
 
-  def authorize_user
+  def authorize_request
     render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user
   end
 
