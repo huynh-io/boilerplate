@@ -7,7 +7,7 @@ export type User = {
   id: string;
 };
 
-export function useUsersCreate() {
+export function useCreateUser() {
   return useMutation({
     mutationFn: async (id_token: string): Promise<User> => {
       const response = await apiClient.post("/api/v1/users", {

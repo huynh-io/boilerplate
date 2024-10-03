@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import { useAppStore, AppState } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
-import { useUsersCreate, firebaseAuth } from "@/lib/api-store";
+import { useCreateUser, firebaseAuth } from "@/lib/api-store";
 
 export default function Authenticator(props: { children: React.ReactNode }) {
-  const { mutate: createUser, data: currentUser, error } = useUsersCreate();
+  const { mutate: createUser, data: currentUser, error } = useCreateUser();
   const { authenticationInitialized } = useAppStore((state: AppState) => {
     return { authenticationInitialized: state.authenticationInitialized };
   });
