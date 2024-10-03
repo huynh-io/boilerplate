@@ -34,7 +34,10 @@ export default function Search() {
   const catalogItems = (data?.pages.flat() as CatalogItem[]) ?? [];
 
   const catalogItemsList = catalogItems.map((catalogItem: CatalogItem) => (
-    <li key={catalogItem.id} className="border rounded-lg p-4 hover:bg-gray-50">
+    <li
+      key={catalogItem.id}
+      className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900"
+    >
       <h2 className="text-xl font-semibold mb-2">
         {catalogItem.itemData.name}
       </h2>
