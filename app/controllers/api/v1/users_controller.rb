@@ -18,6 +18,12 @@ module Api
         end
       end
 
+      def me
+        @user = current_user
+
+        render :show, status: :ok
+      end
+
       private
 
       def user_create_params

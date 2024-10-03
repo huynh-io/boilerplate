@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       get :search, to: 'search#index'
 
       resources :catalog_items, only: %i[index show]
-      resources :users, only: %i[create]
+      resources :users, only: %i[create] do
+        get :me, on: :collection
+      end
       resources :suppliers, only: %i[index show]
     end
   end
