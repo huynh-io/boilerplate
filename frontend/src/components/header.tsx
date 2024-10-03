@@ -4,12 +4,9 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Menu, X, Moon, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import { useAppStore, AppState } from "@/lib/app-store";
-import { useEffect } from "react";
 
 export default function Header() {
-  const router = useRouter();
   const { authenticated, isMobileMenuOpen, setMobileMenuOpen } = useAppStore(
     (state: AppState) => {
       return {
