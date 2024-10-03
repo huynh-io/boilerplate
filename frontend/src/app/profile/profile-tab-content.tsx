@@ -13,8 +13,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TabsContent } from "@/components/ui/tabs";
+import { useSignOut } from "@/lib/api-store";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ProfileTabContent() {
+  const router = useRouter();
+
+  const { mutate: signOut, isSuccess: isSignOutSuccess } = useSignOut();
+  useEffect(() => {
+    if (isSignOutSuccess) {
+      router.push("/sign-in");
+    }
+  }, [isSignOutSuccess, router]);
+
   return (
     <TabsContent value="profile">
       <Card>
@@ -24,6 +36,7 @@ export default function ProfileTabContent() {
             Manage your profile information here.
           </CardDescription>
         </CardHeader>
+
         <CardContent className="space-y-4">
           <div className="flex items-center space-x-4">
             <Avatar className="w-20 h-20">
@@ -35,31 +48,30 @@ export default function ProfileTabContent() {
             </Avatar>
             <div>
               <h2 className="text-2xl font-bold">John Doe</h2>
-              <p className="text-sm text-muted-foreground">
-                john.doe@example.com
-              </p>
             </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" defaultValue="John Doe" />
-          </div>
+
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
               defaultValue="john.doe@example.com"
+              disabled={true}
             />
           </div>
         </CardContent>
-        <CardFooter>
-          <Button className="w-full">Update Profile</Button>
+
+        <CardFooter className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-2">
+          <Button
+            variant="destructive"
+            className="max-w-xs w-full"
+            onClick={() => signOut()}
+          >
+            Sign Out
+          </Button>
         </CardFooter>
       </Card>
-      <Button variant="destructive" className="w-full mt-4">
-        Sign Out
-      </Button>
     </TabsContent>
   );
 }
