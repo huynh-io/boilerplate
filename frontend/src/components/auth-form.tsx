@@ -47,6 +47,7 @@ export default function AuthForm(props: AuthFormProps) {
           <CardTitle className="text-2xl font-bold">{cta}</CardTitle>
           <CardDescription></CardDescription>
         </CardHeader>
+
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
@@ -69,11 +70,20 @@ export default function AuthForm(props: AuthFormProps) {
             />
           </div>
         </CardContent>
-        <CardFooter className="flex flex-col space-y-4">
-          <Button className="w-full" onClick={onEmailSubmit} type="submit">
+
+        <CardFooter className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-2">
+          <Button
+            className="max-w-xs w-full"
+            onClick={onEmailSubmit}
+            type="submit"
+          >
             {cta}
           </Button>
-          <Button variant="outline" className="w-full" onClick={props.onGoogle}>
+          <Button
+            variant="outline"
+            className="max-w-xs w-full"
+            onClick={props.onGoogle}
+          >
             {cta} with Google
           </Button>
         </CardFooter>
