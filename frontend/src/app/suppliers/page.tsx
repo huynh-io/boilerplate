@@ -3,7 +3,7 @@
 import debounce from "debounce";
 import { MapPinIcon, PhoneIcon, MailIcon, Loader2Icon } from "lucide-react";
 import SearchForm from "@/components/search-form";
-import { useSuppliers, Supplier } from "@/lib/api-store";
+import { useGetSuppliers, Supplier } from "@/lib/api-store";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
@@ -13,7 +13,7 @@ export default function SupplierSearch() {
   const query = searchParams.get("q") ?? undefined;
 
   const { error, isError, isFetching, data, fetchNextPage, hasNextPage } =
-    useSuppliers({
+    useGetSuppliers({
       query: query,
     });
 

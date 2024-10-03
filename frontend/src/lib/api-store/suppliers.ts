@@ -12,7 +12,7 @@ export type Supplier = {
   id: string;
 };
 
-export function useSuppliers({ query }: { query?: string }) {
+export function useGetSuppliers({ query }: { query?: string }) {
   return useInfiniteQuery(
     generateInfiniteQueryOptions({
       queryKey: ["suppliers", query],
