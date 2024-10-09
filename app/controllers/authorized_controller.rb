@@ -3,11 +3,11 @@
 class AuthorizedController < ApplicationController
   include Pundit::Authorization
 
-  before_action :authorize_request
+  before_action :authenticate_request
 
   private
 
-  def authorize_request
+  def authenticate_request
     render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user
   end
 

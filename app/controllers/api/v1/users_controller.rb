@@ -3,7 +3,7 @@
 module Api
   module V1
     class UsersController < AuthorizedController
-      skip_before_action :authorize_request, only: :create
+      skip_before_action :authenticate_request, only: :create
 
       def create
         decoded = Users::IdTokenVerifier.call(id_token: user_create_params[:id_token])
