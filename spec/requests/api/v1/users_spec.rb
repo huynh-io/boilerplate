@@ -36,6 +36,32 @@ RSpec.describe 'Api::V1::Users' do
         expect(response_body).to have_key('email')
         expect(response_body).to have_key('updated_at')
         expect(response_body).to have_key('created_at')
+        expect(response_body).not_to have_key('admin')
+        expect(response_body).not_to have_key('access_token')
+      end
+    end
+
+    context 'when the user is an authorized admin' do
+      include_context 'when the user is an authenticated admin'
+
+      let(:get_request) { get '/api/v1/users/me', headers: authorization_header }
+
+      before do
+        get_request
+      end
+
+      it 'returns 200' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns an array of users' do
+        expect(response_body).to be_an_instance_of(Hash)
+        expect(response_body).to have_key('id')
+        expect(response_body).to have_key('email')
+        expect(response_body).to have_key('updated_at')
+        expect(response_body).to have_key('created_at')
+        expect(response_body).to have_key('admin')
+        expect(response_body).not_to have_key('access_token')
       end
     end
   end
