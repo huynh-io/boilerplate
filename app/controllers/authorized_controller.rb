@@ -1,18 +1,25 @@
 # frozen_string_literal: true
 
+# Base controller that includes Pundit authorization, setups the current user and handles authorization errors.
+# Tightly coupled with Pundit Policy classes.
 class AuthorizedController < ApplicationController
-  before_action :authorize_request
+  include Pundit::Authorization
+  # Ensure that we authorizing all actions in the controller that inherits from this one
+  after_action :verify_authorized
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   private
 
-  def authorize_request
-    render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user
+  def user_not_authorized
+    render json: { error: 'You are not authorized to perform this action' }, status: :forbidden
   end
 
+  # Pundit will use this method to get the user for policy authorization
   def current_user
     return unless access_token
 
-    User.find_by(access_token:)
+    @current_user ||= User.find_by(access_token:)
   end
 
   def access_token

@@ -4,57 +4,101 @@ require 'rails_helper'
 require 'requests_helper'
 
 RSpec.describe 'Api::V1::Users' do
-  # TODO: Move into Admin namespace
-  # describe 'GET /api/v1/users' do
-  #   let(:get_request) { get '/api/v1/users' }
+  describe 'GET /api/v1/users/me' do
+    context 'when the user is not authorized' do
+      let(:get_request) { get '/api/v1/users/me' }
 
-  #   before do
-  #     create(:user)
-  #     get_request
-  #   end
+      before do
+        get_request
+      end
 
-  #   it 'returns 200' do
-  #     expect(response).to have_http_status(:success)
-  #   end
+      it 'returns 403 forbidden' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
 
-  #   it 'returns an array of users' do
-  #     expect(response_body).to be_an_instance_of(Hash)
-  #     expect(response_body['users']).to be_an_instance_of(Array)
+    context 'when the user is authorized' do
+      include_context 'when the user is authenticated'
 
-  #     first_object = response_body['users'].first
-  #     expect(first_object).to have_key('id')
-  #     expect(first_object).to have_key('email')
-  #     expect(first_object).to have_key('updated_at')
-  #     expect(first_object).to have_key('created_at')
-  #   end
-  # end
+      let(:get_request) { get '/api/v1/users/me', headers: authorization_header }
+
+      before do
+        get_request
+      end
+
+      it 'returns 200' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns an array of users' do
+        expect(response_body).to be_an_instance_of(Hash)
+        expect(response_body).to have_key('id')
+        expect(response_body).to have_key('email')
+        expect(response_body).to have_key('updated_at')
+        expect(response_body).to have_key('created_at')
+      end
+    end
+  end
 
   describe 'POST /api/v1/users' do
-    let(:params) do
-      { id_token: 'SOMERANDOM.JWT' }
-    end
-    let(:decoded) do
-      { email: Faker::Internet.email }
-    end
-    let(:post_request) { post('/api/v1/users', params:) }
+    context 'when the user does not exist' do
+      let(:params) do
+        { id_token: 'SOMERANDOM.JWT' }
+      end
+      let(:decoded) do
+        { email: Faker::Internet.email }
+      end
+      let(:post_request) { post('/api/v1/users', params:) }
 
-    before do
-      allow(Users::IdTokenVerifier).to receive(:call).and_return(decoded)
-      post_request
+      before do
+        allow(Users::IdTokenVerifier).to receive(:call).and_return(decoded)
+        post_request
+      end
+
+      it 'returns 200' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns the created user' do
+        expect(response_body).to be_an_instance_of(Hash)
+
+        expect(response_body).to have_key('id')
+        expect(response_body).to have_key('email')
+        expect(response_body).to have_key('access_token')
+        expect(response_body).to have_key('updated_at')
+        expect(response_body).to have_key('created_at')
+      end
     end
 
-    it 'returns 200' do
-      expect(response).to have_http_status(:success)
-    end
+    context 'when the user does exist' do
+      let(:user) { create(:user) }
+      let(:params) do
+        { id_token: 'SOMERANDOM.JWT' }
+      end
+      let(:decoded) do
+        { email: user.email }
+      end
+      let(:post_request) { post('/api/v1/users', params:) }
 
-    it 'returns the created user' do
-      expect(response_body).to be_an_instance_of(Hash)
+      before do
+        allow(Users::IdTokenVerifier).to receive(:call).and_return(decoded)
+        post_request
+      end
 
-      expect(response_body).to have_key('id')
-      expect(response_body).to have_key('email')
-      expect(response_body).to have_key('access_token')
-      expect(response_body).to have_key('updated_at')
-      expect(response_body).to have_key('created_at')
+      it 'returns 200' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns the created user' do
+        expect(response_body).to be_an_instance_of(Hash)
+
+        user.reload
+        expect(response_body['id']).to eq(user.id)
+        expect(response_body['email']).to eq(user.email)
+        expect(response_body['access_token']).to eq(user.access_token)
+        expect(response_body['updated_at']).to eq(user.updated_at.as_json)
+        expect(response_body['created_at']).to eq(user.created_at.as_json)
+      end
     end
   end
 end
