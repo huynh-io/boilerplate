@@ -6,6 +6,7 @@
 #
 #  id              :uuid             not null, primary key
 #  access_token    :string
+#  admin           :boolean          default(FALSE), not null
 #  custom_metadata :jsonb
 #  email           :string
 #  created_at      :datetime         not null
