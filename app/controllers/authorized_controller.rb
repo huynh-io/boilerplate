@@ -2,19 +2,16 @@
 
 class AuthorizedController < ApplicationController
   include Pundit::Authorization
-
-  before_action :authenticate_request
+  # Ensure that we authorizing all actions in the controller that inherits from this one
+  after_action :verify_authorized
 
   private
 
-  def authenticate_request
-    render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user
-  end
-
+  # Pundit will use this method to get the user for policy authorization
   def current_user
     return unless access_token
 
-    User.find_by(access_token:)
+    @current_user ||= User.find_by(access_token:)
   end
 
   def access_token
