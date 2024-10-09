@@ -18,8 +18,8 @@ RSpec.describe 'Api::V1::Users' do
     end
 
     context 'when the user is authorized' do
-      let(:user) { create(:user) }
-      let(:authorization_header) { { 'Authorization' => "Bearer #{user.access_token}" } }
+      include_context 'when the user is authenticated'
+
       let(:get_request) { get '/api/v1/users/me', headers: authorization_header }
 
       before do
