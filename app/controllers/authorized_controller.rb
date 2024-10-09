@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AuthorizedController < ApplicationController
+  include Pundit::Authorization
+
   before_action :authorize_request
 
   private

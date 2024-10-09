@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Base scope with that blocks everything
 class ApplicationPolicy
   attr_reader :user, :record
 
