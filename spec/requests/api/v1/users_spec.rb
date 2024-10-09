@@ -4,30 +4,41 @@ require 'rails_helper'
 require 'requests_helper'
 
 RSpec.describe 'Api::V1::Users' do
-  # TODO: Move into Admin namespace
-  # describe 'GET /api/v1/users' do
-  #   let(:get_request) { get '/api/v1/users' }
+  describe 'GET /api/v1/users/me' do
+    context 'when the user is not authorized' do
+      let(:get_request) { get '/api/v1/users/me' }
 
-  #   before do
-  #     create(:user)
-  #     get_request
-  #   end
+      before do
+        get_request
+      end
 
-  #   it 'returns 200' do
-  #     expect(response).to have_http_status(:success)
-  #   end
+      it 'returns 403 forbidden' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
 
-  #   it 'returns an array of users' do
-  #     expect(response_body).to be_an_instance_of(Hash)
-  #     expect(response_body['users']).to be_an_instance_of(Array)
+    context 'when the user is authorized' do
+      let(:user) { create(:user) }
+      let(:authorization_header) { { 'Authorization' => "Bearer #{user.access_token}" } }
+      let(:get_request) { get '/api/v1/users/me', headers: authorization_header }
 
-  #     first_object = response_body['users'].first
-  #     expect(first_object).to have_key('id')
-  #     expect(first_object).to have_key('email')
-  #     expect(first_object).to have_key('updated_at')
-  #     expect(first_object).to have_key('created_at')
-  #   end
-  # end
+      before do
+        get_request
+      end
+
+      it 'returns 200' do
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'returns an array of users' do
+        expect(response_body).to be_an_instance_of(Hash)
+        expect(response_body).to have_key('id')
+        expect(response_body).to have_key('email')
+        expect(response_body).to have_key('updated_at')
+        expect(response_body).to have_key('created_at')
+      end
+    end
+  end
 
   describe 'POST /api/v1/users' do
     let(:params) do

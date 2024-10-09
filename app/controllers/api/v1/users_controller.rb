@@ -10,6 +10,8 @@ module Api
       def me
         @user = current_user
 
+        authorize @user
+
         render :show, status: :ok
       end
 
