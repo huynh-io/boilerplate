@@ -69,6 +69,15 @@ export default function ProfileTabContent() {
         )}
 
         <CardFooter className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-2">
+          {currentUser?.admin && (
+            <Button
+              variant="outline"
+              className="max-w-xs w-full"
+              onClick={() => ""}
+            >
+              Admin Dashboard
+            </Button>
+          )}
           <Button
             variant="destructive"
             className="max-w-xs w-full"

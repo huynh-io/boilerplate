@@ -2,9 +2,10 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiClient } from "./api-client";
 
 export type User = {
-  accessToken?: string;
-  email: string;
   id: string;
+  email: string;
+  accessToken?: string;
+  admin?: boolean;
 };
 
 export function useCreateUser() {
