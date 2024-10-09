@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Base controller that includes Pundit authorization, setups the current user and handles authorization errors.
+# Tightly coupled with Pundit Policy classes.
 class AuthorizedController < ApplicationController
   include Pundit::Authorization
   # Ensure that we authorizing all actions in the controller that inherits from this one
