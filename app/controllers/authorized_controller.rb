@@ -5,7 +5,13 @@ class AuthorizedController < ApplicationController
   # Ensure that we authorizing all actions in the controller that inherits from this one
   after_action :verify_authorized
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   private
+
+  def user_not_authorized
+    render json: { error: 'You are not authorized to perform this action' }, status: :forbidden
+  end
 
   # Pundit will use this method to get the user for policy authorization
   def current_user
