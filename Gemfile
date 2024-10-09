@@ -49,6 +49,9 @@ gem 'csv', '~> 3.3'
 # Use for development, testing, and production seed data
 gem 'faker', '~> 3.4'
 
+# Authorization
+gem 'pundit', '~> 2.4'
+
 group :development, :test do
   # Annotation of models database schema
   gem 'annotate', '~> 3.2'
