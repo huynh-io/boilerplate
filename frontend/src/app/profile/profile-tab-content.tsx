@@ -73,7 +73,7 @@ export default function ProfileTabContent() {
             <Button
               variant="outline"
               className="max-w-xs w-full"
-              onClick={() => ""}
+              onClick={() => router.push("/admin")}
             >
               Admin Dashboard
             </Button>
