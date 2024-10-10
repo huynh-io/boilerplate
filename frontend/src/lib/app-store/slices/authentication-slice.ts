@@ -5,11 +5,13 @@ import { sliceResetFns } from "./reset";
 export interface AuthenticationSlice {
   authenticated: boolean;
   accessToken?: string;
+  firebaseInitialized: boolean;
 }
 
 const initialAuthenticationState: AuthenticationSlice = {
   authenticated: false,
   accessToken: undefined,
+  firebaseInitialized: false,
 };
 
 export const createAuthenticationSlice: StateCreator<AuthenticationSlice> = (

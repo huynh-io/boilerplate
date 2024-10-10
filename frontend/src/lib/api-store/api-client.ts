@@ -29,12 +29,13 @@ export const apiUrl = process.env.API_URL;
 export const apiClient = applyCaseMiddleware(
   axios.create({
     baseURL: apiUrl,
+    validateStatus: (status) => status < 500,
   }),
   { ignoreHeaders: true }
 );
 
 apiClient.interceptors.request.use((config) => {
-  const accessToken = useAppStore.getState().currentUser?.accessToken ?? "";
+  const accessToken = useAppStore.getState().accessToken ?? "";
   config.headers.Authorization = `Bearer ${accessToken}`;
 
   return config;
@@ -62,7 +63,7 @@ export function generateInfiniteQueryOptions({
     queryFn: queryFn,
     initialPageParam: 1,
     getNextPageParam: (lastPage, _allPages, lastPageParam) => {
-      if (lastPage.length == 0) {
+      if (lastPage.length === 0) {
         return undefined;
       }
 

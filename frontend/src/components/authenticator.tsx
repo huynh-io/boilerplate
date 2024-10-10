@@ -1,14 +1,24 @@
 "use client";
 
 import { useEffect } from "react";
-import { useAppStore, AppState } from "@/lib/app-store";
+import { useAppStore, resetAppStore } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
-import { useCreateUser, firebaseAuth } from "@/lib/api-store";
+import { useCreateUser, firebaseAuth, useGetUsersMe } from "@/lib/api-store";
+import { apiQueryClient } from "@/lib/api-store";
 
 export default function Authenticator(props: { children: React.ReactNode }) {
-  const { mutate: createUser, data: currentUser, error } = useCreateUser();
-  const { authenticationInitialized } = useAppStore((state: AppState) => {
-    return { authenticationInitialized: state.authenticationInitialized };
+  const { firebaseInitialized } = useAppStore((state) => {
+    return { firebaseInitialized: state.firebaseInitialized };
+  });
+  const {
+    mutate: createUser,
+    data: currentUser,
+    status: createUserStatus,
+  } = useCreateUser();
+
+  // Fetch the user profile data if the user is authenticated.
+  useGetUsersMe({
+    enabled: createUserStatus === "success",
   });
 
   // Run only once on mount.
@@ -17,26 +27,16 @@ export default function Authenticator(props: { children: React.ReactNode }) {
     // whenever the auth state changes.
     const unsubscribe = firebaseAuth.onAuthStateChanged(
       async (firebaseUser) => {
-        // Auth is only initialized once we start receiving auth state events.
-        useAppStore.setState({
-          authenticationInitialized: true,
-        });
-
         if (firebaseUser) {
           const idToken = await firebaseUser.getIdToken();
           createUser(idToken);
-
-          useAppStore.setState({
-            authenticated: true,
-            idToken,
-          });
         } else {
-          useAppStore.setState({
-            authenticated: false,
-            idToken: undefined,
-            currentUser: undefined,
-          });
+          resetAppStore();
+          apiQueryClient.clear();
         }
+
+        // Always set at the end since we reset the store if the user is not authenticated.
+        useAppStore.setState({ firebaseInitialized: true });
       }
     );
 
@@ -44,25 +44,27 @@ export default function Authenticator(props: { children: React.ReactNode }) {
     return () => {
       unsubscribe();
     };
-    // Need the [] to ensure this only runs once.
+    // Need the [] to ensure this only runs once and only sets one listener.
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Run whenever we get the current user from the API.
   useEffect(() => {
-    if (currentUser) {
+    if (createUserStatus === "success") {
       useAppStore.setState({
-        currentUser: currentUser,
+        authenticated: true,
+        accessToken: currentUser.accessToken,
+      });
+    } else {
+      useAppStore.setState({
+        authenticated: false,
+        accessToken: undefined,
       });
     }
+  }, [createUserStatus, currentUser]);
 
-    if (error) {
-      useAppStore.setState({
-        currentUser: undefined,
-      });
-    }
-  }, [currentUser, error]);
-
-  if (!authenticationInitialized) {
+  if (
+    createUserStatus === "pending" ||
+    (createUserStatus === "idle" && !firebaseInitialized)
+  ) {
     return <FullPageSpinner />;
   }
 
