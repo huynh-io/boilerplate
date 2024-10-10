@@ -1,4 +1,4 @@
-import useAppStore from "./app-store";
+import { useAppStore, resetAppStore } from "./app-store";
 import AppState from "./app-state";
 
-export { useAppStore, type AppState };
+export { useAppStore, resetAppStore, type AppState };
