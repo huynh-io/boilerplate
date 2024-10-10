@@ -1,10 +1,22 @@
 import { StateCreator } from "zustand";
+import { sliceResetFns } from "./reset";
+import { init } from "next/dist/compiled/webpack/webpack";
 
 export interface MobileSlice {
   isMobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
 }
-export const createMobileSlice: StateCreator<MobileSlice> = (set) => ({
+
+const initialMobileState: MobileSlice = {
   isMobileMenuOpen: false,
-  setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
-});
+  setMobileMenuOpen: () => {},
+};
+
+export const createMobileSlice: StateCreator<MobileSlice> = (set) => {
+  sliceResetFns.add(() => set(initialMobileState));
+
+  return {
+    ...initialMobileState,
+    setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
+  };
+};
