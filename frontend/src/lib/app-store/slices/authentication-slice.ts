@@ -1,18 +1,24 @@
 import { StateCreator } from "zustand";
-import { User } from "@/lib/api-store";
+import { sliceResetFns } from "./reset";
 
 export interface AuthenticationSlice {
   authenticated: boolean;
-  authenticationInitialized: boolean;
-  currentUser?: User;
-  idToken?: string;
+  accessToken?: string;
+  firebaseInitialized: boolean;
 }
 
-export const createAuthenticationSlice: StateCreator<
-  AuthenticationSlice
-> = () => ({
+const initialAuthenticationState: AuthenticationSlice = {
   authenticated: false,
-  authenticationInitialized: false,
-  idToken: undefined,
-  currentUser: undefined,
-});
+  accessToken: undefined,
+  firebaseInitialized: false,
+};
+
+export const createAuthenticationSlice: StateCreator<AuthenticationSlice> = (
+  set
+) => {
+  sliceResetFns.add(() => set(initialAuthenticationState));
+
+  return {
+    ...initialAuthenticationState,
+  };
+};

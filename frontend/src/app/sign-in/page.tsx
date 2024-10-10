@@ -22,7 +22,7 @@ export default function SignInPage() {
   }, [authenticated, router]);
 
   return (
-    <div className="flex items-start justify-center min-h-screen bg-background p-10">
+    <div className="flex items-start justify-center min-h-screen bg-background p-4">
       <AuthForm
         type="SignIn"
         onEmail={signInWithEmail}

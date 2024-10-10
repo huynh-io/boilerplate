@@ -12,16 +12,17 @@ export type Supplier = {
   id: string;
 };
 
-export function useGetSuppliers({ query }: { query?: string }) {
+export function useGetSuppliers(options?: { query?: string }) {
   return useInfiniteQuery(
     generateInfiniteQueryOptions({
-      queryKey: ["suppliers", query],
+      ...options,
+      queryKey: ["suppliers", options?.query],
       queryFn: async <Supplier>({
         pageParam,
       }: InfiniteQueryFnParams): Promise<Supplier[]> => {
         const urlWithPage = `/api/v1/suppliers?page=${pageParam}`;
-        const urlWithPageAndSearch = query
-          ? `${urlWithPage}&query=${query}`
+        const urlWithPageAndSearch = options?.query
+          ? `${urlWithPage}&query=${options.query}`
           : urlWithPage;
 
         const response = await apiClient.get<{ suppliers: Supplier[] }>(

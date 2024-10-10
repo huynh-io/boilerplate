@@ -15,7 +15,7 @@ RSpec.describe ApplicationPolicy, type: :policy do
     context 'when the user is authenticated' do
       let(:user) { create(:user) }
 
-      it 'raises an exception' do
+      it 'does not allow access' do
         expect(described_class).not_to permit(user, nil)
       end
     end
