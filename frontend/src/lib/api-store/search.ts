@@ -14,16 +14,17 @@ export type CatalogItem = {
   id: string;
 };
 
-export function useSearch({ query }: { query?: string }) {
+export function useSearch(options?: { query?: string }) {
   return useInfiniteQuery(
     generateInfiniteQueryOptions({
-      queryKey: ["search", query],
+      ...options,
+      queryKey: ["search", options?.query],
       queryFn: async <CatalogItem>({
         pageParam,
       }: InfiniteQueryFnParams): Promise<CatalogItem[]> => {
         const urlWithPage = `/api/v1/search?page=${pageParam}`;
-        const urlWithPageAndSearch = query
-          ? `${urlWithPage}&query=${query}`
+        const urlWithPageAndSearch = options?.query
+          ? `${urlWithPage}&query=${options.query}`
           : urlWithPage;
 
         const response = await apiClient.get<{ catalogItems: CatalogItem[] }>(
