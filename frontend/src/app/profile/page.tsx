@@ -12,7 +12,6 @@ export default function Profile() {
         <ProfileTabList />
 
         <ProfileTabContent />
-
         <OrderTabContent />
       </Tabs>
     </div>
