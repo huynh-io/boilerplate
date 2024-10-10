@@ -1,5 +1,4 @@
 import { StateCreator } from "zustand";
-import { User } from "@/lib/api-store";
 import { sliceResetFns } from "./reset";
 
 export interface AuthenticationSlice {

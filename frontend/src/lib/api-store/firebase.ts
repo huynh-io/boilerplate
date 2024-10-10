@@ -29,7 +29,7 @@ export const firebaseAnalytics = isSupported().then((yes) =>
 );
 export const googleAuthProvider = new GoogleAuthProvider();
 
-export function useSignInWithEmail(options?: {}) {
+export function useSignInWithEmail(options?: NonNullable<unknown>) {
   return useMutation({
     ...options,
     mutationFn: async ({
@@ -50,7 +50,7 @@ export function useSignInWithEmail(options?: {}) {
   });
 }
 
-export function useSignInWithGoogle(options?: {}) {
+export function useSignInWithGoogle(options?: NonNullable<unknown>) {
   return useMutation({
     ...options,
     mutationFn: async (): Promise<FirebaseUser> => {
@@ -64,7 +64,7 @@ export function useSignInWithGoogle(options?: {}) {
   });
 }
 
-export function useSignOut(options?: {}) {
+export function useSignOut(options?: NonNullable<unknown>) {
   return useMutation({
     ...options,
     mutationFn: async (): Promise<void> => {
@@ -73,7 +73,7 @@ export function useSignOut(options?: {}) {
   });
 }
 
-export function useSignUpWithEmail(options?: {}) {
+export function useSignUpWithEmail(options?: NonNullable<unknown>) {
   return useMutation({
     ...options,
     mutationFn: async ({

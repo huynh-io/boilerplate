@@ -1,6 +1,5 @@
 import { StateCreator } from "zustand";
 import { sliceResetFns } from "./reset";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 export interface MobileSlice {
   isMobileMenuOpen: boolean;

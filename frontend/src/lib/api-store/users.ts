@@ -8,8 +8,9 @@ export type User = {
   admin?: boolean;
 };
 
-export function useCreateUser(options?: {}) {
+export function useCreateUser(options?: NonNullable<unknown>) {
   return useMutation({
+    ...options,
     mutationFn: async (id_token: string): Promise<User> => {
       const response = await apiClient.post("/api/v1/users", {
         id_token,
@@ -20,7 +21,7 @@ export function useCreateUser(options?: {}) {
   });
 }
 
-export function useGetUsersMe(options?: {}) {
+export function useGetUsersMe(options?: NonNullable<unknown>) {
   return useQuery({
     ...options,
     queryKey: ["user"],
