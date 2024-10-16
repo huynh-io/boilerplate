@@ -1,5 +1,6 @@
 "use client";
 
+import ScrollableList from "@/components/scrollable-list";
 import SearchForm from "@/components/search-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,7 +26,7 @@ export default function SuppliersTabContent() {
   }, 100);
 
   const onSearch = (query: string) => {
-    router.push(`/search?q=${query}`);
+    router.push(`/admin?q=${query}`);
   };
 
   if (isError) {
@@ -57,14 +58,40 @@ export default function SuppliersTabContent() {
   return (
     <TabsContent value="suppliers">
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle>Suppliers</CardTitle>
-          <div className="w-full max-w-6xl mx-auto px-4 py-4">
-            <h1 className="text-3xl font-bold mb-4">What are you craving?</h1>
-            <SearchForm initialQuery={query} onSearch={onSearch} />
-          </div>
+          <SearchForm initialQuery={query} onSearch={onSearch} />
         </CardHeader>
-        <CardContent></CardContent>
+
+        <CardContent className="mt-4">
+          <ScrollableList bottomOffset="28rem">
+            <ul className="space-y-4">
+              {suppliers.map((supplier: Supplier) => (
+                <li key={supplier.id} className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900">
+                  <h2 className="text-xl font-semibold mb-2">{supplier.name}</h2>
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p className="flex items-center">
+                      <MapPinIcon className="mr-2 h-4 w-4" />
+                      {supplier.name}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </ScrollableList>
+
+          {hasNextPage && (
+            <div className="flex justify-center border-t mt-4 pt-6">
+              {isFetching ? (
+                <Loader2Icon className="animate-spin h-6 w-4 text-gray-500" />
+              ) : (
+                <Button variant="outline" size="sm" onClick={onLoadMore}>
+                  Load More
+                </Button>
+              )}
+            </div>
+          )}
+        </CardContent>
       </Card>
     </TabsContent>
   );

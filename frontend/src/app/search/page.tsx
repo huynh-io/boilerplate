@@ -56,6 +56,7 @@ export default function Search() {
             ))}
           </ul>
         </ScrollableList>
+
         {hasNextPage && (
           <div className="flex justify-center border-t mt-4 p-4">
             {isFetching ? (
