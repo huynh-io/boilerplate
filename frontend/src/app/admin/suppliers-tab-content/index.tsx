@@ -42,26 +42,6 @@ export default function SuppliersTabContent() {
 
   const suppliers = (data?.pages.flat() as Supplier[]) ?? [];
 
-  const suppliersList = suppliers.map((supplier: Supplier) => (
-    <li key={supplier.id} className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900">
-      <h2 className="text-xl font-semibold mb-2">{supplier.name}</h2>
-      <div className="text-sm text-gray-600 space-y-1">
-        <p className="flex items-center">
-          <MapPinIcon className="mr-2 h-4 w-4" />
-          {supplier.name}
-        </p>
-        <p className="flex items-center">
-          <PhoneIcon className="mr-2 h-4 w-4" />
-          {supplier.phone}
-        </p>
-        <p className="flex items-center">
-          <MailIcon className="mr-2 h-4 w-4" />
-          {supplier.email}
-        </p>
-      </div>
-    </li>
-  ));
-
   return (
     <TabsContent value="suppliers">
       <Card>
@@ -80,6 +60,14 @@ export default function SuppliersTabContent() {
                     <p className="flex items-center">
                       <MapPinIcon className="mr-2 h-4 w-4" />
                       {supplier.name}
+                    </p>
+                    <p className="flex items-center">
+                      <PhoneIcon className="mr-2 h-4 w-4" />
+                      {supplier.phone}
+                    </p>
+                    <p className="flex items-center">
+                      <MailIcon className="mr-2 h-4 w-4" />
+                      {supplier.email}
                     </p>
                   </div>
                 </li>
