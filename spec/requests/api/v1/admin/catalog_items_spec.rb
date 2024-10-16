@@ -3,9 +3,9 @@
 require 'rails_helper'
 require 'requests_helper'
 
-RSpec.describe 'Api::V1::CatalogItems' do
-  describe 'GET /api/v1/catalog_items' do
-    let(:get_request) { get '/api/v1/catalog_items' }
+RSpec.describe 'Api::V1::Admin::CatalogItems' do
+  describe 'GET /api/v1/admin/catalog_items' do
+    let(:get_request) { get '/api/v1/admin/catalog_items' }
 
     context 'without any params' do
       before do
@@ -31,7 +31,7 @@ RSpec.describe 'Api::V1::CatalogItems' do
     end
 
     context 'with query param' do
-      let(:get_request) { get '/api/v1/catalog_items?query=3' }
+      let(:get_request) { get '/api/v1/admin/catalog_items?query=3' }
 
       before do
         create(:catalog_item, item_data: { name: 'Item 1' })
@@ -59,9 +59,9 @@ RSpec.describe 'Api::V1::CatalogItems' do
     end
   end
 
-  describe 'GET /api/v1/catalog_items/:id' do
+  describe 'GET /api/v1/admin/catalog_items/:id' do
     let(:catalog_item) { create(:catalog_item) }
-    let(:get_request) { get "/api/v1/catalog_items/#{catalog_item.id}" }
+    let(:get_request) { get "/api/v1/admin/catalog_items/#{catalog_item.id}" }
 
     before do
       get_request

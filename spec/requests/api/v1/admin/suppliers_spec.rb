@@ -4,9 +4,9 @@ require 'rails_helper'
 require 'requests_helper'
 
 RSpec.describe 'Api::V1::Suppliers' do
-  describe 'GET /api/v1/suppliers' do
+  describe 'GET /api/v1/admin/suppliers' do
     context 'without any params' do
-      let(:get_request) { get '/api/v1/suppliers' }
+      let(:get_request) { get '/api/v1/admin/suppliers' }
 
       before do
         create(:supplier)
@@ -30,7 +30,7 @@ RSpec.describe 'Api::V1::Suppliers' do
     end
 
     context 'with query param' do
-      let(:get_request) { get '/api/v1/suppliers?query=3' }
+      let(:get_request) { get '/api/v1/admin/suppliers?query=3' }
 
       before do
         create(:supplier, name: 'Supplier 1')

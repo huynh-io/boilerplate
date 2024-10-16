@@ -5,11 +5,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       get :search, to: 'search#index'
 
-      resources :catalog_items, only: %i[index show]
       resources :users, only: %i[create] do
         get :me, on: :collection
       end
-      resources :suppliers, only: %i[index show]
+
+      namespace :admin do
+        resources :catalog_items, only: %i[index show]
+        resources :suppliers, only: %i[index show]
+      end
     end
   end
 
