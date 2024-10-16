@@ -3,14 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import React from "react";
 
 export interface AuthFormProps {
@@ -51,39 +44,19 @@ export default function AuthForm(props: AuthFormProps) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              ref={emailInput}
-              type="email"
-              placeholder="me@example.com"
-              required
-            />
+            <Input id="email" ref={emailInput} type="email" placeholder="me@example.com" required />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              ref={passwordInput}
-              type="password"
-              placeholder="password"
-              required
-            />
+            <Input id="password" ref={passwordInput} type="password" placeholder="password" required />
           </div>
         </CardContent>
 
         <CardFooter className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-2">
-          <Button
-            className="max-w-xs w-full"
-            onClick={onEmailSubmit}
-            type="submit"
-          >
+          <Button className="max-w-xs w-full" onClick={onEmailSubmit} type="submit">
             {cta}
           </Button>
-          <Button
-            variant="outline"
-            className="max-w-xs w-full"
-            onClick={props.onGoogle}
-          >
+          <Button variant="outline" className="max-w-xs w-full" onClick={props.onGoogle}>
             {cta} with Google
           </Button>
         </CardFooter>

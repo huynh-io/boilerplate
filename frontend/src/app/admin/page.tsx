@@ -26,7 +26,7 @@ export default function Component() {
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-background p-4">
-      <Tabs defaultValue="suppliers" className="w-full max-w-3xl">
+      <Tabs defaultValue="suppliers" className="w-full max-w-6xl">
         <AdminTabList />
 
         <SuppliersTabContent />

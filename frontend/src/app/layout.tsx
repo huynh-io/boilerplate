@@ -18,24 +18,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <ApiProvider>
             <Authenticator>
-              <div className="relative flex min-h-screen flex-col">
+              <div className="relative flex h-full max-h-screen flex-col overflow-clip">
                 <Header />
                 <main className="flex-1 mt-16">{children}</main>
               </div>
