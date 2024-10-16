@@ -22,7 +22,7 @@ export default function ScrollableList(props: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ScrollArea className="flex-grow rounded-md border" style={{ height: `calc(${viewportHeight}px - 8rem)` }}>
+    <ScrollArea className="flex-grow" style={{ height: `calc(${viewportHeight}px - 20rem)` }}>
       {props.children}
     </ScrollArea>
   );
