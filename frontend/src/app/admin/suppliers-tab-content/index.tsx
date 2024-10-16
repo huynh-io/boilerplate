@@ -10,6 +10,13 @@ import debounce from "debounce";
 import { Loader2Icon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+// TODOs:
+// 1. Add address to supplier model
+// 2. render address, email, and phone in supplier list
+// 3. Make admin/suppliers API protected
+// 4. Add create, update, destroy API operations for suppliers
+// 5. Create UI for creating, updating, and destroying suppliers
+// 6. Update tabs to use own set of query params
 export default function SuppliersTabContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
