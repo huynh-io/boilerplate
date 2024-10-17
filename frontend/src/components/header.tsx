@@ -7,11 +7,10 @@ import { Button } from "@/components/ui/button";
 import { useAppStore, AppState } from "@/lib/app-store";
 
 export default function Header() {
-  const { authenticated, isMobileMenuOpen, setMobileMenuOpen } = useAppStore((state: AppState) => {
+  const { authenticated, isMobileMenuOpen } = useAppStore((state: AppState) => {
     return {
       authenticated: state.authenticated,
       isMobileMenuOpen: state.isMobileMenuOpen,
-      setMobileMenuOpen: state.setMobileMenuOpen,
     };
   });
 
@@ -53,7 +52,7 @@ export default function Header() {
             )}
           </div>
           <div className="md:hidden">
-            <Button variant="ghost" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+            <Button variant="ghost" onClick={() => useAppStore.setState({ isMobileMenuOpen: !isMobileMenuOpen })}>
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>

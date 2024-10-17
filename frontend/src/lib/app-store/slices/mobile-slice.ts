@@ -3,12 +3,10 @@ import { sliceResetFns } from "./reset";
 
 export interface MobileSlice {
   isMobileMenuOpen: boolean;
-  setMobileMenuOpen: (open: boolean) => void;
 }
 
 const initialMobileState: MobileSlice = {
   isMobileMenuOpen: false,
-  setMobileMenuOpen: () => {},
 };
 
 export const createMobileSlice: StateCreator<MobileSlice> = (set) => {
@@ -16,6 +14,5 @@ export const createMobileSlice: StateCreator<MobileSlice> = (set) => {
 
   return {
     ...initialMobileState,
-    setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
   };
 };
