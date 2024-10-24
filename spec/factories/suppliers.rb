@@ -21,9 +21,12 @@ FactoryBot.define do
   factory :supplier do
     name { Faker::Company.name }
     email { Faker::Internet.email }
+    phone { Faker::PhoneNumber.phone_number }
 
-    after(:create) do |supplier|
-      create(:address, addressable: supplier)
+    trait :with_address do
+      after(:create) do |supplier|
+        create(:address, addressable: supplier)
+      end
     end
   end
 end

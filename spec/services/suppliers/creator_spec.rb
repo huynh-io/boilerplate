@@ -17,7 +17,7 @@ RSpec.describe Suppliers::Creator, type: :service do
 
   describe '#call' do
     context 'with valid params' do
-      it 'creates a new User' do
+      it 'creates a new Supplier' do
         expect { described_class.call(params: valid_params) }.to change(Supplier, :count).by(1)
 
         supplier = Supplier.order(:created_at).last
