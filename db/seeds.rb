@@ -1,13 +1,24 @@
 # frozen_string_literal: true
 
 def create_supplier
-  Suppliers::Creator.call(
+  supplier = Suppliers::Creator.call(
     params: {
       name: Faker::Company.name,
       email: Faker::Internet.email,
       phone: Faker::PhoneNumber.phone_number
     }
   )
+  Addresses::Creator.call(
+    params: {
+      addressable: supplier,
+      address_one: Faker::Address.street_address,
+      address_two: Faker::Address.secondary_address,
+      city: Faker::Address.city,
+      state: Faker::Address.state,
+      zip_code: Faker::Address.zip_code
+    }
+  )
+  supplier
 rescue ActiveRecord::RecordInvalid
   # Try again if we hit duplicate name, email, or phone
   create_supplier

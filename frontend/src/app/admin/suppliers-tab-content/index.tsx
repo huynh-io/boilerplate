@@ -12,8 +12,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 // Done:
 // 1. Add address to supplier model
-// TODOs:
 // 2. render address, email, and phone in supplier list
+// TODOs:
 // 3. Make admin/suppliers API protected
 // 4. Add create, update, destroy API operations for suppliers
 // 5. Create UI for creating, updating, and destroying suppliers
