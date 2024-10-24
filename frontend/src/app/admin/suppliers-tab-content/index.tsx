@@ -10,8 +10,9 @@ import debounce from "debounce";
 import { Loader2Icon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// TODOs:
+// Done:
 // 1. Add address to supplier model
+// TODOs:
 // 2. render address, email, and phone in supplier list
 // 3. Make admin/suppliers API protected
 // 4. Add create, update, destroy API operations for suppliers

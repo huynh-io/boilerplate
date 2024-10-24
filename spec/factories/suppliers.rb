@@ -21,5 +21,9 @@ FactoryBot.define do
   factory :supplier do
     name { Faker::Company.name }
     email { Faker::Internet.email }
+
+    after(:create) do |supplier|
+      create(:address, addressable: supplier)
+    end
   end
 end

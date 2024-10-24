@@ -26,6 +26,12 @@ RSpec.describe 'Api::V1::Suppliers' do
         expect(first_object).to have_key('name')
         expect(first_object).to have_key('updated_at')
         expect(first_object).to have_key('created_at')
+        expect(first_object).to have_key('address')
+        expect(first_object['address']).to have_key('address_one')
+        expect(first_object['address']).to have_key('address_two')
+        expect(first_object['address']).to have_key('city')
+        expect(first_object['address']).to have_key('state')
+        expect(first_object['address']).to have_key('zip_code')
       end
     end
 
@@ -54,6 +60,11 @@ RSpec.describe 'Api::V1::Suppliers' do
         expect(first_object).to have_key('name')
         expect(first_object).to have_key('updated_at')
         expect(first_object).to have_key('created_at')
+        expect(first_object['address']).to have_key('address_one')
+        expect(first_object['address']).to have_key('address_two')
+        expect(first_object['address']).to have_key('city')
+        expect(first_object['address']).to have_key('state')
+        expect(first_object['address']).to have_key('zip_code')
       end
     end
   end
