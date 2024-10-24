@@ -60,7 +60,7 @@ export default function SuppliersTabContent() {
                   <div className="text-sm text-gray-600 space-y-1">
                     <p className="flex items-center">
                       <MapPinIcon className="mr-2 h-4 w-4" />
-                      {supplier.name}
+                      {supplier.address.addressOne}, {supplier.address.city}, {supplier.address.state} {supplier.address.zip_code}
                     </p>
                     <p className="flex items-center">
                       <PhoneIcon className="mr-2 h-4 w-4" />
