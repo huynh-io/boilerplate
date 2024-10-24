@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_24_032742) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_24_035910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_032742) do
     t.string "state"
     t.string "address_one"
     t.string "address_two"
-    t.string "zip"
+    t.string "zip_code"
     t.string "addressable_type"
     t.uuid "addressable_id"
     t.datetime "created_at", null: false

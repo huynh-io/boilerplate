@@ -10,9 +10,10 @@ import debounce from "debounce";
 import { Loader2Icon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-// TODOs:
+// Done:
 // 1. Add address to supplier model
 // 2. render address, email, and phone in supplier list
+// TODOs:
 // 3. Make admin/suppliers API protected
 // 4. Add create, update, destroy API operations for suppliers
 // 5. Create UI for creating, updating, and destroying suppliers
@@ -59,7 +60,7 @@ export default function SuppliersTabContent() {
                   <div className="text-sm text-gray-600 space-y-1">
                     <p className="flex items-center">
                       <MapPinIcon className="mr-2 h-4 w-4" />
-                      {supplier.name}
+                      {supplier.address.addressOne}, {supplier.address.city}, {supplier.address.state} {supplier.address.zip_code}
                     </p>
                     <p className="flex items-center">
                       <PhoneIcon className="mr-2 h-4 w-4" />

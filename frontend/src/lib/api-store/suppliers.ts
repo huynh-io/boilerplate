@@ -1,11 +1,13 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { apiClient, generateInfiniteQueryOptions, InfiniteQueryFnParams } from "./api-client";
+import { Address } from "./addresses";
 
 export type Supplier = {
-  email: string;
-  name: string;
-  phone: string;
   id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: Address;
 };
 
 export function useGetAdminSuppliers(options?: { query?: string }) {
