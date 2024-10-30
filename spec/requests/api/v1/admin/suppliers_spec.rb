@@ -3,7 +3,47 @@
 require 'rails_helper'
 require 'requests_helper'
 
-RSpec.describe 'Api::V1::Suppliers' do
+RSpec.describe 'Api::V1::Admin::Suppliers' do
+  describe 'GET /api/v1/admin/suppliers/:id' do
+    context 'when user is not an admin' do
+      let(:supplier) { create(:supplier, :with_address) }
+      let(:get_request) { get "/api/v1/admin/suppliers/#{supplier.id}" }
+
+      before do
+        get_request
+      end
+
+      it 'returns 403' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context 'when user is an admin' do
+      include_context 'when the user is an authenticated admin'
+
+      let(:supplier) { create(:supplier, :with_address) }
+      let(:get_request) { get "/api/v1/admin/suppliers/#{supplier.id}", headers: authorization_header }
+
+      before do
+        get_request
+      end
+
+      it 'returns 200' do
+        expect(response).to have_http_status(:success)
+        expect(response_body).to have_key('id')
+        expect(response_body).to have_key('name')
+        expect(response_body).to have_key('updated_at')
+        expect(response_body).to have_key('created_at')
+        expect(response_body).to have_key('address')
+        expect(response_body['address']).to have_key('address_one')
+        expect(response_body['address']).to have_key('address_two')
+        expect(response_body['address']).to have_key('city')
+        expect(response_body['address']).to have_key('state')
+        expect(response_body['address']).to have_key('zip_code')
+      end
+    end
+  end
+
   describe 'GET /api/v1/admin/suppliers' do
     context 'when user is not an admin' do
       context 'without any params' do

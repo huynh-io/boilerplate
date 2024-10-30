@@ -11,18 +11,19 @@ module Api
 
           render :index, status: :ok
         end
-      end
 
-      def show
-        @supplier = Supplier.find(show_params[:supplier_id])
+        def show
+          @supplier = Supplier.find(show_params[:id])
+          authorize @supplier, policy_class: ::Admin::BasePolicy
 
-        render :show, status: :ok
-      end
+          render :show, status: :ok
+        end
 
-      private
+        private
 
-      def show_params
-        params.permit(:supplier_id)
+        def show_params
+          params.permit(:id)
+        end
       end
     end
   end
