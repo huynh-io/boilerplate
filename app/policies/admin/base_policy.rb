@@ -38,7 +38,7 @@ module Admin
       true
     end
 
-    class Scope
+    class Scope < ApplicationPolicy::Scope
       def initialize(user, scope)
         super
         raise Pundit::NotAuthorizedError, 'must be an admin' unless user.admin?
