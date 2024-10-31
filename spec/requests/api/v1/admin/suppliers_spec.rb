@@ -5,13 +5,13 @@ require 'requests_helper'
 
 RSpec.describe 'Api::V1::Admin::Suppliers' do
   describe 'GET /api/v1/admin/suppliers/:id' do
+    before do
+      get_request
+    end
+
     context 'when user is not an admin' do
       let(:supplier) { create(:supplier, :with_address) }
       let(:get_request) { get "/api/v1/admin/suppliers/#{supplier.id}" }
-
-      before do
-        get_request
-      end
 
       it 'returns 403' do
         expect(response).to have_http_status(:forbidden)
@@ -24,14 +24,12 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
       let(:supplier) { create(:supplier, :with_address) }
       let(:get_request) { get "/api/v1/admin/suppliers/#{supplier.id}", headers: authorization_header }
 
-      before do
-        get_request
-      end
-
       it 'returns 200' do
         expect(response).to have_http_status(:success)
         expect(response_body).to have_key('id')
         expect(response_body).to have_key('name')
+        expect(response_body).to have_key('email')
+        expect(response_body).to have_key('phone')
         expect(response_body).to have_key('updated_at')
         expect(response_body).to have_key('created_at')
         expect(response_body).to have_key('address')
@@ -45,12 +43,12 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
   end
 
   describe 'POST /api/v1/admin/suppliers' do
+    before do
+      post_request
+    end
+
     context 'when user is not an admin' do
       let(:post_request) { post '/api/v1/admin/suppliers' }
-
-      before do
-        post_request
-      end
 
       it 'returns 403' do
         expect(response).to have_http_status(:forbidden)
@@ -150,6 +148,8 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
           first_object = response_body['suppliers'].first
           expect(first_object).to have_key('id')
           expect(first_object).to have_key('name')
+          expect(first_object).to have_key('email')
+          expect(first_object).to have_key('phone')
           expect(first_object).to have_key('updated_at')
           expect(first_object).to have_key('created_at')
           expect(first_object).to have_key('address')

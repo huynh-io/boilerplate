@@ -6,9 +6,15 @@ class ApplicationController < ActionController::API
 
   after_action :inject_pagy_headers
 
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   private
 
   def inject_pagy_headers
     pagy_headers_merge(@pagy) if @pagy
+  end
+
+  def record_not_found
+    render json: { error: 'Record not found' }, status: :not_found
   end
 end
