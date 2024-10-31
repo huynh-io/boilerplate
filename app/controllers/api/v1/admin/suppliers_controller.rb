@@ -13,8 +13,8 @@ module Api
         end
 
         def show
-          @supplier = Supplier.find(show_params[:id])
-          authorize @supplier, policy_class: ::Admin::BasePolicy
+          authorize Supplier, policy_class: ::Admin::BasePolicy
+          @supplier = Supplier.find(params[:id])
 
           render :show, status: :ok
         end
@@ -27,19 +27,20 @@ module Api
         end
 
         def update
-          authorize @supplier, policy_class: ::Admin::BasePolicy
+          authorize Supplier, policy_class: ::Admin::BasePolicy
+          @supplier = Suppliers::Updater.call(params: update_params.to_h)
 
           render :show, status: :ok
         end
 
         private
 
-        def show_params
-          params.permit(:id)
-        end
-
         def create_params
           params.permit(:name, :email, :phone, address: %i[address_one address_two city state zip_code])
+        end
+
+        def update_params
+          params.permit(:id, :name, :email, :phone, address: %i[address_one address_two city state zip_code])
         end
       end
     end
