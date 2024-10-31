@@ -5,7 +5,7 @@ require 'requests_helper'
 
 RSpec.describe 'Api::V1::Users' do
   describe 'GET /api/v1/users/me' do
-    context 'when the user is not authorized' do
+    context 'when the user is not authenticated' do
       let(:get_request) { get '/api/v1/users/me' }
 
       before do

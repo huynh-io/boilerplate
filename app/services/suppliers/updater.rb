@@ -1,21 +1,22 @@
 # frozen_string_literal: true
 
 module Suppliers
-  class Creator < ApplicationService
-    attr_accessor :params, :address_params
+  class Updater < ApplicationService
+    attr_accessor :supplier, :params, :address_params
 
     def initialize(params:)
       params = params.with_indifferent_access
+      @supplier = Supplier.find(params[:id])
       @address_params = params[:address]
-      @params = params.except!(:address)
+      @params = params.except!(:address, :id)
     end
 
     def call
-      supplier = Supplier.create!(params)
+      supplier.update!(params)
 
       if address_params
         address_params[:addressable] = supplier
-        Addresses::Creator.call(params: address_params)
+        Addresses::Updater.call(params: address_params)
       end
 
       supplier
