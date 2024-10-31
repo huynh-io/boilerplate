@@ -39,6 +39,14 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
         expect(response_body['address']).to have_key('state')
         expect(response_body['address']).to have_key('zip_code')
       end
+
+      context 'when the no record matches the params' do
+        let(:get_request) { get '/api/v1/admin/suppliers/FAKEID', headers: authorization_header }
+
+        it 'returns 404' do
+          expect(response).to have_http_status(:not_found)
+        end
+      end
     end
   end
 
@@ -88,6 +96,17 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
         expect(response_body['address']['city']).to eq(supplier.address.city)
         expect(response_body['address']['state']).to eq(supplier.address.state)
         expect(response_body['address']['zip_code']).to eq(supplier.address.zip_code)
+      end
+
+      context 'when the params are invalid' do
+        let(:invalid_supplier_params) { { email: nil } }
+        let(:post_request) do
+          post '/api/v1/admin/suppliers', params: invalid_supplier_params, headers: authorization_header
+        end
+
+        it 'returns 422' do
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
       end
     end
   end
@@ -151,6 +170,27 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
         expect(response_body['address']['city']).to eq(supplier.address.city)
         expect(response_body['address']['state']).to eq(supplier.address.state)
         expect(response_body['address']['zip_code']).to eq(supplier.address.zip_code)
+      end
+
+      context 'when the no record matches the params' do
+        let(:put_request) do
+          put '/api/v1/admin/suppliers/FAKEID', params: supplier_params, headers: authorization_header
+        end
+
+        it 'returns 404' do
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+
+      context 'when the params are invalid' do
+        let(:invalid_supplier_params) { { email: nil } }
+        let(:put_request) do
+          put "/api/v1/admin/suppliers/#{supplier.id}", params: invalid_supplier_params, headers: authorization_header
+        end
+
+        it 'returns 422' do
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
       end
     end
   end
