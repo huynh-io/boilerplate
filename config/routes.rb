@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
       namespace :admin do
         resources :catalog_items, only: %i[index show]
-        resources :suppliers
+        resources :suppliers, only: %i[index show create update]
       end
     end
   end
