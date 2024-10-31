@@ -44,6 +44,58 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
     end
   end
 
+  describe 'POST /api/v1/admin/suppliers' do
+    context 'when user is not an admin' do
+      let(:post_request) { post '/api/v1/admin/suppliers' }
+
+      before do
+        post_request
+      end
+
+      it 'returns 403' do
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context 'when user is an admin' do
+      include_context 'when the user is an authenticated admin'
+
+      let(:supplier_params) do
+        {
+          name: Faker::Company.name,
+          email: Faker::Internet.email,
+          phone: Faker::PhoneNumber.phone_number,
+          address: {
+            address_one: Faker::Address.street_address,
+            address_two: Faker::Address.secondary_address,
+            city: Faker::Address.city,
+            state: Faker::Address.state,
+            zip_code: Faker::Address.zip_code
+          }
+        }
+      end
+      let(:post_request) { post '/api/v1/admin/suppliers', params: supplier_params, headers: authorization_header }
+
+      before do
+        post_request
+      end
+
+      it 'returns 200' do
+        expect(response).to have_http_status(:success)
+        expect(response_body).to have_key('id')
+        expect(response_body).to have_key('name')
+        expect(response_body).to have_key('updated_at')
+        expect(response_body).to have_key('created_at')
+        expect(response_body).to have_key('address')
+        expect(response_body['address']).to have_key('address_one')
+        expect(response_body['address']).to have_key('address_two')
+        expect(response_body['address']).to have_key('city')
+        expect(response_body['address']).to have_key('state')
+        expect(response_body['address']).to have_key('zip_code')
+      end
+    end
+  end
+
   describe 'GET /api/v1/admin/suppliers' do
     context 'when user is not an admin' do
       context 'without any params' do

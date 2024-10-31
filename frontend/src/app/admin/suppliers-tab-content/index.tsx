@@ -13,8 +13,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 // Done:
 // 1. Add address to supplier model
 // 2. render address, email, and phone in supplier list
-// TODOs:
 // 3. Make admin/suppliers API protected
+// TODOs:
 // 4. Add create, update, destroy API operations for suppliers
 // 5. Create UI for creating, updating, and destroying suppliers
 // 6. Update tabs to use own set of query params
@@ -23,9 +23,10 @@ export default function SuppliersTabContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") ?? undefined;
 
-  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } = useGetAdminSuppliers({
-    query: query,
-  });
+  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } =
+    useGetAdminSuppliers({
+      query: query,
+    });
 
   const onLoadMore = debounce(() => {
     if (!isFetching) {
@@ -55,12 +56,18 @@ export default function SuppliersTabContent() {
           <ScrollableList bottomOffset="28rem">
             <ul className="space-y-4">
               {suppliers.map((supplier: Supplier) => (
-                <li key={supplier.id} className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900">
-                  <h2 className="text-xl font-semibold mb-2">{supplier.name}</h2>
+                <li
+                  key={supplier.id}
+                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900"
+                >
+                  <h2 className="text-xl font-semibold mb-2">
+                    {supplier.name}
+                  </h2>
                   <div className="text-sm text-gray-600 space-y-1">
                     <p className="flex items-center">
                       <MapPinIcon className="mr-2 h-4 w-4" />
-                      {supplier.address.addressOne}, {supplier.address.city}, {supplier.address.state} {supplier.address.zip_code}
+                      {supplier.address.addressOne}, {supplier.address.city},{" "}
+                      {supplier.address.state} {supplier.address.zip_code}
                     </p>
                     <p className="flex items-center">
                       <PhoneIcon className="mr-2 h-4 w-4" />

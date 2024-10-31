@@ -19,10 +19,27 @@ module Api
           render :show, status: :ok
         end
 
+        def create
+          authorize Supplier, policy_class: ::Admin::BasePolicy
+          @supplier = Suppliers::Creator.call(params: create_params.to_h)
+
+          render :show, status: :ok
+        end
+
+        def update
+          authorize @supplier, policy_class: ::Admin::BasePolicy
+
+          render :show, status: :ok
+        end
+
         private
 
         def show_params
           params.permit(:id)
+        end
+
+        def create_params
+          params.permit(:name, :email, :phone, address: %i[address_one address_two city state zip_code])
         end
       end
     end

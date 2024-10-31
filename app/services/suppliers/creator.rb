@@ -2,14 +2,23 @@
 
 module Suppliers
   class Creator < ApplicationService
-    attr_accessor :params
+    attr_accessor :params, :address_params
 
     def initialize(params:)
-      @params = params.with_indifferent_access
+      params = params.with_indifferent_access
+      @address_params = params[:address]
+      @params = params.except!(:address)
     end
 
     def call
-      Supplier.create!(params)
+      supplier = Supplier.create!(params)
+
+      if address_params
+        address_params[:addressable] = supplier
+        Addresses::Creator.call(params: address_params)
+      end
+
+      supplier
     end
   end
 end
