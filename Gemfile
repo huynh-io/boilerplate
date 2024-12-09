@@ -41,7 +41,7 @@ gem 'rack-cors'
 gem 'firebase_id_token', '~> 3.0'
 
 # Pagination
-gem 'pagy', '~> 9.1'
+gem 'pagy', '~> 9.3'
 
 # Need explicit dependency
 gem 'csv', '~> 3.3'
