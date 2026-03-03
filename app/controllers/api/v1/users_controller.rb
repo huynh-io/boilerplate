@@ -33,7 +33,7 @@ module Api
 
           render :show, status: :ok
         else
-          render json: { error: 'Invalid ID token' }, status: :unprocessable_entity
+          render json: { error: 'Invalid ID token' }, status: :unprocessable_content
         end
       end
 

@@ -5,7 +5,7 @@ if Rails.env.development?
   require 'annotate_rb'
 
   task set_annotation_options: :environment do
-    AnnotateRb::Options.load_from({
+    AnnotateRb::Options.from({
       position_in_class: 'before',
       position_in_test: 'before',
       position_in_fixture: 'before',
@@ -26,5 +26,5 @@ if Rails.env.development?
     })
   end
 
-  AnnotateRb::Core.load_tasks
+  AnnotateRb::Core.load_rake_tasks
 end
