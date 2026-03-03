@@ -7,17 +7,17 @@ ruby '3.4.8'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 8.1.0'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.5'
+gem 'pg', '~> 1.6'
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '>= 5.0'
+gem 'puma', '~> 7.2'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '>= 4.0.1'
+gem 'redis', '~> 5.4'
 # Sidekiq to execute background jobs
-gem 'sidekiq', '>= 4.0.1'
+gem 'sidekiq', '~> 8.1'
 # Ensure migrations are safe to run in production
-gem 'strong_migrations', '~> 2.0'
+gem 'strong_migrations', '~> 2.5'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -42,16 +42,16 @@ gem 'rack-cors'
 gem 'firebase_id_token', path: 'vendor/gems/firebase_id_token'
 
 # Pagination
-gem 'pagy', '~> 9.1'
+gem 'pagy', '~> 9.4'
 
 # Need explicit dependency
 gem 'csv', '~> 3.3'
 
 # Use for development, testing, and production seed data
-gem 'faker', '~> 3.5'
+gem 'faker', '~> 3.6'
 
 # Authorization
-gem 'pundit', '~> 2.4'
+gem 'pundit', '~> 2.5'
 
 group :development, :test do
   # Annotation of models database schema (Rails 8 compatible replacement for annotate)
@@ -60,7 +60,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 
-  gem 'dotenv-rails', '~> 3.1'
+  gem 'dotenv-rails', '~> 3.2'
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem 'brakeman', require: false
@@ -69,10 +69,10 @@ group :development, :test do
   gem 'factory_bot_rails'
 
   # Use Pry for debugging
-  gem 'pry-rails', '~> 0.3.11'
+  gem 'pry-rails'
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem 'rubocop', '~> 1.67'
+  gem 'rubocop', '~> 1.85'
   gem 'rubocop-factory_bot', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
