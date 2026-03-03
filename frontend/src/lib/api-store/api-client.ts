@@ -62,7 +62,7 @@ export function generateInfiniteQueryOptions({
     queryKey: queryKey,
     queryFn: queryFn,
     initialPageParam: 1,
-    getNextPageParam: (lastPage, _allPages, lastPageParam) => {
+    getNextPageParam: (lastPage: unknown[], _allPages, lastPageParam) => {
       if (lastPage.length === 0) {
         return undefined;
       }
