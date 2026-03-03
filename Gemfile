@@ -38,7 +38,8 @@ gem 'bootsnap', require: false
 gem 'rack-cors'
 
 # Use the Firebase ID Token gem to verify Firebase ID tokens
-gem 'firebase_id_token', '~> 3.0'
+# Vendored to loosen activesupport constraint for Rails 8 compatibility
+gem 'firebase_id_token', path: 'vendor/gems/firebase_id_token'
 
 # Pagination
 gem 'pagy', '~> 9.1'
@@ -53,8 +54,8 @@ gem 'faker', '~> 3.5'
 gem 'pundit', '~> 2.4'
 
 group :development, :test do
-  # Annotation of models database schema
-  gem 'annotate', '~> 3.2'
+  # Annotation of models database schema (Rails 8 compatible replacement for annotate)
+  gem 'annotaterb'
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
