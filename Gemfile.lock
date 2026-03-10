@@ -193,7 +193,10 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.1-x86_64-linux-gnu)
       racc (~> 1.4)
-    pagy (9.4.0)
+    pagy (43.3.2)
+      json
+      uri
+      yaml
     parallel (1.27.0)
     parser (3.3.10.2)
       ast (~> 2.4.1)
@@ -351,6 +354,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yaml (0.4.0)
     zeitwerk (2.7.5)
 
 PLATFORMS
@@ -372,7 +376,7 @@ DEPENDENCIES
   faker (~> 3.6)
   firebase_id_token!
   jbuilder
-  pagy (~> 9.4)
+  pagy (~> 43.3)
   pg (~> 1.6)
   pry-rails
   puma (~> 7.2)
