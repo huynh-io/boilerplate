@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, type FirebaseApp } from "firebase/app";
 import { useMutation } from "@tanstack/react-query";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import {
@@ -8,7 +8,8 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
-  User as FirebaseUser,
+  type Auth,
+  type User as FirebaseUser,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -21,12 +22,37 @@ const firebaseConfig = {
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig);
-export const firebaseAuth = getAuth(firebaseApp);
-export const firebaseAnalytics = isSupported().then((yes) =>
-  yes ? getAnalytics(firebaseApp) : null
-);
+const isFirebaseConfigured = Boolean(firebaseConfig.apiKey);
+
+// Initialize Firebase lazily — only when credentials are present.
+// During static builds (next build) env vars may be empty, so eager
+// initialization would throw "auth/invalid-api-key".
+let _app: FirebaseApp | undefined;
+let _auth: Auth | undefined;
+
+function getFirebaseApp(): FirebaseApp {
+  if (!_app) {
+    _app = initializeApp(firebaseConfig);
+  }
+  return _app;
+}
+
+function getFirebaseAuth(): Auth {
+  if (!_auth) {
+    _auth = getAuth(getFirebaseApp());
+  }
+  return _auth;
+}
+
+/** @deprecated Use getFirebaseAuth() — kept for backward compatibility */
+export const firebaseAuth = isFirebaseConfigured
+  ? getFirebaseAuth()
+  : (undefined as unknown as Auth);
+
+export const firebaseAnalytics = isFirebaseConfigured
+  ? isSupported().then((yes) => (yes ? getAnalytics(getFirebaseApp()) : null))
+  : Promise.resolve(null);
+
 export const googleAuthProvider = new GoogleAuthProvider();
 
 export function useSignInWithEmail(options?: NonNullable<unknown>) {
