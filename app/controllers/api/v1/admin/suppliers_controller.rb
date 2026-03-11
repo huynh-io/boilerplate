@@ -7,7 +7,7 @@ module Api
         def index
           scope = Suppliers::Searcher.call(query: index_params[:query])
           scope = policy_scope(scope, policy_scope_class: ::Admin::BasePolicy::Scope)
-          @pagy, @suppliers = pagy(scope)
+          @pagy, @suppliers = pagy(:offset, scope)
 
           render :index, status: :ok
         end

@@ -6,7 +6,7 @@ module Api
       class CatalogItemsController < ApplicationController
         def index
           scope = CatalogItems::Searcher.call(query: index_params[:query])
-          @pagy, @catalog_items = pagy(scope)
+          @pagy, @catalog_items = pagy(:offset, scope)
 
           render :index, status: :ok
         end

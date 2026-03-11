@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  include Pagy::Backend
+  include Pagy::Method
   include Pageable
 
   after_action :inject_pagy_headers
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
   private
 
   def inject_pagy_headers
-    pagy_headers_merge(@pagy) if @pagy
+    response.headers.merge!(@pagy.headers_hash) if @pagy
   end
 
   def record_not_found
