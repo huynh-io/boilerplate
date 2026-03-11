@@ -4,6 +4,7 @@
 # Tightly coupled with Pundit Policy classes.
 class AuthorizedController < ApplicationController
   include Pundit::Authorization
+
   # Ensure that we authorizing all actions in the controller that inherits from this one
   after_action :verify_pundit_authorization
 
@@ -28,7 +29,11 @@ class AuthorizedController < ApplicationController
   def current_user
     return unless access_token
 
-    @current_user ||= User.find_by(access_token:)
+    if defined?(@current_user)
+      @current_user
+    else
+      @current_user = User.find_by(access_token:)
+    end
   end
 
   def access_token

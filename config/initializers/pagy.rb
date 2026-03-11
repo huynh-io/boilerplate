@@ -10,7 +10,7 @@
 # The headers_hash helper reads from options[:headers_map] or falls back to Pagy::DEFAULT_HEADERS_MAP
 # DEFAULT_HEADERS_MAP = { page: 'current-page', limit: 'page-limit', count: 'total-count', pages: 'total-pages' }
 # Override to match existing API contract:
-Pagy::OPTIONS[:headers_map] = { page:  'Current-Page',
+Pagy::OPTIONS[:headers_map] = { page: 'Current-Page',
                                 limit: 'Page-Items',
                                 count: 'Total-Count',
                                 pages: 'Total-Pages' }.freeze

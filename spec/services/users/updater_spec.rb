@@ -14,7 +14,7 @@ RSpec.describe Users::Updater, type: :service do
       {
         id: user.id,
         email: Faker::Internet.email,
-        custom_metadata: { 'key' => Faker::Lorem.word },
+        custom_metadata: { 'key' => Faker::Lorem.word }
       }
     end
 
@@ -22,7 +22,7 @@ RSpec.describe Users::Updater, type: :service do
       {
         id: SecureRandom.uuid,
         email: Faker::Internet.email,
-        custom_metadata: { 'key' => Faker::Lorem.word },
+        custom_metadata: { 'key' => Faker::Lorem.word }
       }
     end
 
@@ -36,7 +36,6 @@ RSpec.describe Users::Updater, type: :service do
 
         expect(user.email).to eq(valid_updates[:email])
         expect(user.custom_metadata).to eq(valid_updates[:custom_metadata])
-
       end
     end
 

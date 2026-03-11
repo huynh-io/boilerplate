@@ -36,7 +36,7 @@ def create_catalog_item(supplier:)
 end
 
 def seed_suppliers
-  return unless Supplier.count.zero?
+  return unless Supplier.none?
 
   100.times do
     create_supplier.tap do |supplier|

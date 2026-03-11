@@ -17,7 +17,7 @@ module Api
           render :show, status: :ok
         end
 
-        # TODO:
+        # TODO: Implement create action with admin authorization
         # - move this action specifically under admin namespace
         # - Make it a protected action that only the user with the right permissions can access
         # - Add the notion of an admin

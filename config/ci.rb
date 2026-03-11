@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 # Run using bin/ci
 
 CI.run do
-  step "Setup", "bin/setup --skip-server"
+  step 'Setup', 'bin/setup --skip-server'
 
-  step "Style: Ruby", "bin/rubocop"
+  step 'Style: Ruby', 'bin/rubocop'
 
-  step "Security: Brakeman code analysis", "bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error"
-  step "Tests: RSpec", "bundle exec rspec"
+  step 'Security: Brakeman code analysis', 'bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error'
+  step 'Tests: RSpec', 'bundle exec rspec'
 
   # Optional: Run system tests
   # step "Tests: System", "bin/rails test:system"
