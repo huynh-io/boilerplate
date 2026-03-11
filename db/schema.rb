@@ -10,50 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_24_035910) do
+ActiveRecord::Schema[8.1].define(version: 2024_10_24_035910) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "city"
-    t.string "state"
     t.string "address_one"
     t.string "address_two"
-    t.string "zip_code"
-    t.string "addressable_type"
     t.uuid "addressable_id"
+    t.string "addressable_type"
+    t.string "city"
     t.datetime "created_at", null: false
+    t.string "state"
     t.datetime "updated_at", null: false
+    t.string "zip_code"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "catalog_objects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "type"
+    t.datetime "created_at", null: false
     t.jsonb "item_data", default: {}
     t.uuid "supplier_id", null: false
-    t.datetime "created_at", null: false
+    t.string "type"
     t.datetime "updated_at", null: false
     t.index ["supplier_id"], name: "index_catalog_objects_on_supplier_id"
   end
 
   create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "email"
+    t.string "name"
     t.string "phone"
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_suppliers_on_email", unique: true
     t.index ["name"], name: "index_suppliers_on_name", unique: true
     t.index ["phone"], name: "index_suppliers_on_phone", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "email"
-    t.jsonb "custom_metadata"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "access_token"
     t.boolean "admin", default: false, null: false
+    t.datetime "created_at", null: false
+    t.jsonb "custom_metadata"
+    t.string "email"
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

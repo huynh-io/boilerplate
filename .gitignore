@@ -48,3 +48,7 @@ config/database.yml
 /config/credentials/development.key
 
 /config/credentials/test.key
+
+# Ignore key files for decrypting credentials and more.
+/config/credentials/*.key
+
