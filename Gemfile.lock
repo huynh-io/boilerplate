@@ -140,7 +140,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
-    json (2.19.1)
+    json (2.19.2)
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -193,7 +193,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.1-x86_64-linux-gnu)
       racc (~> 1.4)
-    pagy (43.3.2)
+    pagy (43.4.1)
       json
       uri
       yaml
@@ -376,7 +376,7 @@ DEPENDENCIES
   faker (~> 3.6)
   firebase_id_token!
   jbuilder
-  pagy (~> 43.3)
+  pagy (~> 43.4)
   pg (~> 1.6)
   pry-rails
   puma (~> 7.2)
