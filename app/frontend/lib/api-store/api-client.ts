@@ -5,7 +5,7 @@ import {
   QueryClient,
   infiniteQueryOptions,
 } from "@tanstack/react-query";
-import { useAppStore } from "@/lib/app-store";
+import { useAppStore, resetAppStore } from "@/lib/app-store";
 
 export const apiQueryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +28,22 @@ apiClient.interceptors.request.use((config) => {
   const accessToken = useAppStore.getState().accessToken ?? "";
   config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
+});
+
+const AUTH_ENDPOINTS = ["/api/v1/sign_in", "/api/v1/sign_up"];
+
+apiClient.interceptors.response.use((response) => {
+  const url = response.config.url ?? "";
+  const isAuthEndpoint = AUTH_ENDPOINTS.some((endpoint) =>
+    url.includes(endpoint)
+  );
+
+  if (response.status === 401 && !isAuthEndpoint) {
+    resetAppStore();
+    window.location.href = "/sign-in";
+  }
+
+  return response;
 });
 
 export interface InfiniteQueryFnParams {
