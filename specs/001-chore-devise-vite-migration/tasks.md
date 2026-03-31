@@ -138,7 +138,8 @@
 - [ ] T035 Verify that server unreachability during form submission surfaces a user-friendly error message via the error handling in useSignIn and useSignUp mutations in app/frontend/lib/api-store/auth.ts
 - [ ] T036 Run the full manual verification checklist from quickstart.md against the running application to confirm all flows work end-to-end
 - [ ] T037 Run all quality gates as a final check: bundle exec rspec, bundle exec rubocop, npm run lint, npx tsc --noEmit, npm run build
-- [ ] T038 [US3] Add an Axios response interceptor to app/frontend/lib/api-store/api-client.ts that intercepts 401 responses, calls resetAppStore from app/frontend/lib/app-store to clear auth state, and redirects the user to the sign-in page per FR-013. This ensures that when an authenticated user's token expires or is revoked mid-session (without a page reload), protected API calls fail gracefully. Exclude sign-in and sign-up requests from the interceptor to avoid interfering with auth error handling in those mutations.
+- [ ] T038a [FR-013] Write a unit test for the Axios 401 response interceptor in app/frontend/lib/api-store/api-client.ts before implementation (constitution: test-first). The test MUST verify: (1) 401 responses on protected API calls trigger resetAppStore to clear auth state and redirect to the sign-in page, (2) 401 responses on sign-in and sign-up requests are NOT intercepted (passed through to mutation error handlers), (3) non-401 responses are unaffected. Run the test and confirm it FAILS before proceeding to T038.
+- [ ] T038 [FR-013] Add an Axios response interceptor to app/frontend/lib/api-store/api-client.ts that intercepts 401 responses, calls resetAppStore from app/frontend/lib/app-store to clear auth state, and redirects the user to the sign-in page per FR-013. This ensures that when an authenticated user's token expires or is revoked mid-session (without a page reload), protected API calls fail gracefully. Exclude sign-in and sign-up requests from the interceptor to avoid interfering with auth error handling in those mutations. Run the test from T038a and confirm it PASSES.
 
 **Checkpoint**: All edge cases verified. Application is fully migrated and clean.
 
@@ -226,6 +227,7 @@ Phase 7 (US5): Verify form validation
 - This feature is primarily cleanup and verification — the implementation is already in place
 - Tasks T001-T004 are the only tasks that modify source code (file deletion and comment removal)
 - Tasks T005-T037 are verification tasks confirming existing behavior matches the spec
+- Task T038a is a test-first task (write failing test) and T038 is an implementation task (make test pass) for the FR-013 Axios 401 interceptor — the only new logic in this feature
 - If any verification task fails, the implementer should fix the issue before marking the task complete
 - [P] tasks = different files, no dependencies
 - [Story] label maps task to specific user story for traceability
