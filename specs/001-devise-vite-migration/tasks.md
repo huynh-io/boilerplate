@@ -1,6 +1,6 @@
 # Tasks: Complete Auth & Frontend Migration Cleanup
 
-**Input**: Design documents from `/specs/001-chore-devise-vite-migration/`
+**Input**: Design documents from `/specs/001-devise-vite-migration/`
 **Prerequisites**: plan.md (required), spec.md (required), research.md, data-model.md, contracts/api-auth.md, quickstart.md
 
 **Tests**: Not explicitly requested in the feature specification. Test tasks are omitted. Quality gates (existing RSpec suite, ESLint, TypeScript compiler) serve as verification.
