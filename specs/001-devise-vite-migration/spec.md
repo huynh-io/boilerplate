@@ -111,6 +111,12 @@ A user filling in the sign-up or sign-in form sees real-time validation feedback
 - **FR-011**: The codebase MUST NOT contain any build artifacts, static files, or references to the previous frontend framework.
 - **FR-012**: The application MUST build, pass linting, pass type checking, and pass all tests with zero errors after migration cleanup is complete.
 
+### Non-Functional Requirements
+
+- **NFR-001**: JWT tokens MUST be transmitted only over HTTPS in production environments to prevent interception in transit.
+- **NFR-002**: Token lifetime and revocation MUST be managed server-side by the Devise-JWT revocation strategy. No additional client-side token encryption or httpOnly cookie migration is required.
+- **NFR-003**: JWT tokens are stored in localStorage via Zustand persist middleware. This storage mechanism is an accepted trade-off for this application scope.
+
 ### Key Entities
 
 - **User**: Represents a person with an account. Key attributes include email (unique identifier), encrypted password, admin status, and a session revocation identifier. Relationships: a user may have addresses and other domain data.
@@ -127,6 +133,12 @@ A user filling in the sign-up or sign-in form sees real-time validation feedback
 - **SC-005**: All existing tests, linting rules, and type checks pass with zero errors after the migration is complete.
 - **SC-006**: Page reloads for authenticated users restore the session without requiring re-authentication in under 2 seconds.
 - **SC-007**: The application's initial page load does not serve any static assets from the previous frontend framework's build output.
+
+## Clarifications
+
+### Session 2026-03-31
+
+- Q: What security properties are required for client-side JWT token storage (XSS mitigation, transport security, token lifetime)? → A: JWT tokens are stored in localStorage via Zustand persist middleware. This is an accepted trade-off for this application scope. HTTPS is required in production to prevent token interception in transit. Token lifetime and revocation are managed server-side by Devise-JWT's revocation strategy (already implemented). No additional client-side encryption or httpOnly cookie migration is in scope for this feature.
 
 ## Assumptions
 
