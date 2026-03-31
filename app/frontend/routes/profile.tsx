@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useGetUsersMe, useSignOut } from "@/lib/api-store";
+import { useAppStore, type AppState } from "@/lib/app-store";
 import { useEffect } from "react";
 
 export const Route = createFileRoute("/profile")({
@@ -26,8 +27,15 @@ export const Route = createFileRoute("/profile")({
 
 function ProfilePage() {
   const navigate = useNavigate();
+  const authenticated = useAppStore((state: AppState) => state.authenticated);
   const { data: currentUser, isLoading } = useGetUsersMe();
   const { mutate: signOut, isSuccess: isSignOutSuccess } = useSignOut();
+
+  useEffect(() => {
+    if (!authenticated) {
+      navigate({ to: "/sign-in" });
+    }
+  }, [authenticated, navigate]);
 
   useEffect(() => {
     if (isSignOutSuccess) {
