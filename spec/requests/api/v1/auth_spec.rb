@@ -5,7 +5,9 @@ require 'requests_helper'
 
 RSpec.describe 'Authentication' do
   describe 'POST /api/v1/sign_up' do
-    let(:params) { { user: { email: 'test@example.com', password: 'password123', password_confirmation: 'password123' } } }
+    let(:params) do
+      { user: { email: 'test@example.com', password: 'password123', password_confirmation: 'password123' } }
+    end
 
     it 'creates a user and returns JWT in Authorization header' do
       expect { post '/api/v1/sign_up', params: params }.to change(User, :count).by(1)
@@ -42,7 +44,7 @@ RSpec.describe 'Authentication' do
   end
 
   describe 'POST /api/v1/sign_in' do
-    let!(:user) { create(:user, email: 'login@example.com', password: 'password123') }
+    before { create(:user, email: 'login@example.com', password: 'password123') }
 
     it 'authenticates and returns JWT in Authorization header' do
       post '/api/v1/sign_in', params: { user: { email: 'login@example.com', password: 'password123' } }
