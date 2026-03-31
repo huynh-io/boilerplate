@@ -84,7 +84,7 @@
 ### Implementation for User Story 3
 
 - [x] T019 [US3] Verify that app/frontend/components/authenticator.tsx reads accessToken from the Zustand store on mount and calls GET /api/v1/users/me to validate it
-- [ ] T020 [US3] Verify that app/frontend/components/authenticator.tsx sets authenticated to true on a 200 response and calls resetAppStore on any error or non-200 response
+- [x] T020 [US3] Verify that app/frontend/components/authenticator.tsx sets authenticated to true on a 200 response and calls resetAppStore on any error or non-200 response
 - [ ] T021 [US3] Verify that the Zustand persist middleware in app/frontend/lib/app-store/app-store.ts stores accessToken and authenticated in localStorage so they survive page reloads
 - [ ] T022 [US3] Verify that the Axios interceptor in app/frontend/lib/api-store/api-client.ts attaches the Authorization header with the stored token on every request
 
