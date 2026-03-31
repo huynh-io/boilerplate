@@ -1,6 +1,6 @@
 # Tasks: Complete Auth & Frontend Migration Cleanup
 
-**Input**: Design documents from `/specs/001-devise-vite-migration/`
+**Input**: Design documents from `/specs/001-chore-devise-vite-migration/`
 **Prerequisites**: plan.md (required), spec.md (required), research.md, data-model.md, contracts/api-auth.md, quickstart.md
 
 **Tests**: Not explicitly requested in the feature specification. Test tasks are omitted. Quality gates (existing RSpec suite, ESLint, TypeScript compiler) serve as verification.
@@ -23,8 +23,9 @@
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
-**Purpose**: Remove all legacy artifacts that pollute the codebase, so that subsequent user story verification tasks operate against a clean baseline.
+**Purpose**: Remove all legacy artifacts that pollute the codebase and fix naming convention violations, so that subsequent user story verification tasks operate against a clean baseline.
 
+- [ ] T000 Rename the feature spec directory from specs/001-devise-vite-migration/ to specs/001-chore-devise-vite-migration/ and rename the Git branch from 001-devise-vite-migration to 001-chore-devise-vite-migration to comply with the constitution naming convention (XXXX-type-description where type is mandatory)
 - [ ] T001 [P] Delete the entire Next.js build output directory at public/_next/
 - [ ] T002 [P] Delete Next.js exported HTML files: public/404.html, public/admin.html, public/index.html, public/profile.html, public/search.html, public/sign-in.html, public/sign-up.html
 - [ ] T003 [P] Delete Next.js exported text files: public/admin.txt, public/index.txt, public/profile.txt, public/search.txt, public/sign-in.txt, public/sign-up.txt

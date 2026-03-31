@@ -1,6 +1,6 @@
 # Feature Specification: Complete Auth & Frontend Migration Cleanup
 
-**Feature Branch**: `001-devise-vite-migration`
+**Feature Branch**: `001-chore-devise-vite-migration`
 **Created**: 2026-03-31
 **Status**: Draft
 **Input**: User description: "Complete migration from Firebase auth + Next.js to Devise-JWT + Vite React + TanStack Router. The frontend still shows 'Sign up with Google' on /sign-up and still has references to Next.js. The goal is to: 1. Replace Firebase auth with Devise + devise-jwt (Rails-managed auth) 2. Replace Next.js with Vite + React + TanStack Router (bridged via vite_rails gem + vite-plugin-rails npm package) 3. Add Zod + React Hook Form for form handling 4. Keep existing stack: PostgreSQL, Sidekiq, strong_migrations, RuboCop, RSpec, Jbuilder, Pundit, Pagy, TanStack Query, Zustand, Tailwind v4, shadcn/ui"
