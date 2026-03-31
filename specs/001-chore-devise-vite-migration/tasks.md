@@ -101,7 +101,7 @@
 ### Implementation for User Story 4
 
 - [x] T023 [US4] Run bundle exec rspec and confirm all backend specs pass with zero failures
-- [ ] T024 [P] [US4] Run npm run lint (ESLint) and confirm zero errors
+- [x] T024 [P] [US4] Run npm run lint (ESLint) and confirm zero errors
 - [ ] T024a [P] [US4] Run bundle exec rubocop (RuboCop) and confirm zero offenses
 - [ ] T025 [P] [US4] Run npx tsc --noEmit (TypeScript type check) and confirm zero errors
 - [ ] T026 [US4] Run npm run build (Vite production build) and confirm it completes successfully with no references to Next.js assets
