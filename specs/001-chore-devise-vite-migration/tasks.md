@@ -47,7 +47,7 @@
 
 - [x] T007 [US1] Verify that app/frontend/components/auth-form.tsx contains no third-party auth buttons (Google, Facebook, etc.) and renders only email, password, and password confirmation fields for the SignUp variant
 - [x] T008 [US1] Verify that the Zod sign-up schema in app/frontend/components/auth-form.tsx validates email format, password minimum length (6 characters), and password confirmation match
-- [ ] T009 [US1] Verify that useSignUp mutation in app/frontend/lib/api-store/auth.ts posts to /api/v1/sign_up, extracts the JWT from the Authorization header, and sets authenticated state in app/frontend/lib/app-store/slices/authentication-slice.ts
+- [x] T009 [US1] Verify that useSignUp mutation in app/frontend/lib/api-store/auth.ts posts to /api/v1/sign_up, extracts the JWT from the Authorization header, and sets authenticated state in app/frontend/lib/app-store/slices/authentication-slice.ts
 - [ ] T010 [US1] Verify that app/frontend/routes/sign-up.tsx redirects authenticated users to / via the useEffect guard
 - [ ] T011 [US1] Verify that the RegistrationsController at app/controllers/users/registrations_controller.rb handles sign-up and returns a JWT in the Authorization header on success and 422 with error messages on validation failure
 - [ ] T012 [US1] Verify that app/frontend/components/auth-form.tsx displays server-side errors (e.g., "Email has already been taken") via the error prop passed from sign-up.tsx
