@@ -132,8 +132,8 @@
 
 **Purpose**: Edge case verification and final integration checks that span multiple user stories.
 
-- [ ] T032 Verify that unauthenticated users accessing /profile are handled appropriately — either redirected to /sign-in or shown an appropriate state via the Authenticator component in app/frontend/components/authenticator.tsx and the route at app/frontend/routes/profile.tsx
-- [ ] T033 Verify that unauthenticated users accessing /admin are handled appropriately via the Authenticator component and the admin guard in app/frontend/routes/admin.tsx
+- [ ] T032 Verify that unauthenticated users accessing /profile are redirected to /sign-in per FR-006, via the Authenticator component in app/frontend/components/authenticator.tsx and the route at app/frontend/routes/profile.tsx
+- [ ] T033 Verify that unauthenticated users accessing /admin are redirected to /sign-in per FR-006, via the Authenticator component and the admin guard in app/frontend/routes/admin.tsx
 - [ ] T034 Verify that a user with an expired or revoked token who reloads the page is redirected to an unauthenticated state (Authenticator calls resetAppStore on 401 from GET /api/v1/users/me)
 - [ ] T035 Verify that server unreachability during form submission surfaces a user-friendly error message via the error handling in useSignIn and useSignUp mutations in app/frontend/lib/api-store/auth.ts
 - [ ] T036 Run the full manual verification checklist from quickstart.md against the running application to confirm all flows work end-to-end
