@@ -136,6 +136,7 @@
 - [ ] T035 Verify that server unreachability during form submission surfaces a user-friendly error message via the error handling in useSignIn and useSignUp mutations in app/frontend/lib/api-store/auth.ts
 - [ ] T036 Run the full manual verification checklist from quickstart.md against the running application to confirm all flows work end-to-end
 - [ ] T037 Run all quality gates as a final check: bundle exec rspec, npm run lint, npx tsc --noEmit, npm run build
+- [ ] T038 Verify that when an authenticated user's token expires or is revoked mid-session (without a page reload), the Axios response interceptor in app/frontend/lib/api-store/api-client.ts handles the 401 response by clearing auth state via resetAppStore and redirecting the user to the sign-in page, ensuring protected API calls fail gracefully per the spec edge case
 
 **Checkpoint**: All edge cases verified. Application is fully migrated and clean.
 
