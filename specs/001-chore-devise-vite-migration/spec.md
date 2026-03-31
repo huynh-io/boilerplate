@@ -35,7 +35,7 @@ A registered user navigates to the sign-in page, enters their email and password
 **Acceptance Scenarios**:
 
 1. **Given** a registered user is on the sign-in page, **When** they enter valid credentials, **Then** they are authenticated and redirected to the home page.
-2. **Given** a registered user is on the sign-in page, **When** they enter an incorrect password, **Then** the system displays "Invalid email or password."
+2. **Given** a registered user is on the sign-in page, **When** they enter an incorrect password, **Then** the system displays "Invalid Email or password."
 3. **Given** an authenticated user, **When** they click sign out, **Then** their session is cleared, they are redirected to the sign-in page, and they can no longer access protected pages.
 
 ---
