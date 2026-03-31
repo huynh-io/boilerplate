@@ -29,7 +29,7 @@
 - [x] T001 [P] Delete the entire Next.js build output directory at public/_next/
 - [x] T002 [P] Delete Next.js exported HTML files: public/404.html, public/admin.html, public/index.html, public/profile.html, public/search.html, public/sign-in.html, public/sign-up.html
 - [x] T003 [P] Delete Next.js exported text files: public/admin.txt, public/index.txt, public/profile.txt, public/search.txt, public/sign-in.txt, public/sign-up.txt
-- [ ] T004 Remove Firebase comments (lines 10-12) from db/migrate/20240828043807_create_users.rb
+- [x] T004 Remove Firebase comments (lines 10-12) from db/migrate/20240828043807_create_users.rb
 - [ ] T005 Run a codebase-wide search for "firebase" (case-insensitive) excluding specs/ and confirm zero results in source files, config, and comments
 - [ ] T006 Run a codebase-wide search for "_next" and "next.js" (case-insensitive) excluding specs/ and confirm zero results in source files, build artifacts, and config
 
