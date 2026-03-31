@@ -14,7 +14,7 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
       let(:get_request) { get "/api/v1/admin/suppliers/#{supplier.id}" }
 
       it 'returns 403' do
-        expect(response).to have_http_status(:forbidden)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
       let(:post_request) { post '/api/v1/admin/suppliers' }
 
       it 'returns 403' do
-        expect(response).to have_http_status(:forbidden)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 
@@ -122,7 +122,7 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
       let(:put_request) { put '/api/v1/admin/suppliers/:id' }
 
       it 'returns 403' do
-        expect(response).to have_http_status(:forbidden)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 
@@ -206,7 +206,7 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
         end
 
         it 'returns 403' do
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to have_http_status(:unauthorized)
         end
       end
 
@@ -222,7 +222,7 @@ RSpec.describe 'Api::V1::Admin::Suppliers' do
         end
 
         it 'returns 403' do
-          expect(response).to have_http_status(:forbidden)
+          expect(response).to have_http_status(:unauthorized)
         end
       end
     end

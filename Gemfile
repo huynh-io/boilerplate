@@ -23,7 +23,7 @@ gem 'strong_migrations', '~> 2.5'
 # gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem 'bcrypt', '~> 3.1.7'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[windows jruby]
@@ -37,9 +37,12 @@ gem 'bootsnap', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem 'rack-cors'
 
-# Use the Firebase ID Token gem to verify Firebase ID tokens
-# Vendored to loosen activesupport constraint for Rails 8 compatibility
-gem 'firebase_id_token', path: 'vendor/gems/firebase_id_token'
+# Authentication
+gem 'devise'
+gem 'devise-jwt'
+
+# Vite integration for serving the frontend SPA
+gem 'vite_rails'
 
 # Pagination
 gem 'pagy', '~> 43.3'

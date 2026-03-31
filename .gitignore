@@ -41,6 +41,10 @@ config/database.yml
 
 /public/packs
 /public/packs-test
+/public/vite
+/public/vite-dev
+/public/vite-test
+/node_modules
 
 
 /config/credentials/production.key

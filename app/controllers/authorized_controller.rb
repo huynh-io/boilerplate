@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-# Base controller that includes Pundit authorization, setups the current user and handles authorization errors.
-# Tightly coupled with Pundit Policy classes.
+# Base controller that includes Pundit authorization and handles authorization errors.
+# Devise-JWT automatically sets current_user from the Authorization header.
 class AuthorizedController < ApplicationController
   include Pundit::Authorization
+
+  before_action :authenticate_user!
 
   # Ensure that we authorizing all actions in the controller that inherits from this one
   after_action :verify_pundit_authorization
@@ -23,22 +25,5 @@ class AuthorizedController < ApplicationController
 
   def user_not_authorized
     render json: { error: 'You are not authorized to perform this action' }, status: :forbidden
-  end
-
-  # Pundit will use this method to get the user for policy authorization
-  def current_user
-    return unless access_token
-
-    if defined?(@current_user)
-      @current_user
-    else
-      @current_user = User.find_by(access_token:)
-    end
-  end
-
-  def access_token
-    # Expected header format:
-    #  Authorization: Bearer <token>
-    request.headers['Authorization']&.split&.last
   end
 end
