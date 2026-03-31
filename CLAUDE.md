@@ -55,3 +55,10 @@ Cleanup is mandatory. Every process started during a session must be stopped bef
 <!-- ====== PROJECT SPECIFIC ====== -->
 
 <!-- Add project-specific guidelines below (technologies, commands, structure, etc.) -->
+
+## Active Technologies
+- Ruby 3.4.8 / Rails 8.1 (backend), TypeScript 5.9 / React 19 (frontend) + Devise + devise-jwt, Vite + vite_rails + vite-plugin-rails, TanStack Router, TanStack Query, Zustand, Zod, React Hook Form, shadcn/ui, Tailwind v4 (001-devise-vite-migration)
+- PostgreSQL (UUID primary keys) (001-devise-vite-migration)
+
+## Recent Changes
+- 001-devise-vite-migration: Added Ruby 3.4.8 / Rails 8.1 (backend), TypeScript 5.9 / React 19 (frontend) + Devise + devise-jwt, Vite + vite_rails + vite-plugin-rails, TanStack Router, TanStack Query, Zustand, Zod, React Hook Form, shadcn/ui, Tailwind v4
