@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ScrollableList from "@/components/scrollable-list";
 import SearchForm from "@/components/search-form";
 import { useGetUsersMe, useGetAdminSuppliers, type Supplier } from "@/lib/api-store";
+import { useAppStore, type AppState } from "@/lib/app-store";
 import FullPageSpinner from "@/components/full-page-spinner";
 import debounce from "debounce";
 import { Loader2Icon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
@@ -23,7 +24,14 @@ export const Route = createFileRoute("/admin")({
 
 function AdminPage() {
   const navigate = useNavigate();
+  const authenticated = useAppStore((state: AppState) => state.authenticated);
   const { data: currentUser, status } = useGetUsersMe();
+
+  useEffect(() => {
+    if (!authenticated) {
+      navigate({ to: "/sign-in" });
+    }
+  }, [authenticated, navigate]);
 
   useEffect(() => {
     if (status === "success" && !currentUser?.admin) {
