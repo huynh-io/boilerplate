@@ -1,7 +1,7 @@
 # Implementation Plan: Complete Auth & Frontend Migration Cleanup
 
-**Branch**: `001-chore-devise-vite-migration` | **Date**: 2026-03-31 | **Spec**: `specs/001-chore-devise-vite-migration/spec.md`
-**Input**: Feature specification from `/specs/001-chore-devise-vite-migration/spec.md`
+**Branch**: `001-devise-vite-migration` (will be renamed to `001-chore-devise-vite-migration` by T000) | **Date**: 2026-03-31 | **Spec**: `specs/001-devise-vite-migration/spec.md`
+**Input**: Feature specification from `/specs/001-devise-vite-migration/spec.md`
 
 ## Summary
 
@@ -41,7 +41,7 @@ No constitution violations. No complexity tracking entries needed.
 ### Documentation (this feature)
 
 ```text
-specs/001-chore-devise-vite-migration/
+specs/001-devise-vite-migration/           # Will be renamed to 001-chore-devise-vite-migration by T000
 ├── plan.md              # This file
 ├── research.md          # Phase 0 output
 ├── data-model.md        # Phase 1 output
