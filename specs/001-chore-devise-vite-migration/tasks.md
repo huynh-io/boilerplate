@@ -104,7 +104,7 @@
 - [x] T024 [P] [US4] Run npm run lint (ESLint) and confirm zero errors
 - [x] T024a [P] [US4] Run bundle exec rubocop (RuboCop) and confirm zero offenses
 - [x] T025 [P] [US4] Run npx tsc --noEmit (TypeScript type check) and confirm zero errors
-- [ ] T026 [US4] Run npm run build (Vite production build) and confirm it completes successfully with no references to Next.js assets
+- [x] T026 [US4] Run npm run build (Vite production build) and confirm it completes successfully with no references to Next.js assets
 - [ ] T027 [US4] Confirm that public/ contains only favicon.ico and vite/ (no Next.js artifacts remain)
 
 **Checkpoint**: User Story 4 verified. Zero legacy references, all quality gates pass.
