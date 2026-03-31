@@ -110,6 +110,7 @@ A user filling in the sign-up or sign-in form sees real-time validation feedback
 - **FR-010**: The codebase MUST NOT contain any references to Firebase (the previous authentication provider) in source files, comments, or configuration.
 - **FR-011**: The codebase MUST NOT contain any build artifacts, static files, or references to Next.js (the previous frontend framework).
 - **FR-012**: The application MUST build, pass linting, pass type checking, and pass all tests with zero errors after migration cleanup is complete.
+- **FR-013**: System MUST intercept 401 Unauthorized responses on protected API calls (excluding sign-in and sign-up requests) and redirect the user to the sign-in page after clearing authentication state, so that expired or revoked tokens mid-session are handled gracefully.
 
 ### Non-Functional Requirements
 
