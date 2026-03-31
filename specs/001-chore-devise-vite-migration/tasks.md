@@ -121,7 +121,7 @@
 
 - [x] T028 [US5] Verify that app/frontend/components/auth-form.tsx displays an inline error when the email field is left empty or contains an invalid format
 - [x] T029 [US5] Verify that app/frontend/components/auth-form.tsx displays an inline error when the password is shorter than 6 characters
-- [ ] T030 [US5] Verify that app/frontend/components/auth-form.tsx displays an inline error when password confirmation does not match the password (sign-up form only)
+- [x] T030 [US5] Verify that app/frontend/components/auth-form.tsx displays an inline error when password confirmation does not match the password (sign-up form only)
 - [ ] T031 [US5] Verify that the form cannot be submitted (onSubmit is not called) when client-side validation fails, by confirming react-hook-form with zodResolver blocks submission
 
 **Checkpoint**: User Story 5 verified. All form validation provides immediate inline feedback.
