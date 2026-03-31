@@ -102,6 +102,7 @@
 
 - [ ] T023 [US4] Run bundle exec rspec and confirm all backend specs pass with zero failures
 - [ ] T024 [P] [US4] Run npm run lint (ESLint) and confirm zero errors
+- [ ] T024a [P] [US4] Run bundle exec rubocop (RuboCop) and confirm zero offenses
 - [ ] T025 [P] [US4] Run npx tsc --noEmit (TypeScript type check) and confirm zero errors
 - [ ] T026 [US4] Run npm run build (Vite production build) and confirm it completes successfully with no references to Next.js assets
 - [ ] T027 [US4] Confirm that public/ contains only favicon.ico and vite/ (no Next.js artifacts remain)
@@ -136,7 +137,7 @@
 - [ ] T034 Verify that a user with an expired or revoked token who reloads the page is redirected to an unauthenticated state (Authenticator calls resetAppStore on 401 from GET /api/v1/users/me)
 - [ ] T035 Verify that server unreachability during form submission surfaces a user-friendly error message via the error handling in useSignIn and useSignUp mutations in app/frontend/lib/api-store/auth.ts
 - [ ] T036 Run the full manual verification checklist from quickstart.md against the running application to confirm all flows work end-to-end
-- [ ] T037 Run all quality gates as a final check: bundle exec rspec, npm run lint, npx tsc --noEmit, npm run build
+- [ ] T037 Run all quality gates as a final check: bundle exec rspec, bundle exec rubocop, npm run lint, npx tsc --noEmit, npm run build
 - [ ] T038 Verify that when an authenticated user's token expires or is revoked mid-session (without a page reload), the Axios response interceptor in app/frontend/lib/api-store/api-client.ts handles the 401 response by clearing auth state via resetAppStore and redirecting the user to the sign-in page, ensuring protected API calls fail gracefully per the spec edge case
 
 **Checkpoint**: All edge cases verified. Application is fully migrated and clean.
@@ -172,7 +173,7 @@
 ### Parallel Opportunities
 
 - T001, T002, T003 can all run in parallel (deleting different file sets)
-- T024, T025 can run in parallel (different linting tools)
+- T024, T024a, T025 can run in parallel (different linting/type-checking tools)
 - US1, US2, US3, US5 phases can all run in parallel after Phase 2 completes
 - US4 can run in parallel with other stories but its tasks depend on Phase 2 being done
 

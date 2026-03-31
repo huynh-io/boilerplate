@@ -12,7 +12,9 @@ Complete the migration from Firebase auth + Next.js to Devise-JWT + Vite React +
 **Language/Version**: Ruby 3.4.8 / Rails 8.1 (backend), TypeScript 5.9 / React 19 (frontend)
 **Primary Dependencies**: Devise + devise-jwt, Vite + vite_rails + vite-plugin-rails, TanStack Router, TanStack Query, Zustand, Zod, React Hook Form, shadcn/ui, Tailwind v4
 **Storage**: PostgreSQL (UUID primary keys)
-**Testing**: RSpec (backend), ESLint (frontend linting), TypeScript compiler (type checking)
+**Testing**: RSpec (backend)
+**Linting**: RuboCop (backend), ESLint (frontend)
+**Type Checking**: TypeScript compiler (frontend)
 **Target Platform**: Web application (Rails API backend + Vite React SPA frontend)
 **Project Type**: Web application (monorepo: Rails backend serving Vite-built React SPA)
 **Performance Goals**: Sign-up < 60s, Sign-in < 30s, Session restore on reload < 2s
