@@ -72,5 +72,20 @@ RSpec.describe 'Authentication' do
       expect(response).to have_http_status(:no_content)
       expect(user.reload.jti).not_to eq(old_jti)
     end
+
+    it 'rejects the revoked token on subsequent protected requests' do
+      auth_headers = { 'Authorization' => "Bearer #{jwt}" }
+
+      # Token works before sign-out
+      get '/api/v1/users/me', headers: auth_headers
+      expect(response).to have_http_status(:ok)
+
+      # Sign out revokes the token
+      delete '/api/v1/sign_out', headers: auth_headers
+
+      # Revoked token is rejected on a protected endpoint
+      get '/api/v1/users/me', headers: auth_headers
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 end

@@ -69,7 +69,7 @@
 - [x] T015 [US2] Verify that app/frontend/routes/sign-in.tsx redirects authenticated users to / via the useEffect guard
 - [x] T016 [US2] Verify that useSignOut mutation in app/frontend/lib/api-store/auth.ts calls DELETE /api/v1/sign_out, resets the app store, and clears the query client
 - [x] T017 [US2] Verify that the SessionsController at app/controllers/users/sessions_controller.rb authenticates users and returns a JWT on success and 401 on invalid credentials
-- [ ] T018 [US2] Verify that the sign-out action in the SessionsController revokes the JWT (jti rotation) so previously issued tokens become invalid
+- [x] T018 [US2] Verify that the sign-out action in the SessionsController revokes the JWT (jti rotation) so previously issued tokens become invalid
 
 **Checkpoint**: User Story 2 verified. Sign-in and sign-out flows work correctly.
 
