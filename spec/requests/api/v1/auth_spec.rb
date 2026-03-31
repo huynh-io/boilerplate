@@ -12,16 +12,31 @@ RSpec.describe 'Authentication' do
 
       expect(response).to have_http_status(:created)
       expect(response.headers['Authorization']).to be_present
-      expect(response_body).to have_key('id')
-      expect(response_body).to have_key('email')
+      expect(response.headers['Authorization']).to start_with('Bearer ')
+      expect(response_body).to include('id', 'email', 'admin')
+      expect(response_body['email']).to eq('test@example.com')
+      expect(response_body['admin']).to be(false)
     end
 
     context 'with invalid params' do
       let(:params) { { user: { email: 'bad', password: 'short' } } }
 
-      it 'returns unprocessable content' do
+      it 'returns 422 with error messages' do
         post '/api/v1/sign_up', params: params
         expect(response).to have_http_status(:unprocessable_content)
+        expect(response_body).to have_key('errors')
+        expect(response_body['errors']).to be_an(Array)
+        expect(response_body['errors']).not_to be_empty
+      end
+    end
+
+    context 'with duplicate email' do
+      before { create(:user, email: 'test@example.com') }
+
+      it 'returns 422 with email taken error' do
+        post '/api/v1/sign_up', params: params
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response_body['errors']).to include('Email has already been taken')
       end
     end
   end
