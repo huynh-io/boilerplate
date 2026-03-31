@@ -57,7 +57,7 @@ An authenticated user refreshes the page or navigates away and returns. The syst
 
 ### User Story 4 - Remove All Legacy Artifacts (Priority: P2)
 
-A developer inspecting the codebase finds no references to the previous authentication provider or the previous frontend framework. All leftover build artifacts, configuration files, comments, and dead code from the prior stack have been removed. The application builds and runs cleanly with only the current stack.
+A developer inspecting the codebase finds no references to Firebase (the previous authentication provider) or Next.js (the previous frontend framework). All leftover build artifacts, configuration files, comments, and dead code from the prior stack have been removed. The application builds and runs cleanly with only the current stack.
 
 **Why this priority**: Legacy artifacts create confusion for future developers, increase bundle size, and risk accidental reactivation of deprecated code paths. Cleanup is essential for long-term maintainability.
 
@@ -65,8 +65,8 @@ A developer inspecting the codebase finds no references to the previous authenti
 
 **Acceptance Scenarios**:
 
-1. **Given** the codebase, **When** a developer searches for references to the previous identity provider, **Then** zero results are returned across all source files, comments, and configuration.
-2. **Given** the codebase, **When** a developer searches for references to the previous frontend framework, **Then** zero results are returned across all source files, build artifacts, and configuration.
+1. **Given** the codebase, **When** a developer searches for references to Firebase (the previous identity provider), **Then** zero results are returned across all source files, comments, and configuration.
+2. **Given** the codebase, **When** a developer searches for references to Next.js (the previous frontend framework), **Then** zero results are returned across all source files, build artifacts, and configuration.
 3. **Given** the project, **When** a developer runs the build, linter, type checker, and test suite, **Then** all pass with zero errors.
 
 ---
@@ -107,8 +107,8 @@ A user filling in the sign-up or sign-in form sees real-time validation feedback
 - **FR-007**: System MUST redirect already-authenticated users away from sign-in and sign-up pages to the home page.
 - **FR-008**: System MUST display server-side validation errors (e.g., duplicate email, invalid credentials) to the user in a clear, human-readable format.
 - **FR-009**: System MUST NOT display any third-party authentication options (e.g., "Sign up with Google") anywhere in the user interface.
-- **FR-010**: The codebase MUST NOT contain any references to the previous authentication provider in source files, comments, or configuration.
-- **FR-011**: The codebase MUST NOT contain any build artifacts, static files, or references to the previous frontend framework.
+- **FR-010**: The codebase MUST NOT contain any references to Firebase (the previous authentication provider) in source files, comments, or configuration.
+- **FR-011**: The codebase MUST NOT contain any build artifacts, static files, or references to Next.js (the previous frontend framework).
 - **FR-012**: The application MUST build, pass linting, pass type checking, and pass all tests with zero errors after migration cleanup is complete.
 
 ### Non-Functional Requirements
@@ -129,16 +129,17 @@ A user filling in the sign-up or sign-in form sees real-time validation feedback
 - **SC-001**: Users can complete account creation (sign-up) in under 60 seconds.
 - **SC-002**: Users can sign in with valid credentials in under 30 seconds.
 - **SC-003**: 100% of sign-up and sign-in form validation errors are displayed inline before the form is submitted to the server.
-- **SC-004**: Zero references to the previous authentication provider or previous frontend framework exist in the codebase after cleanup.
+- **SC-004**: Zero references to Firebase (the previous authentication provider) or Next.js (the previous frontend framework) exist in the codebase after cleanup.
 - **SC-005**: All existing tests, linting rules, and type checks pass with zero errors after the migration is complete.
 - **SC-006**: Page reloads for authenticated users restore the session without requiring re-authentication in under 2 seconds.
-- **SC-007**: The application's initial page load does not serve any static assets from the previous frontend framework's build output.
+- **SC-007**: The application's initial page load does not serve any static assets from Next.js's build output (e.g., `public/_next/`).
 
 ## Clarifications
 
 ### Session 2026-03-31
 
 - Q: What security properties are required for client-side JWT token storage (XSS mitigation, transport security, token lifetime)? → A: JWT tokens are stored in localStorage via Zustand persist middleware. This is an accepted trade-off for this application scope. HTTPS is required in production to prevent token interception in transit. Token lifetime and revocation are managed server-side by Devise-JWT's revocation strategy (already implemented). No additional client-side encryption or httpOnly cookie migration is in scope for this feature.
+- Q: Terminology consistency — should the spec explicitly name "Firebase" and "Next.js" instead of using vague references like "previous authentication provider" and "previous frontend framework"? → A: Yes. All requirements, acceptance scenarios, and success criteria now explicitly name Firebase and Next.js so implementers know exactly which legacy references to search for and remove.
 
 ## Assumptions
 
