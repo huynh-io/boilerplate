@@ -64,7 +64,7 @@
 
 ### Implementation for User Story 2
 
-- [ ] T013 [US2] Verify that useSignIn mutation in app/frontend/lib/api-store/auth.ts posts to /api/v1/sign_in, extracts the JWT from the Authorization header, and sets authenticated state
+- [x] T013 [US2] Verify that useSignIn mutation in app/frontend/lib/api-store/auth.ts posts to /api/v1/sign_in, extracts the JWT from the Authorization header, and sets authenticated state
 - [ ] T014 [US2] Verify that the Zod sign-in schema in app/frontend/components/auth-form.tsx validates email format and password minimum length (6 characters)
 - [ ] T015 [US2] Verify that app/frontend/routes/sign-in.tsx redirects authenticated users to / via the useEffect guard
 - [ ] T016 [US2] Verify that useSignOut mutation in app/frontend/lib/api-store/auth.ts calls DELETE /api/v1/sign_out, resets the app store, and clears the query client
