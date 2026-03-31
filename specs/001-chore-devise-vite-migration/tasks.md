@@ -3,7 +3,7 @@
 **Input**: Design documents from `/specs/001-chore-devise-vite-migration/`
 **Prerequisites**: plan.md (required), spec.md (required), research.md, data-model.md, contracts/api-auth.md, quickstart.md
 
-**Tests**: Not explicitly requested in the feature specification. Test tasks are omitted. Quality gates (existing RSpec suite, ESLint, TypeScript compiler) serve as verification.
+**Tests**: This feature is primarily cleanup and verification of existing code. Most tasks are verification-only and do not introduce new logic, so dedicated test tasks are not needed for them. Where new logic IS introduced (e.g., T038a/T038 for the Axios 401 interceptor per FR-013), the constitution's test-first mandate applies and test tasks are included. Quality gates (existing RSpec suite, ESLint, TypeScript compiler) serve as additional verification.
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
