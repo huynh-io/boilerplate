@@ -100,7 +100,7 @@
 
 ### Implementation for User Story 4
 
-- [ ] T023 [US4] Run bundle exec rspec and confirm all backend specs pass with zero failures
+- [x] T023 [US4] Run bundle exec rspec and confirm all backend specs pass with zero failures
 - [ ] T024 [P] [US4] Run npm run lint (ESLint) and confirm zero errors
 - [ ] T024a [P] [US4] Run bundle exec rubocop (RuboCop) and confirm zero offenses
 - [ ] T025 [P] [US4] Run npx tsc --noEmit (TypeScript type check) and confirm zero errors
