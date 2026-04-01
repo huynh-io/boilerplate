@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { apiClient, apiQueryClient } from "./api-client";
 import { useAppStore, resetAppStore } from "@/lib/app-store";
 
@@ -7,7 +6,7 @@ const NETWORK_ERROR_MESSAGE =
   "Unable to reach the server. Please check your connection and try again.";
 
 function isNetworkError(error: unknown): boolean {
-  return error instanceof AxiosError && !error.response;
+  return error instanceof TypeError;
 }
 
 export function useSignIn() {
@@ -29,7 +28,7 @@ export function useSignIn() {
         throw new Error("Invalid email or password");
       }
 
-      const jwt = response.headers["authorization"]?.replace("Bearer ", "");
+      const jwt = response.headers.get("authorization")?.replace("Bearer ", "");
       if (jwt) {
         useAppStore.setState({ authenticated: true, accessToken: jwt });
       }
@@ -52,8 +51,8 @@ export function useSignUp() {
     }) => {
       let response;
       try {
-        response = await apiClient.post("/api/v1/sign_up", {
-          user: { email, password, password_confirmation: passwordConfirmation },
+        response = await apiClient.post<{ errors?: string[] }>("/api/v1/sign_up", {
+          user: { email, password, passwordConfirmation },
         });
       } catch (error) {
         if (isNetworkError(error)) {
@@ -66,7 +65,7 @@ export function useSignUp() {
         throw new Error(response.data.errors?.join(", ") || "Sign up failed");
       }
 
-      const jwt = response.headers["authorization"]?.replace("Bearer ", "");
+      const jwt = response.headers.get("authorization")?.replace("Bearer ", "");
       if (jwt) {
         useAppStore.setState({ authenticated: true, accessToken: jwt });
       }

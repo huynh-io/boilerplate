@@ -119,7 +119,7 @@ function SuppliersTab() {
                     <p className="flex items-center">
                       <MapPinIcon className="mr-2 h-4 w-4" />
                       {supplier.address.addressOne}, {supplier.address.city},{" "}
-                      {supplier.address.state} {supplier.address.zip_code}
+                      {supplier.address.state} {supplier.address.zipCode}
                     </p>
                     <p className="flex items-center">
                       <PhoneIcon className="mr-2 h-4 w-4" />

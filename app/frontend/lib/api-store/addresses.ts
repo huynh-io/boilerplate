@@ -3,5 +3,5 @@ export type Address = {
   addressTwo: string;
   city: string;
   state: string;
-  zip_code: string;
+  zipCode: string;
 };

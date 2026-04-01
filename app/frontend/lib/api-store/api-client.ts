@@ -1,11 +1,10 @@
-import axios from "axios";
-import applyCaseMiddleware from "axios-case-converter";
 import {
   keepPreviousData,
   QueryClient,
   infiniteQueryOptions,
 } from "@tanstack/react-query";
 import { useAppStore, resetAppStore } from "@/lib/app-store";
+import { camelizeKeys, decamelizeKeys } from "./case-converter";
 
 export const apiQueryClient = new QueryClient({
   defaultOptions: {
@@ -16,35 +15,71 @@ export const apiQueryClient = new QueryClient({
   },
 });
 
-export const apiClient = applyCaseMiddleware(
-  axios.create({
-    baseURL: "/",
-    validateStatus: (status) => status < 500,
-  }),
-  { ignoreHeaders: true }
-);
+export interface ApiResponse<T> {
+  status: number;
+  data: T;
+  headers: Headers;
+}
 
-apiClient.interceptors.request.use((config) => {
-  const accessToken = useAppStore.getState().accessToken ?? "";
-  config.headers.Authorization = `Bearer ${accessToken}`;
-  return config;
-});
+export class HttpError extends Error {
+  status: number;
+  data: unknown;
+  constructor(status: number, data: unknown) {
+    super(`HTTP Error ${status}`);
+    this.status = status;
+    this.data = data;
+  }
+}
 
 const AUTH_ENDPOINTS = ["/api/v1/sign_in", "/api/v1/sign_up"];
 
-apiClient.interceptors.response.use((response) => {
-  const url = response.config.url ?? "";
+async function request<T>(
+  method: string,
+  url: string,
+  body?: unknown
+): Promise<ApiResponse<T>> {
+  const accessToken = useAppStore.getState().accessToken ?? "";
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  };
+
+  const options: RequestInit = { method, headers };
+  if (body !== undefined) {
+    options.body = JSON.stringify(decamelizeKeys(body));
+  }
+
+  const response = await fetch(url, options);
+
+  let data: unknown = {};
+  try {
+    data = await response.json();
+  } catch {
+    // Empty body (e.g. 204 No Content)
+  }
+  data = camelizeKeys(data);
+
+  if (response.status >= 500) {
+    throw new HttpError(response.status, data);
+  }
+
   const isAuthEndpoint = AUTH_ENDPOINTS.some((endpoint) =>
     url.includes(endpoint)
   );
-
   if (response.status === 401 && !isAuthEndpoint) {
     resetAppStore();
     window.location.href = "/sign-in";
   }
 
-  return response;
-});
+  return { status: response.status, data: data as T, headers: response.headers };
+}
+
+export const apiClient = {
+  get: <T>(url: string) => request<T>("GET", url),
+  post: <T>(url: string, data?: unknown) => request<T>("POST", url, data),
+  delete: <T>(url: string) => request<T>("DELETE", url),
+  patch: <T>(url: string, data?: unknown) => request<T>("PATCH", url, data),
+};
 
 export interface InfiniteQueryFnParams {
   pageParam: number;
