@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_31_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_01_031713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,15 +25,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_31_000001) do
     t.datetime "updated_at", null: false
     t.string "zip_code"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
-  end
-
-  create_table "catalog_objects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.jsonb "item_data", default: {}
-    t.uuid "supplier_id", null: false
-    t.string "type"
-    t.datetime "updated_at", null: false
-    t.index ["supplier_id"], name: "index_catalog_objects_on_supplier_id"
   end
 
   create_table "suppliers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -62,6 +53,4 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_31_000001) do
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_foreign_key "catalog_objects", "suppliers"
 end

@@ -24,26 +24,11 @@ rescue ActiveRecord::RecordInvalid
   create_supplier
 end
 
-def create_catalog_item(supplier:)
-  CatalogItems::Creator.call(
-    params: {
-      supplier:,
-      item_data: {
-        name: Faker::Commerce.product_name
-      }
-    }
-  )
-end
-
 def seed_suppliers
   return unless Supplier.none?
 
   100.times do
-    create_supplier.tap do |supplier|
-      rand(1..10).times do
-        create_catalog_item(supplier:)
-      end
-    end
+    create_supplier
   end
 end
 

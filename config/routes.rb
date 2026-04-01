@@ -7,12 +7,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      get :search, to: 'search#index'
-
       get 'users/me', to: 'users#me'
 
       namespace :admin do
-        resources :catalog_items, only: %i[index show]
         resources :suppliers, only: %i[index show create update]
         resources :users, only: %i[index show]
       end

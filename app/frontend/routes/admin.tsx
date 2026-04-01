@@ -46,22 +46,12 @@ function AdminPage() {
   return (
     <div className="flex min-h-screen flex-col items-center bg-background p-4">
       <Tabs defaultValue="suppliers" className="w-full max-w-6xl">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="suppliers">Suppliers</TabsTrigger>
-          <TabsTrigger value="catalog-items">Catalog Items</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
         </TabsList>
 
         <SuppliersTab />
-
-        <TabsContent value="catalog-items">
-          <Card>
-            <CardHeader>
-              <CardTitle>Catalog Items</CardTitle>
-            </CardHeader>
-            <CardContent>fetch them there</CardContent>
-          </Card>
-        </TabsContent>
 
         <UsersTab />
       </Tabs>

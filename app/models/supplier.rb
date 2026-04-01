@@ -17,10 +17,12 @@
 #  index_suppliers_on_name   (name) UNIQUE
 #  index_suppliers_on_phone  (phone) UNIQUE
 #
+# Example model showcasing polymorphic addresses via `has_one :address, as: :addressable`.
+# To reuse: rename the table, model, controllers, views, and routes to fit your domain.
+# Otherwise, feel free to delete everything related to suppliers.
 class Supplier < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  has_many :catalog_items, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
 end

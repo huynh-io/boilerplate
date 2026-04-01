@@ -72,8 +72,8 @@ describe("camelizeKeys", () => {
 
   it("converts keys in nested arrays", () => {
     expect(
-      camelizeKeys({ catalog_items: [{ item_id: 1 }, { item_id: 2 }] })
-    ).toEqual({ catalogItems: [{ itemId: 1 }, { itemId: 2 }] });
+      camelizeKeys({ order_items: [{ item_id: 1 }, { item_id: 2 }] })
+    ).toEqual({ orderItems: [{ itemId: 1 }, { itemId: 2 }] });
   });
 
   it("passes through null", () => {
