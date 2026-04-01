@@ -64,6 +64,29 @@ describe("fetch-based API client", () => {
         expect.objectContaining({
           headers: expect.objectContaining({
             Authorization: "Bearer test-token",
+          }),
+        })
+      );
+    });
+
+    it("does not set Content-Type on GET requests", async () => {
+      mockFetch.mockResolvedValue(buildFetchResponse(200, { ok: true }));
+
+      await apiClient.get("/api/v1/users/me");
+
+      const headers = mockFetch.mock.calls[0][1]?.headers as Record<string, string>;
+      expect(headers["Content-Type"]).toBeUndefined();
+    });
+
+    it("sets Content-Type to application/json on POST requests", async () => {
+      mockFetch.mockResolvedValue(buildFetchResponse(200, {}));
+
+      await apiClient.post("/api/v1/users", { name: "John" });
+
+      expect(mockFetch).toHaveBeenCalledWith(
+        "/api/v1/users",
+        expect.objectContaining({
+          headers: expect.objectContaining({
             "Content-Type": "application/json",
           }),
         })

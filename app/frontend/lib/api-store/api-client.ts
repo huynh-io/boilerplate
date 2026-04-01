@@ -40,12 +40,12 @@ async function request<T>(
 ): Promise<ApiResponse<T>> {
   const accessToken = useAppStore.getState().accessToken ?? "";
   const headers: Record<string, string> = {
-    "Content-Type": "application/json",
     Authorization: `Bearer ${accessToken}`,
   };
 
   const options: RequestInit = { method, headers };
   if (body !== undefined) {
+    headers["Content-Type"] = "application/json";
     options.body = JSON.stringify(decamelizeKeys(body));
   }
 
