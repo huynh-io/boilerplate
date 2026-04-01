@@ -12,7 +12,7 @@ export function useGetUsersMe(options?: { enabled?: boolean }) {
     ...options,
     queryKey: ["user"],
     queryFn: async () => {
-      const response = await apiClient.get("/api/v1/users/me");
+      const response = await apiClient.get<User>("/api/v1/users/me");
       return response.data;
     },
   });

@@ -2,3 +2,4 @@
 # You can run these commands in separate shells
 api: bundle exec rails s -p 3000
 vite: bin/vite dev
+worker: bundle exec sidekiq

@@ -8,7 +8,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[8.1]
         t.string :reset_password_token
         t.datetime :reset_password_sent_at
         t.datetime :remember_created_at
-        t.string :jti, null: false
+        t.string :jti, null: false, default: ''
       end
 
       add_index :users, :reset_password_token, unique: true

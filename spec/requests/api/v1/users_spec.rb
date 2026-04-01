@@ -34,9 +34,10 @@ RSpec.describe 'Api::V1::Users' do
         expect(response_body).to be_an_instance_of(Hash)
         expect(response_body).to have_key('id')
         expect(response_body).to have_key('email')
+        expect(response_body).to have_key('admin')
         expect(response_body).to have_key('updated_at')
         expect(response_body).to have_key('created_at')
-        expect(response_body).not_to have_key('admin')
+        expect(response_body['admin']).to be(false)
       end
     end
 

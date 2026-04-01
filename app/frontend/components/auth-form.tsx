@@ -14,13 +14,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const signInSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 const signUpSchema = z
   .object({
-    email: z.string().email("Invalid email address"),
+    email: z.string().min(1, "Email is required").email("Invalid email address"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     passwordConfirmation: z.string().min(6, "Password must be at least 6 characters"),
   })
@@ -32,11 +32,15 @@ const signUpSchema = z
 export type SignInValues = z.infer<typeof signInSchema>;
 export type SignUpValues = z.infer<typeof signUpSchema>;
 
-export interface AuthFormProps {
-  type: "SignIn" | "SignUp";
-  onSubmit: (values: SignInValues | SignUpValues) => void;
-  error?: string;
-}
+type AuthFormValues = {
+  email: string;
+  password: string;
+  passwordConfirmation?: string;
+};
+
+export type AuthFormProps =
+  | { type: "SignIn"; onSubmit: (values: SignInValues) => void; error?: string }
+  | { type: "SignUp"; onSubmit: (values: SignUpValues) => void; error?: string };
 
 export default function AuthForm({ type, onSubmit, error }: AuthFormProps) {
   const isSignUp = type === "SignUp";
@@ -46,13 +50,19 @@ export default function AuthForm({ type, onSubmit, error }: AuthFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<AuthFormValues>({
     resolver: zodResolver(isSignUp ? signUpSchema : signInSchema),
   });
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
-      <form onSubmit={handleSubmit((values) => onSubmit(values as SignInValues | SignUpValues))}>
+      <form onSubmit={handleSubmit((values) => {
+          if (isSignUp) {
+            (onSubmit as (values: SignUpValues) => void)(values as SignUpValues);
+          } else {
+            (onSubmit as (values: SignInValues) => void)(values as SignInValues);
+          }
+        })}>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">{cta}</CardTitle>
           <CardDescription />

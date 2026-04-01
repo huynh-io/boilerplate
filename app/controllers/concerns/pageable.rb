@@ -5,7 +5,10 @@ module Pageable
 
   included do
     def index_params
-      params.permit(:page, :query)
+      # :format is permitted to suppress unpermitted parameter warnings.
+      # Rails injects :format into top-level params for JSON requests and
+      # params.permit always logs a warning for it.
+      params.permit(:page, :query, :format)
     end
   end
 end

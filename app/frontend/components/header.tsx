@@ -1,16 +1,17 @@
 import { Link } from "@tanstack/react-router";
+import { useShallow } from "zustand/react/shallow";
 import { useTheme } from "@/components/theme-provider";
 import { Menu, X, Moon, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAppStore, type AppState } from "@/lib/app-store";
 
 export default function Header() {
-  const { authenticated, isMobileMenuOpen } = useAppStore((state: AppState) => {
-    return {
+  const { authenticated, isMobileMenuOpen } = useAppStore(
+    useShallow((state: AppState) => ({
       authenticated: state.authenticated,
       isMobileMenuOpen: state.isMobileMenuOpen,
-    };
-  });
+    }))
+  );
 
   const { theme, setTheme } = useTheme();
 
@@ -20,7 +21,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="text-2xl font-bold text-primary">
-              Bellaire
+              {import.meta.env.VITE_APP_NAME || "Boilerplate"}
             </Link>
           </div>
           <div className="hidden md:flex items-center space-x-2">

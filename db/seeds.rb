@@ -24,27 +24,20 @@ rescue ActiveRecord::RecordInvalid
   create_supplier
 end
 
-def create_catalog_item(supplier:)
-  CatalogItems::Creator.call(
-    params: {
-      supplier:,
-      item_data: {
-        name: Faker::Commerce.product_name
-      }
-    }
-  )
-end
-
 def seed_suppliers
   return unless Supplier.none?
 
   100.times do
-    create_supplier.tap do |supplier|
-      rand(1..10).times do
-        create_catalog_item(supplier:)
-      end
-    end
+    create_supplier
   end
 end
 
+def seed_users
+  return unless User.none?
+
+  User.create!(email: 'normal@test.com', password: '12341234', admin: false)
+  User.create!(email: 'admin@test.com', password: '12341234', admin: true)
+end
+
+seed_users
 seed_suppliers

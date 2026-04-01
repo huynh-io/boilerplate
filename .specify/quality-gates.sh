@@ -16,6 +16,4 @@
 # It must exit 0 for quality gates to pass.
 # ──────────────────────────────────────────────────────────────
 
-echo "ERROR: Quality gates not configured."
-echo "Edit .specify/quality-gates.sh with your project's quality gate commands."
-exit 1
+bundle exec rspec && bundle exec rubocop && npm run lint && npx tsc --noEmit

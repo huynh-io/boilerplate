@@ -74,3 +74,6 @@ config/database.yml
 *.homer-state*
 
 .specify/logs/                    # All log files
+
+# Playwright MCP artifacts
+.playwright-mcp/
