@@ -47,4 +47,12 @@ def seed_suppliers
   end
 end
 
+def seed_users
+  return unless User.none?
+
+  User.create!(email: 'normal@test.com', password: '12341234', admin: false)
+  User.create!(email: 'admin@test.com', password: '12341234', admin: true)
+end
+
+seed_users
 seed_suppliers
