@@ -11,7 +11,13 @@ function isNetworkError(error: unknown): boolean {
 
 export function useSignIn() {
   return useMutation({
-    mutationFn: async ({ email, password }: { email: string; password: string }) => {
+    mutationFn: async ({
+      email,
+      password,
+    }: {
+      email: string;
+      password: string;
+    }) => {
       let response;
       try {
         response = await apiClient.post("/api/v1/sign_in", {
@@ -51,9 +57,12 @@ export function useSignUp() {
     }) => {
       let response;
       try {
-        response = await apiClient.post<{ errors?: string[] }>("/api/v1/sign_up", {
-          user: { email, password, passwordConfirmation },
-        });
+        response = await apiClient.post<{ errors?: string[] }>(
+          "/api/v1/sign_up",
+          {
+            user: { email, password, passwordConfirmation },
+          },
+        );
       } catch (error) {
         if (isNetworkError(error)) {
           throw new Error(NETWORK_ERROR_MESSAGE);

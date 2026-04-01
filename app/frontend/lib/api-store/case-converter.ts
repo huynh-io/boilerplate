@@ -8,7 +8,7 @@ export function camelToSnake(str: string): string {
 
 function transformKeys(
   obj: unknown,
-  transformFn: (key: string) => string
+  transformFn: (key: string) => string,
 ): unknown {
   if (obj === null || obj === undefined) return obj;
   if (typeof obj !== "object") return obj;

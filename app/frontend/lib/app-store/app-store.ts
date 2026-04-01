@@ -19,7 +19,10 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: "app-store",
-      partialize: (state) => ({ accessToken: state.accessToken, authenticated: state.authenticated }),
-    }
-  )
+      partialize: (state) => ({
+        accessToken: state.accessToken,
+        authenticated: state.authenticated,
+      }),
+    },
+  ),
 );

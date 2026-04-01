@@ -4,11 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ScrollableList from "@/components/scrollable-list";
 import SearchForm from "@/components/search-form";
-import { useGetUsersMe, useGetAdminSuppliers, useGetAdminUsers, type Supplier, type User } from "@/lib/api-store";
+import {
+  useGetUsersMe,
+  useGetAdminSuppliers,
+  useGetAdminUsers,
+  type Supplier,
+  type User,
+} from "@/lib/api-store";
 import { useAppStore, type AppState } from "@/lib/app-store";
 import FullPageSpinner from "@/components/full-page-spinner";
 import debounce from "debounce";
-import { Loader2Icon, MailIcon, MapPinIcon, PhoneIcon, ShieldCheckIcon } from "lucide-react";
+import {
+  Loader2Icon,
+  MailIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ShieldCheckIcon,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 type AdminSearchParams = {
@@ -64,9 +76,10 @@ function UsersTab() {
   const { q: query } = Route.useSearch();
   const [searchQuery, setSearchQuery] = useState(query);
 
-  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } = useGetAdminUsers({
-    query: searchQuery,
-  });
+  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } =
+    useGetAdminUsers({
+      query: searchQuery,
+    });
 
   const onLoadMore = debounce(() => {
     if (!isFetching) {
@@ -96,7 +109,10 @@ function UsersTab() {
           <ScrollableList bottomOffset="28rem">
             <ul className="space-y-4">
               {users.map((user: User) => (
-                <li key={user.id} className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900">
+                <li
+                  key={user.id}
+                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900"
+                >
                   <div className="flex items-center gap-2 mb-2">
                     <h2 className="text-xl font-semibold">{user.email}</h2>
                     {user.admin && (
@@ -138,9 +154,10 @@ function SuppliersTab() {
   const { q: query } = Route.useSearch();
   const [searchQuery, setSearchQuery] = useState(query);
 
-  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } = useGetAdminSuppliers({
-    query: searchQuery,
-  });
+  const { error, isError, isFetching, data, fetchNextPage, hasNextPage } =
+    useGetAdminSuppliers({
+      query: searchQuery,
+    });
 
   const onLoadMore = debounce(() => {
     if (!isFetching) {
@@ -170,8 +187,13 @@ function SuppliersTab() {
           <ScrollableList bottomOffset="28rem">
             <ul className="space-y-4">
               {suppliers.map((supplier: Supplier) => (
-                <li key={supplier.id} className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900">
-                  <h2 className="text-xl font-semibold mb-2">{supplier.name}</h2>
+                <li
+                  key={supplier.id}
+                  className="border rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-900"
+                >
+                  <h2 className="text-xl font-semibold mb-2">
+                    {supplier.name}
+                  </h2>
                   <div className="text-sm text-gray-600 space-y-1">
                     <p className="flex items-center">
                       <MapPinIcon className="mr-2 h-4 w-4" />

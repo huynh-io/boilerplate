@@ -36,7 +36,7 @@ const AUTH_ENDPOINTS = ["/api/v1/sign_in", "/api/v1/sign_up"];
 async function request<T>(
   method: string,
   url: string,
-  body?: unknown
+  body?: unknown,
 ): Promise<ApiResponse<T>> {
   const accessToken = useAppStore.getState().accessToken ?? "";
   const headers: Record<string, string> = {
@@ -64,14 +64,18 @@ async function request<T>(
   }
 
   const isAuthEndpoint = AUTH_ENDPOINTS.some((endpoint) =>
-    url.includes(endpoint)
+    url.includes(endpoint),
   );
   if (response.status === 401 && !isAuthEndpoint) {
     resetAppStore();
     window.location.href = "/sign-in";
   }
 
-  return { status: response.status, data: data as T, headers: response.headers };
+  return {
+    status: response.status,
+    data: data as T,
+    headers: response.headers,
+  };
 }
 
 export const apiClient = {

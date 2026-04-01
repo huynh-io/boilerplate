@@ -60,19 +60,20 @@ describe("camelizeKeys", () => {
 
   it("converts nested object keys", () => {
     expect(
-      camelizeKeys({ user_data: { first_name: "John", last_name: "Doe" } })
+      camelizeKeys({ user_data: { first_name: "John", last_name: "Doe" } }),
     ).toEqual({ userData: { firstName: "John", lastName: "Doe" } });
   });
 
   it("converts keys inside arrays", () => {
-    expect(
-      camelizeKeys([{ item_name: "a" }, { item_name: "b" }])
-    ).toEqual([{ itemName: "a" }, { itemName: "b" }]);
+    expect(camelizeKeys([{ item_name: "a" }, { item_name: "b" }])).toEqual([
+      { itemName: "a" },
+      { itemName: "b" },
+    ]);
   });
 
   it("converts keys in nested arrays", () => {
     expect(
-      camelizeKeys({ order_items: [{ item_id: 1 }, { item_id: 2 }] })
+      camelizeKeys({ order_items: [{ item_id: 1 }, { item_id: 2 }] }),
     ).toEqual({ orderItems: [{ itemId: 1 }, { itemId: 2 }] });
   });
 
@@ -106,14 +107,15 @@ describe("decamelizeKeys", () => {
 
   it("converts nested object keys", () => {
     expect(
-      decamelizeKeys({ userData: { firstName: "John", lastName: "Doe" } })
+      decamelizeKeys({ userData: { firstName: "John", lastName: "Doe" } }),
     ).toEqual({ user_data: { first_name: "John", last_name: "Doe" } });
   });
 
   it("converts keys inside arrays", () => {
-    expect(
-      decamelizeKeys([{ itemName: "a" }, { itemName: "b" }])
-    ).toEqual([{ item_name: "a" }, { item_name: "b" }]);
+    expect(decamelizeKeys([{ itemName: "a" }, { itemName: "b" }])).toEqual([
+      { item_name: "a" },
+      { item_name: "b" },
+    ]);
   });
 
   it("passes through null", () => {

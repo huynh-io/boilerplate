@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function ScrollableList({ children, bottomOffset }: { children: React.ReactNode; bottomOffset?: string }) {
+export default function ScrollableList({
+  children,
+  bottomOffset,
+}: {
+  children: React.ReactNode;
+  bottomOffset?: string;
+}) {
   const [viewportHeight, setViewportHeight] = useState(0);
 
   useEffect(() => {
@@ -17,7 +23,10 @@ export default function ScrollableList({ children, bottomOffset }: { children: R
   const offset = bottomOffset ? bottomOffset : "20rem";
 
   return (
-    <ScrollArea className="flex-grow" style={{ height: `calc(${viewportHeight}px - ${offset})` }}>
+    <ScrollArea
+      className="flex-grow"
+      style={{ height: `calc(${viewportHeight}px - ${offset})` }}
+    >
       {children}
     </ScrollArea>
   );

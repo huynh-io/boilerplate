@@ -34,10 +34,14 @@ export default class ErrorBoundary extends Component<Props, State> {
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
             <AlertDescription>
-              {this.state.error?.message || "Something went wrong. Please try again."}
+              {this.state.error?.message ||
+                "Something went wrong. Please try again."}
             </AlertDescription>
           </Alert>
-          <Button onClick={() => this.setState({ hasError: false, error: undefined })} className="mt-4">
+          <Button
+            onClick={() => this.setState({ hasError: false, error: undefined })}
+            className="mt-4"
+          >
             Try again
           </Button>
         </div>

@@ -3,7 +3,11 @@ import { useAppStore, resetAppStore } from "@/lib/app-store";
 import FullPageSpinner from "./full-page-spinner";
 import { apiClient } from "@/lib/api-store";
 
-export default function Authenticator({ children }: { children: React.ReactNode }) {
+export default function Authenticator({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [checking, setChecking] = useState(true);
   const accessToken = useAppStore((state) => state.accessToken);
 

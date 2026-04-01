@@ -12,7 +12,7 @@ const initialAuthenticationState: AuthenticationSlice = {
 };
 
 export const createAuthenticationSlice: StateCreator<AuthenticationSlice> = (
-  set
+  set,
 ) => {
   sliceResetFns.add(() => set(initialAuthenticationState));
 

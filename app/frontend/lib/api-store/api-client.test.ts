@@ -18,7 +18,7 @@ const originalLocation = window.location;
 function buildFetchResponse(
   status: number,
   body: unknown = {},
-  headers: Record<string, string> = {}
+  headers: Record<string, string> = {},
 ): Response {
   return {
     status,
@@ -65,7 +65,7 @@ describe("fetch-based API client", () => {
           headers: expect.objectContaining({
             Authorization: "Bearer test-token",
           }),
-        })
+        }),
       );
     });
 
@@ -74,7 +74,10 @@ describe("fetch-based API client", () => {
 
       await apiClient.get("/api/v1/users/me");
 
-      const headers = mockFetch.mock.calls[0][1]?.headers as Record<string, string>;
+      const headers = mockFetch.mock.calls[0][1]?.headers as Record<
+        string,
+        string
+      >;
       expect(headers["Content-Type"]).toBeUndefined();
     });
 
@@ -89,7 +92,7 @@ describe("fetch-based API client", () => {
           headers: expect.objectContaining({
             "Content-Type": "application/json",
           }),
-        })
+        }),
       );
     });
   });
@@ -97,7 +100,7 @@ describe("fetch-based API client", () => {
   describe("case conversion", () => {
     it("converts response body keys from snake_case to camelCase", async () => {
       mockFetch.mockResolvedValue(
-        buildFetchResponse(200, { user_name: "John", access_token: "abc" })
+        buildFetchResponse(200, { user_name: "John", access_token: "abc" }),
       );
 
       const response = await apiClient.get("/api/v1/users/me");
@@ -125,11 +128,11 @@ describe("fetch-based API client", () => {
   describe("5xx error handling", () => {
     it("throws HttpError on 500 responses", async () => {
       mockFetch.mockResolvedValue(
-        buildFetchResponse(500, { error: "internal" })
+        buildFetchResponse(500, { error: "internal" }),
       );
 
       await expect(apiClient.get("/api/v1/users/me")).rejects.toThrow(
-        "HTTP Error 500"
+        "HTTP Error 500",
       );
     });
   });

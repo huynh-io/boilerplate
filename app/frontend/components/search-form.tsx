@@ -7,7 +7,10 @@ export interface SearchFormProps {
   onSearch?: (search: string) => void;
 }
 
-export default function SearchForm({ initialQuery, onSearch }: SearchFormProps) {
+export default function SearchForm({
+  initialQuery,
+  onSearch,
+}: SearchFormProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (onSearch) {
