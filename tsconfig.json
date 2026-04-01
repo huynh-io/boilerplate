@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "target": "ES2017",
+    "types": ["vite/client"],
     "paths": {
       "@/*": ["./app/frontend/*"]
     }

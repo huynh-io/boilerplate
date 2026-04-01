@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Boilerplate</title>
+    <title><%= ENV.fetch("APP_NAME", "Boilerplate") %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= vite_client_tag %>
     <%= vite_react_refresh_tag %>
