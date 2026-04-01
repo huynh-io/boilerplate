@@ -16,4 +16,4 @@
 # It must exit 0 for quality gates to pass.
 # ──────────────────────────────────────────────────────────────
 
-bundle exec rspec && bundle exec rubocop && npm run lint && npx tsc --noEmit
+bundle exec rspec && bundle exec rubocop && npm run lint && npm run format:check && npx tsc --noEmit && npm test

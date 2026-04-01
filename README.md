@@ -165,6 +165,20 @@ React component
                                       └─► React re-renders
 ```
 
+## Linting & Formatting
+
+```sh
+# Ruby – RuboCop
+bundle exec rubocop          # check
+bundle exec rubocop -a       # auto-fix
+
+# TypeScript – ESLint + Prettier
+npm run lint                 # check (includes Prettier violations)
+npm run lint -- --fix        # auto-fix ESLint + Prettier issues
+npm run format               # auto-format with Prettier
+npm run format:check         # check formatting (CI-friendly)
+```
+
 ## Testing
 
 ```sh
@@ -172,7 +186,7 @@ React component
 bundle exec rspec
 
 # Frontend
-npx vitest run
+npm test
 ```
 
 ## Environment Variables
