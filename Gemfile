@@ -17,7 +17,7 @@ gem 'redis', '~> 5.4'
 # Sidekiq to execute background jobs
 gem 'sidekiq', '~> 8.1'
 # Ensure migrations are safe to run in production
-gem 'strong_migrations', '~> 2.5'
+gem 'strong_migrations', '~> 2.6'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
