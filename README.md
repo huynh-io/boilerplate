@@ -75,10 +75,12 @@ POST   /api/v1/sign_in             # Returns JWT in Authorization header
 POST   /api/v1/sign_up             # User registration
 DELETE /api/v1/sign_out             # Revokes JWT
 GET    /api/v1/users/me             # Current user profile
-GET    /api/v1/search               # Public catalog search
 GET    /api/v1/admin/suppliers      # Admin: list suppliers (paginated)
+GET    /api/v1/admin/suppliers/:id  # Admin: show supplier
 POST   /api/v1/admin/suppliers      # Admin: create supplier
 PATCH  /api/v1/admin/suppliers/:id  # Admin: update supplier
+GET    /api/v1/admin/users          # Admin: list users
+GET    /api/v1/admin/users/:id      # Admin: show user
 ```
 
 Pagination uses Pagy, which injects `X-Total-Count`, `X-Page-Number`, and `X-Per-Page` response headers.
@@ -97,7 +99,6 @@ app/frontend/
     index.tsx          # Home
     sign-in.tsx        # Sign in form
     sign-up.tsx        # Sign up form
-    search.tsx         # Public search
     profile.tsx        # Authenticated user profile
     admin.tsx          # Admin panel
   lib/
