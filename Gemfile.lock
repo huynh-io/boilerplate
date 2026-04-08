@@ -192,7 +192,7 @@ GEM
     nokogiri (1.19.2-x86_64-linux-gnu)
       racc (~> 1.4)
     orm_adapter (0.5.0)
-    pagy (43.4.4)
+    pagy (43.5.0)
       json
       uri
       yaml
@@ -394,7 +394,7 @@ DEPENDENCIES
   factory_bot_rails
   faker (~> 3.6)
   jbuilder
-  pagy (~> 43.3)
+  pagy (~> 43.5)
   pg (~> 1.6)
   pry-rails
   puma (~> 7.2)

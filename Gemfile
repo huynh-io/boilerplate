@@ -45,7 +45,7 @@ gem 'devise-jwt'
 gem 'vite_rails'
 
 # Pagination
-gem 'pagy', '~> 43.3'
+gem 'pagy', '~> 43.5'
 
 # Need explicit dependency
 gem 'csv', '~> 3.3'
