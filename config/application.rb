@@ -29,5 +29,7 @@ module Boilerplate
     # Generators should still produce API-style resources by default.
     # The app is not api_only because PagesController (ActionController::Base)
     # serves the SPA shell HTML, but all other controllers remain API controllers.
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
