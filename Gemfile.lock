@@ -218,7 +218,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    puma (7.2.0)
+    puma (8.0.0)
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
@@ -397,7 +397,7 @@ DEPENDENCIES
   pagy (~> 43.5)
   pg (~> 1.6)
   pry-rails
-  puma (~> 7.2)
+  puma (~> 8.0)
   pundit (~> 2.5)
   rack-cors
   rails (~> 8.1.0)
