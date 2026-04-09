@@ -76,16 +76,19 @@ FileUtils.chdir APP_ROOT do
     puts "Must be a number between 0 and 15."
   end
 
+  display_name = app_name.split("_").map(&:capitalize).join(" ")
+
   puts "\n== Generating .env =="
   if File.exist?(".env") && !yes?(".env already exists. Overwrite?", default: false)
     puts "Skipped .env generation."
   else
     env_contents = <<~ENV
       APP_NAME=#{app_name}
+      VITE_APP_NAME=#{display_name}
       REDIS_URL=redis://localhost:6379/#{redis_db}
     ENV
     File.write(".env", env_contents)
-    puts "Created .env with APP_NAME=#{app_name}, REDIS_URL using DB #{redis_db}"
+    puts "Created .env with APP_NAME=#{app_name}, VITE_APP_NAME=#{display_name}, REDIS_URL using DB #{redis_db}"
   end
 
   puts "\n== Installing Ruby dependencies =="
