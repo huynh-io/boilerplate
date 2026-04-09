@@ -23,8 +23,41 @@ def yes?(message, default: true)
   input == "y"
 end
 
+def brew_install_and_start(formula)
+  if system("brew list #{formula} &>/dev/null")
+    puts "#{formula} already installed."
+  else
+    puts "Installing #{formula}..."
+    system!("brew install #{formula}")
+  end
+
+  if system("brew services list | grep #{formula} | grep started &>/dev/null")
+    puts "#{formula} is already running."
+  else
+    puts "Starting #{formula}..."
+    system!("brew services start #{formula}")
+  end
+end
+
 FileUtils.chdir APP_ROOT do
-  puts "== App Configuration =="
+  puts "== Checking Homebrew =="
+  unless system("command -v brew &>/dev/null")
+    abort "Homebrew is required but not installed. Visit https://brew.sh to install it."
+  end
+
+  puts "\n== Installing and starting services =="
+  brew_install_and_start("postgresql@17")
+  brew_install_and_start("redis")
+
+  puts "\n== Installing overmind =="
+  if system("brew list overmind &>/dev/null")
+    puts "overmind already installed."
+  else
+    puts "Installing overmind..."
+    system!("brew install overmind")
+  end
+
+  puts "\n== App Configuration =="
   app_name = nil
 
   loop do
@@ -34,12 +67,25 @@ FileUtils.chdir APP_ROOT do
     puts "Invalid app name. Use lowercase letters, numbers, and underscores (must start with a letter)."
   end
 
+  redis_db = nil
+
+  loop do
+    redis_db = prompt("Redis DB number (0-15, use a different number per project)", default: "0")
+    break if redis_db.match?(/\A\d{1,2}\z/) && redis_db.to_i.between?(0, 15)
+
+    puts "Must be a number between 0 and 15."
+  end
+
   puts "\n== Generating .env =="
   if File.exist?(".env") && !yes?(".env already exists. Overwrite?", default: false)
     puts "Skipped .env generation."
   else
-    File.write(".env", "APP_NAME=#{app_name}\n")
-    puts "Created .env with APP_NAME=#{app_name}"
+    env_contents = <<~ENV
+      APP_NAME=#{app_name}
+      REDIS_URL=redis://localhost:6379/#{redis_db}
+    ENV
+    File.write(".env", env_contents)
+    puts "Created .env with APP_NAME=#{app_name}, REDIS_URL using DB #{redis_db}"
   end
 
   puts "\n== Installing Ruby dependencies =="
@@ -58,8 +104,13 @@ FileUtils.chdir APP_ROOT do
   end
 
   puts "\n== Generating Rails credentials =="
-  puts "New projects need fresh credentials for each environment."
-  puts "This will remove existing encrypted credentials and generate new ones.\n\n"
+  puts "This boilerplate ships with placeholder encrypted credentials."
+  puts "Since this is a new project, you should regenerate them so your"
+  puts "project has its own unique keys and secrets."
+  puts ""
+  puts "This is safe even though the old .yml.enc files are in git history:"
+  puts "encrypted credential files are useless without their matching .key"
+  puts "file, and .key files are gitignored and never committed.\n\n"
 
   %w[development test].each do |env|
     enc_file = "config/credentials/#{env}.yml.enc"
