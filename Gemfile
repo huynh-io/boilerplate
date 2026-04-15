@@ -51,7 +51,7 @@ gem 'pagy', '~> 43.5'
 gem 'csv', '~> 3.3'
 
 # Use for development, testing, and production seed data
-gem 'faker', '~> 3.6'
+gem 'faker', '~> 3.7'
 
 # Authorization
 gem 'pundit', '~> 2.5'
