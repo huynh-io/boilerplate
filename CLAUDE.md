@@ -6,7 +6,6 @@
 - **Functional design** — services take inputs, yield deterministic outputs. No hidden side effects.
 - **Maintainability over cleverness** — no premature optimizations. Code must be maintainable by developers who didn't write it.
 - **Simplicity (KISS & YAGNI)** — build only what's needed. Prefer simpler solutions that can be validated before investing in sophisticated alternatives.
-- **Thin boundaries** — backend controllers only authorize, delegate to a service (`app/services/`), and render. Frontend components only render and handle interaction; data fetching goes in query hooks (`lib/api-store/`), state in store slices (`lib/app-store/`), complex logic in `lib/`.
 - **Follow best practices** — established conventions for the languages, frameworks, and packages in use. Community standards over novel approaches.
 
 ## Test-First Development
@@ -51,6 +50,7 @@ Cleanup is mandatory. Every process started during a session must be stopped bef
 - **Homer (clarify)** → fix one finding per iteration, loop until `ALL_FINDINGS_RESOLVED`
 - **Lisa (analyze)** → fix one finding per iteration, loop until `ALL_FINDINGS_RESOLVED`
 - **Ralph (implement)** → implement one task per iteration, loop until `ALL_TASKS_COMPLETE`
+- **Marge (review)** → fix one code-review finding per iteration, loop until `ALL_FINDINGS_RESOLVED`; skip findings tagged `NEEDS_HUMAN` (design judgment)
 - Exit after each iteration — restart with fresh context
 
 <!-- ====== PROJECT SPECIFIC ====== -->

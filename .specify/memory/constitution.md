@@ -66,34 +66,6 @@ Where:
 
 **Git Branch Rule**: The Git branch name MUST exactly match the spec directory name.
 
-### Thin Boundaries
-
-Boundary layers (backend controllers, frontend components) MUST NOT contain business
-logic. They handle interaction and delegate everything else.
-
-**Backend controllers** are limited to:
-
-1. Authorizing the request
-2. Delegating to a service object under `app/services/`
-3. Rendering the response
-
-Controllers that grow beyond authorize → delegate → render indicate a missing
-service extraction.
-
-**Frontend components** are limited to:
-
-1. Rendering UI and handling user interaction
-2. Delegating data fetching to query hooks in `lib/api-store/`
-3. Delegating state management to store slices in `lib/app-store/`
-4. Delegating complex logic to utility modules in `lib/`
-
-Components that contain inline data-fetching logic, state transformations, or
-business rules indicate a missing extraction.
-
-**Rationale**: Fat boundary layers are difficult to test, reuse, and maintain.
-Pushing logic into dedicated modules keeps boundaries predictable and enables
-logic to be tested in isolation.
-
 ### Test-First Development
 
 Unit tests for new logic MUST be written before the implementation code. Tests MUST
